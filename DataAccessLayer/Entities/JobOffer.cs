@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DataAccessLayer.Entities
 {
-    public class JobOffer
+    public class JobOffer : IEntity
     {
         public int Id { get; set; }
         [Required]

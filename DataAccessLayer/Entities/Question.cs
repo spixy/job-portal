@@ -2,7 +2,7 @@
 
 namespace DataAccessLayer.Entities
 {
-    public class Question
+    public class Question : IEntity
     {
         public int Id { get; set; }
         [Required]

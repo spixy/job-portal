@@ -10,7 +10,7 @@ namespace DataAccessLayer.Initializers
         protected override void Seed(JobPortalDbContext context)
         {
             Skill cSharp = new Skill { Name = "C#" };
-            Skill dotNet= new Skill { Name = ".NET" };
+            Skill dotNet = new Skill { Name = ".NET" };
             Skill html = new Skill { Name = "HTML" };
             Skill unix = new Skill { Name = "UNIX" };
 
