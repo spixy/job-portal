@@ -65,6 +65,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Office.cs" />
+    <Compile Include="Entities\RegisteredUser.cs" />
+    <Compile Include="Entities\UnregisteredUser.cs" />
     <Compile Include="Entities\UserBase.cs" />
     <Compile Include="Infrastructure\EntityFrameworkUnitOfWork.cs" />
     <Compile Include="Entities\Answer.cs" />
