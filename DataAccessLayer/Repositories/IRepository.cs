@@ -2,11 +2,11 @@
 
 namespace DataAccessLayer.Repositories
 {
-    internal interface IRepository<T> where T: IEntity
+    internal interface IRepository<TEntity> where TEntity : class, IEntity, new()
     {
-        T Add(T entity);
-        T GetById(int id);
-        bool Remove(T entity);
-        bool Update(T entity);
+        TEntity Add(TEntity entity);
+        TEntity GetById(int id);
+        TEntity Delete(int id);
+        void Update(TEntity entity);
     }
 }

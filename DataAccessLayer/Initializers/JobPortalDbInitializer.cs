@@ -42,14 +42,23 @@ namespace DataAccessLayer.Initializers
             {
                 Name = "Google Inc.",
                 Email = "google@jobs.com",
-                Location = "California, U.S."
+                Locations =
+                {
+                    new Office { Address = "345 Spear Street", City = "San Francisco", Phone = "+1 415-736-0000" }
+                },
+                Country = Country.USA
             };
 
             Employer sony = new Employer
             {
                 Name = "Sony Corporation",
                 Email = "sony@jobs.com",
-                Location = "Tokyo, Japan"
+                Locations =
+                {
+                    new Office { Address = "2-10-1 Osaki, Shinagawa-ku", City = "Tokyo", Phone = "81-3-6748-2111" },
+                    new Office { Address = "TOC ARIAKE 3-5-7 Ariake", City = "Tokyo", Phone = "81-3-6748-2111" }
+                },
+                Country = Country.Japan
             };
 
             context.Employers.Add(google);
@@ -65,8 +74,7 @@ namespace DataAccessLayer.Initializers
             {
                 Name = "Software Engineer",
                 Description = "Work hard, play hard.",
-                Employer = google,
-                Location = "Munich, Germany",
+                Office = google.Locations[0],
                 Skills = new List<Skill> { unix },
                 Questions = new List<Question> { q1, q2 }
             };
@@ -75,8 +83,7 @@ namespace DataAccessLayer.Initializers
             {
                 Name = "Front-end developer at Sony",
                 Description = "Change the world.",
-                Employer = sony,
-                Location = "Tokyo, Japan",
+                Office = sony.Locations[1],
                 Skills = new List<Skill> { cSharp, dotNet, html },
                 Questions = new List<Question> { q2 }
             };

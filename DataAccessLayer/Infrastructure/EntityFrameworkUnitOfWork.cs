@@ -1,12 +1,12 @@
-﻿using DataAccessLayer.Infrastructure;
+﻿using DataAccessLayer.Contexts;
 
-namespace DataAccessLayer.Contexts
+namespace DataAccessLayer.Infrastructure.EntityFramework
 {
-    internal class EFUnitOfWork : IUnitOfWork
+    public class EntityFrameworkUnitOfWork : IUnitOfWork
     {
-        protected readonly JobPortalDbContext Context;
+        public readonly JobPortalDbContext Context;
 
-        public EFUnitOfWork()
+        public EntityFrameworkUnitOfWork()
         {
             Context = new JobPortalDbContext();
         }

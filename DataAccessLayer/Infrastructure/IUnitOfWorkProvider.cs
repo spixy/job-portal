@@ -1,9 +1,9 @@
 ﻿
 namespace DataAccessLayer.Infrastructure
 {
-    internal interface IUnitOfWorkProvider<out T> where T : IUnitOfWork, new()
+    public interface IUnitOfWorkProvider
     {
-        T Create();
-        T GetUnitOfWorkInstance();
+        IUnitOfWork Create();
+        IUnitOfWork GetUnitOfWorkInstance();
     }
 }

@@ -2,7 +2,7 @@
 
 namespace DataAccessLayer.Infrastructure
 {
-    internal interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork : IDisposable
     {
         void Commit();
     }

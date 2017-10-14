@@ -1,17 +1,18 @@
 ﻿
 namespace DataAccessLayer.Infrastructure
 {
-    internal class EFUnitOfWorkProvider<T> : IUnitOfWorkProvider<T> where T : IUnitOfWork, new()
+    public class UnitOfWorkProvider<T> : IUnitOfWorkProvider where T : IUnitOfWork, new()
     {
-        protected T localUowInstance;
+        // TODO: v buducnosti pripadne pridat AsyncLocal
+        protected IUnitOfWork localUowInstance;
 
-        public T Create()
+        public IUnitOfWork Create()
         {
             localUowInstance = new T();
             return localUowInstance;
         }
 
-        public T GetUnitOfWorkInstance()
+        public IUnitOfWork GetUnitOfWorkInstance()
         {
             return localUowInstance;
         }
