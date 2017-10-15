@@ -10,12 +10,17 @@ namespace DataAccessLayer.Contexts
         {
             Database.SetInitializer(new JobPortalDbInitializer());
         }
+
+        public DbSet<UserBase> UserBases { get; set; }
         public DbSet<JobCandidate> JobCandidates { get; set; }
+        public DbSet<RegisteredUser> RegisteredUsers { get; set; }
+        public DbSet<UnregisteredUser> UnregisteredUsers { get; set; }
         public DbSet<Employer> Employers { get; set; }
         public DbSet<JobOffer> JobOffers { get; set; }
         public DbSet<JobApplication> JobApplications { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Skill> Skills { get; set; }
+        public DbSet<Office> Offices { get; set; }
     }
 }
