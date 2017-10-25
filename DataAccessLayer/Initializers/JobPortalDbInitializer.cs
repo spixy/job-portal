@@ -40,28 +40,27 @@ namespace DataAccessLayer.Initializers
 
             Employer google = new Employer
             {
+				Id = 1,
                 Name = "Google Inc.",
                 Email = "google@jobs.com",
-                Locations =
-                {
-                    new Office { Address = "345 Spear Street", City = "San Francisco", Phone = "+1 415-736-0000" }
-                },
-                Country = Country.USA
+                Country = Country.USA,
             };
+			google.Locations = new List<Office> { new Office { Address = "345 Spear Street", City = "San Francisco", Phone = "+1 415-736-0000", EmployerId = google.Id }};
 
-            Employer sony = new Employer
+			Employer sony = new Employer
             {
+				Id = 2,
                 Name = "Sony Corporation",
                 Email = "sony@jobs.com",
-                Locations =
-                {
-                    new Office { Address = "2-10-1 Osaki, Shinagawa-ku", City = "Tokyo", Phone = "81-3-6748-2111" },
-                    new Office { Address = "TOC ARIAKE 3-5-7 Ariake", City = "Tokyo", Phone = "81-3-6748-2111" }
-                },
                 Country = Country.Japan
             };
+			sony.Locations = new List<Office>
+			{
+				new Office { Address = "345 Spear Street", City = "San Francisco", Phone = "+1 415-736-0000", EmployerId = sony.Id},
+				new Office { Address = "345 Spear Street", City = "San Francisco", Phone = "+1 415-736-0000", EmployerId = sony.Id}
+			};
 
-            context.Employers.Add(google);
+			context.Employers.Add(google);
             context.Employers.Add(sony);
 
             Question q1 = new Question { Text = "How are you?" };
