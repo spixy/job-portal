@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DataAccessLayer.Enums;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DataAccessLayer.Entities
@@ -9,15 +10,5 @@ namespace DataAccessLayer.Entities
         public Education Education { get; set; }
 
         public List<Skill> Skills { get; set; }
-    }
-
-    public enum Education
-    {
-        HighSchool,
-        AssociateDegree,
-        BachelorDegree,
-        MasterDegree,
-        DoctoralDegree,
-        HigherDegree
     }
 }

@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.Contexts;
 using DataAccessLayer.Entities;
+using DataAccessLayer.Enums;
 using System.Collections.Generic;
 using System.Data.Entity;
 
@@ -9,6 +10,8 @@ namespace DataAccessLayer.Initializers
     {
         protected override void Seed(JobPortalDbContext context)
         {
+            #region Skills
+
             Skill cSharp = new Skill { Name = "C#" };
             Skill dotNet = new Skill { Name = ".NET" };
             Skill html = new Skill { Name = "HTML" };
@@ -18,6 +21,10 @@ namespace DataAccessLayer.Initializers
             context.Skills.Add(dotNet);
             context.Skills.Add(html);
             context.Skills.Add(unix);
+
+            #endregion
+
+            #region Job Candidates
 
             JobCandidate candidate1 = new JobCandidate
             {
@@ -38,30 +45,46 @@ namespace DataAccessLayer.Initializers
             context.JobCandidates.Add(candidate1);
             context.JobCandidates.Add(candidate2);
 
+            #endregion
+
+            #region Employers
+
             Employer google = new Employer
             {
-				Id = 1,
                 Name = "Google Inc.",
-                Email = "google@jobs.com",
-                Country = Country.USA,
+                Email = "google@jobs.com"
             };
-			google.Locations = new List<Office> { new Office { Address = "345 Spear Street", City = "San Francisco", Phone = "+1 415-736-0000", EmployerId = google.Id }};
+
+            Office googleOffice = new Office
+            {
+                Address = "345 Spear Street",
+                City = "San Francisco",
+                Country = Country.USA,
+                Phone = "+1 415-736-0000"
+            };
 
 			Employer sony = new Employer
             {
-				Id = 2,
                 Name = "Sony Corporation",
                 Email = "sony@jobs.com",
-                Country = Country.Japan
             };
-			sony.Locations = new List<Office>
-			{
-				new Office { Address = "345 Spear Street", City = "San Francisco", Phone = "+1 415-736-0000", EmployerId = sony.Id},
-				new Office { Address = "345 Spear Street", City = "San Francisco", Phone = "+1 415-736-0000", EmployerId = sony.Id}
-			};
 
-			context.Employers.Add(google);
+            Office sonyOffice = new Office
+            {
+                Address = "345 Spear Street",
+                City = "San Francisco",
+                Country = Country.USA,
+                Phone = "+1 415-736-0000"
+            };
+
+            context.Employers.Add(google);
             context.Employers.Add(sony);
+            context.Offices.Add(googleOffice);
+            context.Offices.Add(sonyOffice);
+
+            #endregion
+
+            #region Questions
 
             Question q1 = new Question { Text = "How are you?" };
             Question q2 = new Question { Text = "What is the answer?" };
@@ -69,11 +92,16 @@ namespace DataAccessLayer.Initializers
             context.Questions.Add(q1);
             context.Questions.Add(q2);
 
+            #endregion
+
+            #region Job Offers
+
             JobOffer swEngineerJobOffer = new JobOffer
             {
                 Name = "Software Engineer",
                 Description = "Work hard, play hard.",
-                Office = google.Locations[0],
+                Employer = google,
+                Office = googleOffice,
                 Skills = new List<Skill> { unix },
                 Questions = new List<Question> { q1, q2 }
             };
@@ -82,13 +110,18 @@ namespace DataAccessLayer.Initializers
             {
                 Name = "Front-end developer at Sony",
                 Description = "Change the world.",
-                Office = sony.Locations[1],
+                Employer = sony,
+                Office = sonyOffice,
                 Skills = new List<Skill> { cSharp, dotNet, html },
                 Questions = new List<Question> { q2 }
             };
 
             context.JobOffers.Add(swEngineerJobOffer);
             context.JobOffers.Add(frontEndJobOffer);
+
+            #endregion
+
+            #region Job Applications
 
             JobApplication jobApplication1 = new JobApplication
             {
@@ -106,6 +139,8 @@ namespace DataAccessLayer.Initializers
 
             context.JobApplications.Add(jobApplication1);
             context.Answers.Add(a1);
+
+            #endregion
 
             base.Seed(context);
         }

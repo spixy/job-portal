@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DataAccessLayer.Enums;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DataAccessLayer.Entities
@@ -11,13 +12,16 @@ namespace DataAccessLayer.Entities
         public string Name { get; set; }
 
         [Required]
+        public int EmployerId { get; set; }
+
+        [Required]
+        public virtual Employer Employer { get; set; }
+
+        [Required]
         public int OfficeId { get; set; }
 
         [Required]
         public virtual Office Office { get; set; }
-
-        [Required]
-        public Country Country { get; set; }
 
         [Required]
         public string Description { get; set; }

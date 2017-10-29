@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DataAccessLayer.Enums;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DataAccessLayer.Entities
@@ -23,12 +24,5 @@ namespace DataAccessLayer.Entities
         public Status Status { get; set; }
 
         public virtual List<Answer> Answers { get; set; }
-    }
-
-    public enum Status
-    {
-        Open,
-        Accepted,
-        Declined
     }
 }
