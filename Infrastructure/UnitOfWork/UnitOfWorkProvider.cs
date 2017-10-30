@@ -1,5 +1,5 @@
 ﻿
-namespace DataAccessLayer.Infrastructure
+namespace Infrastructure
 {
     public class UnitOfWorkProvider<T> : IUnitOfWorkProvider where T : IUnitOfWork, new()
     {

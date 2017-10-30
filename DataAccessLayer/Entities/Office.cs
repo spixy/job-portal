@@ -1,6 +1,6 @@
-﻿
-using DataAccessLayer.Enums;
+﻿using DataAccessLayer.Enums;
 using System.ComponentModel.DataAnnotations;
+using Infrastructure;
 
 namespace DataAccessLayer.Entities
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataAccessLayer.Infrastructure
+namespace Infrastructure
 {
     public interface IUnitOfWork : IDisposable
     {

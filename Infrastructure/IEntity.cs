@@ -1,5 +1,5 @@
 ﻿
-namespace DataAccessLayer.Entities
+namespace Infrastructure
 {
     public interface IEntity
     {

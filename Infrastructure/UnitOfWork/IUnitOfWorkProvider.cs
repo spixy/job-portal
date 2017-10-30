@@ -1,5 +1,5 @@
 ﻿
-namespace DataAccessLayer.Infrastructure
+namespace Infrastructure
 {
     public interface IUnitOfWorkProvider
     {

@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{86C0CC3B-81CE-446C-B01E-342F285DCF2E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{C68FC066-C47E-4186-ADFF-942C9A9206E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{45C88AF7-822D-42C6-9AEA-B4BFBCC049E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLayer", "BusinessLayer\BusinessLayer.csproj", "{5CD01EB2-2252-448C-80AB-C3B11F5CB3A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{C68FC066-C47E-4186-ADFF-942C9A9206E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C68FC066-C47E-4186-ADFF-942C9A9206E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C68FC066-C47E-4186-ADFF-942C9A9206E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45C88AF7-822D-42C6-9AEA-B4BFBCC049E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45C88AF7-822D-42C6-9AEA-B4BFBCC049E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45C88AF7-822D-42C6-9AEA-B4BFBCC049E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45C88AF7-822D-42C6-9AEA-B4BFBCC049E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CD01EB2-2252-448C-80AB-C3B11F5CB3A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CD01EB2-2252-448C-80AB-C3B11F5CB3A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CD01EB2-2252-448C-80AB-C3B11F5CB3A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CD01EB2-2252-448C-80AB-C3B11F5CB3A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

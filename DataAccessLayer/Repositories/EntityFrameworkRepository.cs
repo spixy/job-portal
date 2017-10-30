@@ -1,8 +1,6 @@
 ﻿using System;
 using DataAccessLayer.Contexts;
-using DataAccessLayer.Entities;
-using DataAccessLayer.Infrastructure;
-using DataAccessLayer.Infrastructure.EntityFramework;
+using Infrastructure;
 
 namespace DataAccessLayer.Repositories
 {
@@ -29,22 +27,17 @@ namespace DataAccessLayer.Repositories
 
         public TEntity Delete(int id)
         {
-            TEntity foundEntity = Context.Set<TEntity>().Find(id);
-            return (foundEntity == null) ? null : this.Delete(foundEntity);
-        }
-
-        public TEntity Delete(TEntity entity)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity));
-            }
-            return Context.Set<TEntity>().Remove(entity);
+	        TEntity foundEntity = this.GetById(id);
+			if (foundEntity == null)
+	        {
+		        throw new Exception("ID " + id + " not found.");
+	        }
+			return Context.Set<TEntity>().Remove(foundEntity);
         }
 
         public void Update(TEntity entity)
         {
-            TEntity foundEntity = Context.Set<TEntity>().Find(entity.Id);
+            TEntity foundEntity = this.GetById(entity.Id);
             Context.Entry(foundEntity).CurrentValues.SetValues(entity);
         }
     }

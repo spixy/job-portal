@@ -1,6 +1,7 @@
 ﻿using DataAccessLayer.Contexts;
+using Infrastructure;
 
-namespace DataAccessLayer.Infrastructure.EntityFramework
+namespace DataAccessLayer
 {
     public class EntityFrameworkUnitOfWork : IUnitOfWork
     {
