@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using DataAccessLayer.Contexts;
 using Infrastructure;
 
 namespace DataAccessLayer.Entities
@@ -6,6 +8,9 @@ namespace DataAccessLayer.Entities
     public abstract class UserBase : IEntity
     {
         public int Id { get; set; }
+
+        [NotMapped]
+        public virtual string TableName { get; } = nameof(JobPortalDbContext.UserBases);
 
         [Required]
         public string Name { get; set; }

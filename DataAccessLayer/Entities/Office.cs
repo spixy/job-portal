@@ -1,5 +1,7 @@
 ﻿using DataAccessLayer.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using DataAccessLayer.Contexts;
 using Infrastructure;
 
 namespace DataAccessLayer.Entities
@@ -7,6 +9,9 @@ namespace DataAccessLayer.Entities
     public class Office : IEntity
     {
         public int Id { get; set; }
+
+        [NotMapped]
+        public string TableName { get; } = nameof(JobPortalDbContext.Offices);
 
         public string Address { get; set; }
 
@@ -20,9 +25,6 @@ namespace DataAccessLayer.Entities
         [Phone]
         public string Phone { get; set; }
 
-        public override string ToString()
-        {
-            return Address + ", " + City + ", " + Country;
-        }
+        public override string ToString() => Address + ", " + City + ", " + Country;
     }
 }

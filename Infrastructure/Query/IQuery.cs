@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
+using Infrastructure.Query.Predicates;
 
-namespace Infrastructure
+namespace Infrastructure.Query
 {
 	public interface IQuery<TEntity> where TEntity : class, IEntity, new()
 	{
@@ -17,7 +18,7 @@ namespace Infrastructure
 		/// <summary>
 		/// Adds a specified sort criteria to the query.
 		/// </summary>
-		IQuery<TEntity> Page(int pageToFetch, int pageSize = 12);
+		IQuery<TEntity> Page(int pageToFetch, int pageSize = Config.DefaultPageSize);
 
 		/// <summary>
 		/// Executes the query and returns the results.

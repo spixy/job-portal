@@ -1,6 +1,8 @@
 ﻿using DataAccessLayer.Enums;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using DataAccessLayer.Contexts;
 using Infrastructure;
 
 namespace DataAccessLayer.Entities
@@ -8,6 +10,9 @@ namespace DataAccessLayer.Entities
     public class JobApplication : IEntity
     {
         public int Id { get; set; }
+
+        [NotMapped]
+        public string TableName { get; } = nameof(JobPortalDbContext.JobApplications);
 
         [Required]
         public int JobOfferId { get; set; }

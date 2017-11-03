@@ -2,6 +2,7 @@
 using AutoMapper;
 using BusinessLayer.DTOs;
 using Infrastructure;
+using Infrastructure.Query;
 
 namespace BusinessLayer.QueryObjects
 {

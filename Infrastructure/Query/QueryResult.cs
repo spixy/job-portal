@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Infrastructure
+namespace Infrastructure.Query
 {
 	public class QueryResult<TEntity> : IEquatable<QueryResult<TEntity>> where TEntity : IEntity
 	{
@@ -16,7 +16,7 @@ namespace Infrastructure
 
 		public bool PagingEnabled => RequestedPageNumber != null;
 
-		public QueryResult(IList<TEntity> items, long totalItemsCount = long.MaxValue, int pageSize = 12, int? requestedPageNumber = null)
+		public QueryResult(IList<TEntity> items, long totalItemsCount = long.MaxValue, int pageSize = Config.DefaultPageSize, int? requestedPageNumber = null)
 		{
 			TotalItemsCount = totalItemsCount;
 			RequestedPageNumber = requestedPageNumber;
