@@ -39,6 +39,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\DIConfig.cs" />
+    <Compile Include="Config\MappingConfig.cs" />
     <Compile Include="DTOs\Common\FilterDtoBase.cs" />
     <Compile Include="DTOs\Common\QueryResultDto.cs" />
     <Compile Include="QueryObjects\QueryObjectBase.cs" />
@@ -56,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Facades\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
