@@ -41,11 +41,27 @@
   <ItemGroup>
     <Compile Include="Config\DIConfig.cs" />
     <Compile Include="Config\MappingConfig.cs" />
+    <Compile Include="DTOs\AnswerDto.cs" />
+    <Compile Include="DTOs\Common\DtoBase.cs" />
     <Compile Include="DTOs\Common\FilterDtoBase.cs" />
     <Compile Include="DTOs\Common\QueryResultDto.cs" />
+    <Compile Include="DTOs\EmployerDto.cs" />
+    <Compile Include="DTOs\JobApplicationDto.cs" />
+    <Compile Include="DTOs\JobCandidateDto.cs" />
+    <Compile Include="DTOs\JobOfferDto.cs" />
+    <Compile Include="DTOs\OfficeDto.cs" />
+    <Compile Include="DTOs\QuestionDto.cs" />
+    <Compile Include="DTOs\RegisteredUserDto.cs" />
+    <Compile Include="DTOs\SkillDto.cs" />
+    <Compile Include="DTOs\UnregisteredUserDto.cs" />
+    <Compile Include="DTOs\UserBaseDto.cs" />
     <Compile Include="QueryObjects\QueryObjectBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
+      <Project>{86C0CC3B-81CE-446C-B01E-342F285DCF2E}</Project>
+      <Name>DataAccessLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
       <Project>{45c88af7-822d-42c6-9aea-b4bfbcc049e6}</Project>
       <Name>Infrastructure</Name>
@@ -55,6 +71,9 @@
     <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Build.Framework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Facades\" />

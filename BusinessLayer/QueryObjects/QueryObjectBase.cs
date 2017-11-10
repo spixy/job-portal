@@ -1,12 +1,12 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
-using BusinessLayer.DTOs;
+using BusinessLayer.DTOs.Common;
 using Infrastructure;
 using Infrastructure.Query;
 
 namespace BusinessLayer.QueryObjects
 {
-	public abstract class QueryObjectBase<TDto, TEntity, TFilter, TQuery>
+    public abstract class QueryObjectBase<TDto, TEntity, TFilter, TQuery>
 		where TFilter : FilterDtoBase
 		where TQuery : IQuery<TEntity>
 		where TEntity : class, IEntity, new()

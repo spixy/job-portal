@@ -1,5 +1,5 @@
 ﻿
-namespace BusinessLayer.DTOs
+namespace BusinessLayer.DTOs.Common
 {
 	public class FilterDtoBase
 	{

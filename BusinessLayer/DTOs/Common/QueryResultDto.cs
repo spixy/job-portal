@@ -1,23 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BusinessLayer.DTOs
+namespace BusinessLayer.DTOs.Common
 {
 	public class QueryResultDto<TDto, TFilter> where TFilter : FilterDtoBase
 	{
-		public long TotalItemsCount { get; set; }
+	    /// <summary>
+	    /// Total number of items for the query
+	    /// </summary>
+	    public long TotalItemsCount { get; set; }
 
-		public int? RequestedPageNumber { get; set; }
+	    /// <summary>
+	    /// Number of page (indexed from 1) which was requested
+	    /// </summary>
+	    public int? RequestedPageNumber { get; set; }
 
-		public int PageSize { get; set; }
+	    /// <summary>
+	    /// Size of the page
+	    /// </summary>
+	    public int PageSize { get; set; }
 
-		public IEnumerable<TDto> Items { get; set; }
+	    /// <summary>
+	    /// The query results page
+	    /// </summary>
+	    public IEnumerable<TDto> Items { get; set; }
 
-		public TFilter Filter { get; set; }
+	    /// <summary>
+	    /// Applied filter for this query
+	    /// </summary>
+	    public TFilter Filter { get; set; }
 
-		public override string ToString()
-		{
-			return $"{TotalItemsCount} {typeof(TDto).Name}(s)" + $"{(RequestedPageNumber != null ? $", page {RequestedPageNumber}/{Math.Ceiling(TotalItemsCount / (double)PageSize)}." : ".")}";
-		}
-	}
+	    public override string ToString()
+	    {
+	        return $"{TotalItemsCount} {typeof(TDto).Name}(s)" +
+	               $"{(RequestedPageNumber != null ? $", page {RequestedPageNumber}/{Math.Ceiling(TotalItemsCount / (double)PageSize)}." : ".")}";
+	    }
+
+    }
 }
