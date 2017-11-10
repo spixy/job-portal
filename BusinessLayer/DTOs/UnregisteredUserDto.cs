@@ -2,7 +2,7 @@
 
 namespace BusinessLayer.DTOs
 {
-    class UnregisteredUserDto : JobCandidateDto
+    public class UnregisteredUserDto : JobCandidateDto
     {
         public JobApplication JobApplication { get; set; }
     }

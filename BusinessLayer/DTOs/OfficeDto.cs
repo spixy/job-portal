@@ -4,7 +4,7 @@ using BusinessLayer.DTOs.Common;
 
 namespace BusinessLayer.DTOs
 {
-    class OfficeDto : DtoBase
+    public class OfficeDto : DtoBase
     {
         public string Address { get; set; }
 

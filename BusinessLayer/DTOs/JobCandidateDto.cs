@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BusinessLayer.DTOs
 {
-    class JobCandidateDto : UserBaseDto
+    public class JobCandidateDto : UserBaseDto
     {
         public Education Education { get; set; }
 

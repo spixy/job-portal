@@ -4,7 +4,7 @@ using BusinessLayer.DTOs.Common;
 
 namespace BusinessLayer.DTOs
 {
-    class JobOfferDto : DtoBase
+    public class JobOfferDto : DtoBase
     {
         public string Name { get; set; }
 
