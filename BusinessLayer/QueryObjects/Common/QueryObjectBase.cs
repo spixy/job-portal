@@ -14,13 +14,13 @@ namespace BusinessLayer.QueryObjects.Common
 		where TQuery : IQuery<TEntity>
 		where TEntity : class, IEntity, new()
 	{
-		private readonly IMapper mapper;
+	    protected readonly IMapper Mapper;
 
 		protected readonly IQuery<TEntity> Query;
 
 		protected QueryObjectBase(IMapper mapper, TQuery query)
 		{
-			this.mapper = mapper;
+			this.Mapper = mapper;
 			this.Query = query;
 		}
 
@@ -28,7 +28,7 @@ namespace BusinessLayer.QueryObjects.Common
 
 		public virtual async Task<QueryResultDto<TDto, TFilter>> ExecuteQuery(TFilter filter)
 		{
-			IQuery<TEntity> query = ApplyWhereClause(Query, filter);
+			IQuery<TEntity> query = ApplyWhereClause(this.Query, filter);
 			if (!string.IsNullOrWhiteSpace(filter.SortCriteria))
 			{
 				query = query.SortBy(filter.SortCriteria, filter.SortAscending);
@@ -40,7 +40,7 @@ namespace BusinessLayer.QueryObjects.Common
 
 			QueryResult<TEntity> queryResult = await query.ExecuteAsync();
 
-			var queryResultDto = mapper.Map<QueryResultDto<TDto, TFilter>>(queryResult);
+			var queryResultDto = this.Mapper.Map<QueryResultDto<TDto, TFilter>>(queryResult);
 			queryResultDto.Filter = filter;
 			return queryResultDto;
 		}
@@ -50,14 +50,14 @@ namespace BusinessLayer.QueryObjects.Common
 	    {
 	        if (predicates.Count == 0)
 	        {
-	            return Query;
+	            return this.Query;
 	        }
 	        if (predicates.Count == 1)
 	        {
-	            return Query.Where(predicates.First());
+	            return this.Query.Where(predicates.First());
 	        }
 	        var wherePredicate = new CompositePredicate(predicates, logicalOperator);
-	        return Query.Where(wherePredicate);
+	        return this.Query.Where(wherePredicate);
 	    }
     }
 }

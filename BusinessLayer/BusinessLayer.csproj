@@ -56,7 +56,6 @@
     <Compile Include="DTOs\Filters\QuestionFilterDto.cs" />
     <Compile Include="DTOs\Filters\RegisteredUserFilterDto.cs" />
     <Compile Include="DTOs\Filters\SkillFilterDto.cs" />
-    <Compile Include="DTOs\Filters\UnregisteredUserFilterDto.cs" />
     <Compile Include="DTOs\Filters\UserBaseFilterDto.cs" />
     <Compile Include="DTOs\JobApplicationDto.cs" />
     <Compile Include="DTOs\JobCandidateDto.cs" />
@@ -66,7 +65,6 @@
     <Compile Include="DTOs\RegisteredUserDto.cs" />
     <Compile Include="DTOs\SkillDto.cs" />
     <Compile Include="DTOs\UserBaseDto.cs" />
-    <Compile Include="QueryObjects\QueryObjectBase.cs" />
     <Compile Include="Services\Common\CrudQueryServiceBase.cs" />
     <Compile Include="Services\Common\ServiceBase.cs" />
     <Compile Include="Services\JobApplicationService.cs" />
@@ -81,7 +79,6 @@
     <Compile Include="QueryObjects\QuestionQueryObject.cs" />
     <Compile Include="QueryObjects\RegisteredUserQueryObject.cs" />
     <Compile Include="QueryObjects\SkillQueryObject.cs" />
-    <Compile Include="QueryObjects\UnregisteredUserQueryObject.cs" />
     <Compile Include="QueryObjects\UserBaseQueryObject.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -9,7 +9,7 @@ namespace BusinessLayer.DTOs
     {
         public int JobOfferId { get; set; }
 
-        public JobOffer JobOffer { get; set; }
+        public JobOffer JobOffer { get; set; } // TODO: nema byt toto virtual?
 
         public int JobCandidateId { get; set; }
 

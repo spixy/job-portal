@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLayer.DTOs.Common;
-using BusinessLayer.QueryObjects;
+using BusinessLayer.QueryObjects.Common;
 using Infrastructure;
 using Infrastructure.Query;
 
@@ -12,14 +12,14 @@ namespace BusinessLayer.Services.Common
         where TEntity : class, IEntity, new()
         where TDto : DtoBase
     {
-        protected readonly IRepository<TEntity> repository;
+        protected readonly IRepository<TEntity> Repository;
 
-        protected readonly QueryObjectBase<TDto, TEntity, TFilterDto, IQuery<TEntity>> query;
+        protected readonly QueryObjectBase<TDto, TEntity, TFilterDto, IQuery<TEntity>> Query;
 
         protected CrudQueryServiceBase(IMapper mapper, IRepository<TEntity> repository, QueryObjectBase<TDto, TEntity, TFilterDto, IQuery<TEntity>> query) : base(mapper)
         {
-            this.query = query;
-            this.repository = repository;
+            this.Query = query;
+            this.Repository = repository;
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace BusinessLayer.Services.Common
             }
             else
             {
-                entity = await this.repository.GetAsync(entityId);
+                entity = await this.Repository.GetAsync(entityId);
             }
             return entity != null ? this.mapper.Map<TDto>(entity) : null;
         }
@@ -56,7 +56,7 @@ namespace BusinessLayer.Services.Common
         public virtual int Create(TDto entityDto)
         {
             TEntity entity = this.mapper.Map<TEntity>(entityDto);
-            this.repository.Create(entity);
+            this.Repository.Create(entity);
             return entity.Id;
         }
 
@@ -68,7 +68,7 @@ namespace BusinessLayer.Services.Common
         {
             TEntity entity = await GetWithIncludesAsync(entityDto.Id);
             this.mapper.Map(entityDto, entity);
-            this.repository.Update(entity);
+            this.Repository.Update(entity);
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace BusinessLayer.Services.Common
         /// <param name="entityId">Id of the entity to delete</param>
         public virtual void Delete(int entityId)
         {
-            this.repository.Delete(entityId);
+            this.Repository.Delete(entityId);
         }
 
         /// <summary>
@@ -86,7 +86,16 @@ namespace BusinessLayer.Services.Common
         /// <returns>all available dtos (for given type)</returns>
         public virtual async Task<QueryResultDto<TDto, TFilterDto>> ListAllAsync()
         {
-            return await this.query.ExecuteQuery(new TFilterDto());
+            return await this.Query.ExecuteQuery(new TFilterDto());
+        }
+
+        /// <summary>
+        /// Gets all DTOs (for given type)
+        /// </summary>
+        /// <returns>all available dtos (for given type)</returns>
+        public virtual async Task<QueryResultDto<TDto, TFilterDto>> ListAllAsync(TFilterDto filter)
+        {
+            return await this.Query.ExecuteQuery(filter);
         }
     }
 }

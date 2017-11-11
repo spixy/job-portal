@@ -2,7 +2,7 @@
 using AutoMapper;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Common;
-using BusinessLayer.QueryObjects;
+using BusinessLayer.QueryObjects.Common;
 using BusinessLayer.Services.Common;
 using DataAccessLayer.Entities;
 using Infrastructure;
@@ -19,7 +19,8 @@ namespace BusinessLayer.Services
 
         protected override async Task<RegisteredUser> GetWithIncludesAsync(int entityId)
         {
-            RegisteredUser user = await this.repository.GetAsync(entityId);
+            RegisteredUser user = await this.Repository.GetAsync(entityId);
+            // TODO: ?
             return user;
         }
     }
