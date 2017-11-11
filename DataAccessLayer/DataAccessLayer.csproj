@@ -67,7 +67,6 @@
     <Compile Include="Enums\Education.cs" />
     <Compile Include="Entities\Office.cs" />
     <Compile Include="Entities\RegisteredUser.cs" />
-    <Compile Include="Entities\UnregisteredUser.cs" />
     <Compile Include="Entities\UserBase.cs" />
     <Compile Include="Enums\Country.cs" />
     <Compile Include="Enums\Status.cs" />

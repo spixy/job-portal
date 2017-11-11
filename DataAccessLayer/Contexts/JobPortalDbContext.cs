@@ -14,7 +14,6 @@ namespace DataAccessLayer.Contexts
         public DbSet<UserBase> UserBases { get; set; }
         public DbSet<JobCandidate> JobCandidates { get; set; }
         public DbSet<RegisteredUser> RegisteredUsers { get; set; }
-        public DbSet<UnregisteredUser> UnregisteredUsers { get; set; }
         public DbSet<Employer> Employers { get; set; }
         public DbSet<JobOffer> JobOffers { get; set; }
         public DbSet<JobApplication> JobApplications { get; set; }

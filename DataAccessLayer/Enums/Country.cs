@@ -2,7 +2,7 @@
 {
     public enum Country
     {
-        Unknown = 0,
+        Unknown,
         Austria,
         CzechRepublic,
         Germany,

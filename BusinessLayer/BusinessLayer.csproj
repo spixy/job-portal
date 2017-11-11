@@ -46,6 +46,7 @@
     <Compile Include="DTOs\Common\FilterDtoBase.cs" />
     <Compile Include="DTOs\Common\QueryResultDto.cs" />
     <Compile Include="DTOs\EmployerDto.cs" />
+    <Compile Include="DTOs\JobApplicationCreateDto.cs" />
     <Compile Include="DTOs\JobApplicationDto.cs" />
     <Compile Include="DTOs\JobCandidateDto.cs" />
     <Compile Include="DTOs\JobOfferDto.cs" />
@@ -53,9 +54,12 @@
     <Compile Include="DTOs\QuestionDto.cs" />
     <Compile Include="DTOs\RegisteredUserDto.cs" />
     <Compile Include="DTOs\SkillDto.cs" />
-    <Compile Include="DTOs\UnregisteredUserDto.cs" />
     <Compile Include="DTOs\UserBaseDto.cs" />
     <Compile Include="QueryObjects\QueryObjectBase.cs" />
+    <Compile Include="Services\Common\CrudQueryServiceBase.cs" />
+    <Compile Include="Services\Common\ServiceBase.cs" />
+    <Compile Include="Services\JobApplicationService.cs" />
+    <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
@@ -77,7 +81,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Facades\" />
-    <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

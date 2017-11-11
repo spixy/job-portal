@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using DataAccessLayer.Contexts;
 using Infrastructure;
 
@@ -15,19 +16,24 @@ namespace DataAccessLayer.Repositories
 
         protected JobPortalDbContext Context => ((EntityFrameworkUnitOfWork)provider.GetUnitOfWorkInstance()).Context;
 
-        public TEntity Add(TEntity entity)
+        public TEntity Create(TEntity entity)
         {
             return Context.Set<TEntity>().Add(entity);
         }
 
-        public TEntity GetById(int id)
+        public TEntity Get(int id)
         {
             return Context.Set<TEntity>().Find(id);
         }
 
+        public Task<TEntity> GetAsync(int id)
+        {
+            return this.Context.Set<TEntity>().FindAsync(id);
+        }
+
         public TEntity Delete(int id)
         {
-	        TEntity foundEntity = this.GetById(id);
+	        TEntity foundEntity = this.Get(id);
 			if (foundEntity == null)
 	        {
 		        throw new Exception("ID " + id + " not found.");
@@ -37,7 +43,7 @@ namespace DataAccessLayer.Repositories
 
         public void Update(TEntity entity)
         {
-            TEntity foundEntity = this.GetById(entity.Id);
+            TEntity foundEntity = this.Get(entity.Id);
             Context.Entry(foundEntity).CurrentValues.SetValues(entity);
         }
     }

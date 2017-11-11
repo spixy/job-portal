@@ -2,6 +2,7 @@
 {
     public enum Education
     {
+        None,
         HighSchool,
         AssociateDegree,
         BachelorDegree,
