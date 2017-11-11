@@ -4,6 +4,6 @@ namespace BusinessLayer.DTOs.Filters
 {
     public class SkillFilterDto : FilterDtoBase
     {
-        public string Name { get; set; }
+        public string[] Names { get; set; }
     }
 }

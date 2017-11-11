@@ -4,6 +4,6 @@ namespace BusinessLayer.DTOs.Filters
 {
     public class QuestionFilterDto : FilterDtoBase
     {
-        public string Text { get; set; }
+        public string[] Keywords { get; set; }
     }
 }

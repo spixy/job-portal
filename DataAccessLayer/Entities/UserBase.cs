@@ -5,7 +5,7 @@ using Infrastructure;
 
 namespace DataAccessLayer.Entities
 {
-    public abstract class UserBase : IEntity
+    public class UserBase : IEntity
     {
         public int Id { get; set; }
 
