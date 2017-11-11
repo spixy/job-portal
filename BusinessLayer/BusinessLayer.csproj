@@ -39,7 +39,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\DIConfig.cs" />
+    <Compile Include="Config\DiInstaller.cs" />
     <Compile Include="Config\MappingConfig.cs" />
     <Compile Include="DTOs\AnswerDto.cs" />
     <Compile Include="DTOs\Common\DtoBase.cs" />
@@ -65,10 +65,14 @@
     <Compile Include="DTOs\RegisteredUserDto.cs" />
     <Compile Include="DTOs\SkillDto.cs" />
     <Compile Include="DTOs\UserBaseDto.cs" />
+    <Compile Include="Facades\Common\FacadeBase.cs" />
+    <Compile Include="Facades\JobApplicationFacade.cs" />
+    <Compile Include="Facades\UserFacade.cs" />
     <Compile Include="Services\Common\CrudQueryServiceBase.cs" />
     <Compile Include="Services\Common\ServiceBase.cs" />
+    <Compile Include="Services\EmployerService.cs" />
     <Compile Include="Services\JobApplicationService.cs" />
-    <Compile Include="Services\UserService.cs" />
+    <Compile Include="Services\RegisteredUserService.cs" />
     <Compile Include="QueryObjects\AnswerQueryObject.cs" />
     <Compile Include="QueryObjects\Common\QueryObjectBase.cs" />
     <Compile Include="QueryObjects\EmployerQueryObject.cs" />
@@ -95,12 +99,17 @@
     <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.3.3.0\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Facades\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

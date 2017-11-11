@@ -7,8 +7,8 @@ namespace Infrastructure
     {
         TEntity Create(TEntity entity);
 
-        TEntity Get(int id);
         Task<TEntity> GetAsync(int id);
+        Task<TEntity> GetAsync(int id, params string[] includes);
 
         TEntity Delete(int id);
 

@@ -12,6 +12,8 @@ namespace BusinessLayer.Services.Common
         where TEntity : class, IEntity, new()
         where TDto : DtoBase
     {
+        private static readonly TFilterDto ListAllFilter = new TFilterDto();
+
         protected readonly IRepository<TEntity> Repository;
 
         protected readonly QueryObjectBase<TDto, TEntity, TFilterDto, IQuery<TEntity>> Query;
@@ -86,7 +88,7 @@ namespace BusinessLayer.Services.Common
         /// <returns>all available dtos (for given type)</returns>
         public virtual async Task<QueryResultDto<TDto, TFilterDto>> ListAllAsync()
         {
-            return await this.Query.ExecuteQuery(new TFilterDto());
+            return await this.Query.ExecuteQuery(ListAllFilter);
         }
 
         /// <summary>

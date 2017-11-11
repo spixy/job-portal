@@ -1,20 +1,35 @@
-﻿
+﻿using System;
+using System.Data.Entity;
+using System.Threading;
+using DataAccessLayer;
+
 namespace Infrastructure
 {
-    public class UnitOfWorkProvider<T> : IUnitOfWorkProvider where T : IUnitOfWork, new()
+    public class UnitOfWorkProvider : IUnitOfWorkProvider, IDisposable
     {
-        // TODO: v buducnosti pripadne pridat AsyncLocal
-        protected IUnitOfWork localUowInstance;
+        protected readonly AsyncLocal<IUnitOfWork> UowLocalInstance = new AsyncLocal<IUnitOfWork>();
+        protected readonly Func<DbContext> DbContextFactory;
+
+        public UnitOfWorkProvider(Func<DbContext> dbContextFactory)
+        {
+            this.DbContextFactory = dbContextFactory;
+        }
 
         public IUnitOfWork Create()
         {
-            localUowInstance = new T();
-            return localUowInstance;
+            UowLocalInstance.Value = new EntityFrameworkUnitOfWork(this.DbContextFactory);
+            return UowLocalInstance.Value;
         }
 
         public IUnitOfWork GetUnitOfWorkInstance()
         {
-            return localUowInstance;
+            return UowLocalInstance != null ? UowLocalInstance.Value : throw new InvalidOperationException("UoW not created");
+        }
+
+        public void Dispose()
+        {
+            UowLocalInstance.Value?.Dispose();
+            UowLocalInstance.Value = null;
         }
     }
 }

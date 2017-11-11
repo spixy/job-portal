@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Threading.Tasks;
-using DataAccessLayer.Contexts;
 using Infrastructure;
 
 namespace DataAccessLayer.Repositories
@@ -14,19 +15,34 @@ namespace DataAccessLayer.Repositories
             this.provider = provider;
         }
 
-        protected JobPortalDbContext Context => ((EntityFrameworkUnitOfWork)provider.GetUnitOfWorkInstance()).Context;
+        protected DbContext Context => ((EntityFrameworkUnitOfWork)provider.GetUnitOfWorkInstance()).Context;
 
         public TEntity Create(TEntity entity)
         {
             return Context.Set<TEntity>().Add(entity);
         }
 
-        public TEntity Get(int id)
+        protected TEntity Get(int id)
         {
             return Context.Set<TEntity>().Find(id);
         }
 
-        public Task<TEntity> GetAsync(int id)
+        public async Task<TEntity> GetAsync(int id)
+        {
+            return await this.Context.Set<TEntity>().FindAsync(id);
+        }
+
+        public async Task<TEntity> GetAsync(int id, params string[] includes)
+        {
+            DbQuery<TEntity> ctx = Context.Set<TEntity>();
+            foreach (string include in includes)
+            {
+                ctx = ctx.Include(include);
+            }
+            return await ctx.SingleOrDefaultAsync(entity => entity.Id == id);
+        }
+
+        public Task<TEntity> GetWithIncludesAsync(int id)
         {
             return this.Context.Set<TEntity>().FindAsync(id);
         }
