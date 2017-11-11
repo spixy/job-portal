@@ -1,10 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLayer.DTOs.Common;
 using Infrastructure;
 using Infrastructure.Query;
+using Infrastructure.Query.Predicates;
 
-namespace BusinessLayer.QueryObjects
+namespace BusinessLayer.QueryObjects.Common
 {
     public abstract class QueryObjectBase<TDto, TEntity, TFilter, TQuery>
 		where TFilter : FilterDtoBase
@@ -41,5 +44,20 @@ namespace BusinessLayer.QueryObjects
 			queryResultDto.Filter = filter;
 			return queryResultDto;
 		}
-	}
+
+	    public IQuery<TEntity> MergePredicates(List<IPredicate> predicates,
+	        LogicalOperator logicalOperator = LogicalOperator.AND)
+	    {
+	        if (predicates.Count == 0)
+	        {
+	            return Query;
+	        }
+	        if (predicates.Count == 1)
+	        {
+	            return Query.Where(predicates.First());
+	        }
+	        var wherePredicate = new CompositePredicate(predicates, logicalOperator);
+	        return Query.Where(wherePredicate);
+	    }
+    }
 }

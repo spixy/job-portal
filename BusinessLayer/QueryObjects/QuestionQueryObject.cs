@@ -1,0 +1,37 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using AutoMapper;
+using BusinessLayer.DTOs;
+using BusinessLayer.DTOs.Filters;
+using BusinessLayer.QueryObjects.Common;
+using DataAccessLayer.Entities;
+using Infrastructure.Query;
+using Infrastructure.Query.Predicates;
+
+namespace BusinessLayer.QueryObjects
+{
+    public class QuestionQueryObject : QueryObjectBase<QuestionDto, Question, QuestionFilterDto, IQuery<Question>>
+    {
+        public QuestionQueryObject(IMapper mapper, IQuery<Question> query) : base(mapper, query)
+        {
+        }
+
+        protected override IQuery<Question> ApplyWhereClause(IQuery<Question> query, QuestionFilterDto filter)
+        {
+            if (filter.Keywords == null || !filter.Keywords.Any())
+            {
+                return query;
+            }
+            var predicates = new List<IPredicate>(filter.Keywords
+                .Select(keyword => new SimplePredicate(
+                    nameof(Question.Text),
+                    ValueComparingOperator.StringContains,
+                    keyword)));
+            var predicate = new CompositePredicate(predicates, LogicalOperator.OR);
+            return query.Where(predicate);
+        }
+    }
+}
