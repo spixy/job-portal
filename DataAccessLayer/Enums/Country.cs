@@ -10,6 +10,8 @@
         Slovakia,
         Switzerland,
         UnitedKingdom,
-        USA
+        USA,
+        // ... casom tu mozu pribudnut dalsie krajiny
+        Other = int.MaxValue
     }
 }

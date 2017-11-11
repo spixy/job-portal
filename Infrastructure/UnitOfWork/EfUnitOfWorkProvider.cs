@@ -5,19 +5,19 @@ using DataAccessLayer;
 
 namespace Infrastructure
 {
-    public class UnitOfWorkProvider : IUnitOfWorkProvider, IDisposable
+    public class EfUnitOfWorkProvider : IUnitOfWorkProvider, IDisposable
     {
         protected readonly AsyncLocal<IUnitOfWork> UowLocalInstance = new AsyncLocal<IUnitOfWork>();
         protected readonly Func<DbContext> DbContextFactory;
 
-        public UnitOfWorkProvider(Func<DbContext> dbContextFactory)
+        public EfUnitOfWorkProvider(Func<DbContext> dbContextFactory)
         {
             this.DbContextFactory = dbContextFactory;
         }
 
         public IUnitOfWork Create()
         {
-            UowLocalInstance.Value = new EntityFrameworkUnitOfWork(this.DbContextFactory);
+            UowLocalInstance.Value = new EfUnitOfWork(this.DbContextFactory);
             return UowLocalInstance.Value;
         }
 

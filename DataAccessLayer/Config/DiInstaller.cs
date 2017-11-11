@@ -21,13 +21,13 @@ namespace DataAccessLayer.Config
                     .Instance(() => new JobPortalDbContext())
                     .LifestyleTransient(),
                 Component.For<IUnitOfWorkProvider>()
-                    .ImplementedBy<UnitOfWorkProvider>()
+                    .ImplementedBy<EfUnitOfWorkProvider>()
                     .LifestyleSingleton(),
                 Component.For(typeof(IRepository<>))
-                    .ImplementedBy(typeof(EntityFrameworkRepository<>))
+                    .ImplementedBy(typeof(EfRepository<>))
                     .LifestyleTransient(),
                 Component.For(typeof(IQuery<>))
-                    .ImplementedBy(typeof(QueryBase<>)) // TODO: implementovat QueryBase
+                    .ImplementedBy(typeof(EfQuery<>))
                     .LifestyleTransient()
             );
         }

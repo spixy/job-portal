@@ -6,16 +6,16 @@ using Infrastructure;
 
 namespace DataAccessLayer.Repositories
 {
-    public class EntityFrameworkRepository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity, new()
+    public class EfRepository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity, new()
     {
         private readonly IUnitOfWorkProvider provider;
 
-        public EntityFrameworkRepository(IUnitOfWorkProvider provider)
+        protected DbContext Context => ((EfUnitOfWork) provider.GetUnitOfWorkInstance()).Context;
+
+        public EfRepository(IUnitOfWorkProvider provider)
         {
             this.provider = provider;
         }
-
-        protected DbContext Context => ((EntityFrameworkUnitOfWork)provider.GetUnitOfWorkInstance()).Context;
 
         public TEntity Create(TEntity entity)
         {
@@ -40,11 +40,6 @@ namespace DataAccessLayer.Repositories
                 ctx = ctx.Include(include);
             }
             return await ctx.SingleOrDefaultAsync(entity => entity.Id == id);
-        }
-
-        public Task<TEntity> GetWithIncludesAsync(int id)
-        {
-            return this.Context.Set<TEntity>().FindAsync(id);
         }
 
         public TEntity Delete(int id)

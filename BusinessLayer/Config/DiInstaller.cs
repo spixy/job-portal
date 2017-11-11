@@ -6,13 +6,14 @@ using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
+
 namespace BusinessLayer.Config
 {
     public class DiInstaller : IWindsorInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            // Choose prefered DAL
+            // DAL
             new DataAccessLayer.Config.DiInstaller().Install(container, store);
 
             container.Register(

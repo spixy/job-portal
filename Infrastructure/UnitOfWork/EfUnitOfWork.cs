@@ -5,11 +5,11 @@ using Infrastructure;
 
 namespace DataAccessLayer
 {
-    public class EntityFrameworkUnitOfWork : IUnitOfWork
+    public class EfUnitOfWork : IUnitOfWork
     {
         public readonly DbContext Context;
 
-        public EntityFrameworkUnitOfWork(Func<DbContext> dbContextFactory)
+        public EfUnitOfWork(Func<DbContext> dbContextFactory)
         {
             this.Context = dbContextFactory?.Invoke() ?? throw new ArgumentException("Db context factory cant be null!");
         }

@@ -3,6 +3,7 @@ using System.Data.Entity;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
+using DataAccessLayer.Contexts;
 using DataAccessLayer.Repositories;
 using Infrastructure;
 using Infrastructure.Query;
@@ -21,17 +22,22 @@ namespace DAL.Tests.Config
                     .ImplementedBy<IUnitOfWorkProvider>()
                     .LifestyleSingleton(),
                 Component.For(typeof(IRepository<>))
-                    .ImplementedBy(typeof(EntityFrameworkRepository<>))
+                    .ImplementedBy(typeof(EfRepository<>))
                     .LifestyleTransient(),
                 Component.For(typeof(IQuery<>))
-                    .ImplementedBy(typeof(QueryBase<>)) // TODO: implementovat QueryBase
+                    .ImplementedBy(typeof(EfQuery<>))
                     .LifestyleTransient()
             );
         }
 
         private static DbContext InitializeDatabase()
         {
-            throw new NotImplementedException();
+            var context = new JobPortalDbContext();
+
+            // TODO: naplnit DB asi
+
+            context.SaveChanges();
+            return context;
         }
     }
 }

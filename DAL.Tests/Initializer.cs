@@ -11,6 +11,7 @@ namespace DAL.Tests
         [OneTimeSetUp]
         public void InitializeBusinessLayerTests()
         {
+            Container.Install(new Config.DiInstaller());
         }
     }
 }

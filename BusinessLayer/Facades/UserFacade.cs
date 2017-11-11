@@ -17,7 +17,7 @@ namespace BusinessLayer.Facades
 
         public int RegisterNewUser(RegisteredUserDto dto)
         {
-            using (IUnitOfWork uow = this.UnitOfWorkProvider.Create())
+            using (this.UnitOfWorkProvider.Create())
             {
                 return this.registeredUserService.Create(dto);
             }
@@ -25,7 +25,7 @@ namespace BusinessLayer.Facades
 
         public int RegisterNewUser(EmployerDto dto)
         {
-            using (IUnitOfWork uow = this.UnitOfWorkProvider.Create())
+            using (this.UnitOfWorkProvider.Create())
             {
                 return this.employerService.Create(dto);
             }
@@ -33,7 +33,7 @@ namespace BusinessLayer.Facades
 
         public void RemoveUser(RegisteredUserDto dto)
         {
-            using (IUnitOfWork uow = this.UnitOfWorkProvider.Create())
+            using (this.UnitOfWorkProvider.Create())
             {
                 this.registeredUserService.Delete(dto.Id);
             }
@@ -41,7 +41,7 @@ namespace BusinessLayer.Facades
 
         public void RemoveUser(EmployerDto dto)
         {
-            using (IUnitOfWork uow = this.UnitOfWorkProvider.Create())
+            using (this.UnitOfWorkProvider.Create())
             {
                 this.employerService.Delete(dto.Id);
             }

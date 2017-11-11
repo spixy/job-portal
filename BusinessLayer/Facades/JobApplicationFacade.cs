@@ -17,7 +17,7 @@ namespace BusinessLayer.Facades
 
         public async Task<int> ApplyToJob(JobApplicationCreateDto dto)
         {
-            using (IUnitOfWork uow = this.UnitOfWorkProvider.Create())
+            using (this.UnitOfWorkProvider.Create())
             {
                 return await this.jobApplicationService.Create(dto);
             }
@@ -25,7 +25,7 @@ namespace BusinessLayer.Facades
 
         public void Remove(int id)
         {
-            using (IUnitOfWork uow = this.UnitOfWorkProvider.Create())
+            using (this.UnitOfWorkProvider.Create())
             {
                 this.jobApplicationService.Remove(id);
             }

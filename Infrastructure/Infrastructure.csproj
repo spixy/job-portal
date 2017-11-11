@@ -42,18 +42,20 @@
     <Compile Include="Config.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="IRepository.cs" />
+    <Compile Include="Query\EfQuery.cs" />
     <Compile Include="Query\IQuery.cs" />
     <Compile Include="Query\Predicates\CompositePredicate.cs" />
     <Compile Include="Query\Predicates\IPredicate.cs" />
     <Compile Include="Query\Predicates\Operators\LogicalOperator.cs" />
     <Compile Include="Query\Predicates\Operators\ValueComparingOperator.cs" />
     <Compile Include="Query\Predicates\SimplePredicate.cs" />
+    <Compile Include="Query\Predicates\SimplePredicateExtension.cs" />
     <Compile Include="Query\QueryBase.cs" />
     <Compile Include="Query\QueryResult.cs" />
-    <Compile Include="UnitOfWork\EntityFrameworkUnitOfWork.cs" />
+    <Compile Include="UnitOfWork\EfUnitOfWork.cs" />
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="UnitOfWork\IUnitOfWorkProvider.cs" />
-    <Compile Include="UnitOfWork\UnitOfWorkProvider.cs" />
+    <Compile Include="UnitOfWork\EfUnitOfWorkProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
