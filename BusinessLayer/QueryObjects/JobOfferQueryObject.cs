@@ -18,7 +18,7 @@ namespace BusinessLayer.QueryObjects
 
         protected override IQuery<JobOffer> ApplyWhereClause(IQuery<JobOffer> query, JobOfferFilterDto filter)
         {
-            var definedPredicates = new List<IPredicate>();
+            List<IPredicate> definedPredicates = new List<IPredicate>();
 
             if (!string.IsNullOrWhiteSpace(filter.Name))
                 definedPredicates.Add(new SimplePredicate(nameof(JobOffer.Name), ValueComparingOperator.StringContains, filter.Name));

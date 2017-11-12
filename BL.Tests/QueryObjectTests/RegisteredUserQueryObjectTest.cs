@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Common;
 using BusinessLayer.DTOs.Filters;
@@ -18,13 +19,14 @@ namespace BL.Tests.QueryObjectTests
         {
             Skill cSharp = new Skill { Name = "C#" };
 
-            var mockManager = new QueryMockManager();
-            var expectedPredicate = new SimplePredicate(nameof(JobCandidate.Skills), ValueComparingOperator.EnumerableContains, cSharp);
+            QueryMockManager mockManager = new QueryMockManager();
+            IPredicate expectedPredicate = new SimplePredicate(nameof(JobCandidate.Skills), ValueComparingOperator.EnumerableContains, cSharp);
             var mapperMock = mockManager.ConfigureMapperMock<RegisteredUser, RegisteredUserDto, RegisteredUserFilterDto>();
             var queryMock = mockManager.ConfigureQueryMock<RegisteredUser>();
-            var productQueryObject = new RegisteredUserQueryObject(mapperMock.Object, queryMock.Object);
+            RegisteredUserQueryObject productQueryObject = new RegisteredUserQueryObject(mapperMock.Object, queryMock.Object);
 
-            var unused = await productQueryObject.ExecuteQuery(new RegisteredUserFilterDto { Skills = { cSharp }});
+            RegisteredUserFilterDto filterDto = new RegisteredUserFilterDto { Skills = new List<Skill> { cSharp } };
+            QueryResultDto<RegisteredUserDto, RegisteredUserFilterDto> unused = await productQueryObject.ExecuteQuery(filterDto);
 
             Assert.AreEqual(mockManager.CapturedPredicate, expectedPredicate);
         }

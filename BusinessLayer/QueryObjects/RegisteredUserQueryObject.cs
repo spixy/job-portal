@@ -43,12 +43,7 @@ namespace BusinessLayer.QueryObjects
                 }
             }
 
-            if (predicates.Count > 0)
-            {
-                return query.Where(new CompositePredicate(predicates));
-            }
-
-            return query;
+            return MergePredicates(predicates);
         }
     }
 }

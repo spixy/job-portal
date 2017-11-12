@@ -47,7 +47,7 @@ namespace DAL.Tests.RepositoryTests
             using (var uow = unitOfWorkProvider.Create())
             {
                 userRepository.Create(viktor);
-                await uow.Commit();
+                await uow.CommitAsync();
             }
 
             Assert.IsFalse(viktor.Id.Equals(0));
@@ -69,7 +69,7 @@ namespace DAL.Tests.RepositoryTests
                 };
 
                 userRepository.Update(newUser);
-                await uow.Commit();
+                await uow.CommitAsync();
                 updatedUser = await userRepository.GetAsync(David.Id);
             }
 
@@ -85,7 +85,7 @@ namespace DAL.Tests.RepositoryTests
             using (var uow = unitOfWorkProvider.Create())
             {
                 userRepository.Delete(David.Id);
-                await uow.Commit();
+                await uow.CommitAsync();
                 deletedUser = await userRepository.GetAsync(David.Id);
             }
 

@@ -43,7 +43,7 @@ namespace DAL.Tests.RepositoryTests
             using (var uow = unitOfWorkProvider.Create())
             {
                 employerRepository.Create(yahoo);
-                await uow.Commit();
+                await uow.CommitAsync();
             }
 
             Assert.IsFalse(yahoo.Id.Equals(0));
@@ -65,7 +65,7 @@ namespace DAL.Tests.RepositoryTests
                 };
 
                 employerRepository.Update(newEmployer);
-                await uow.Commit();
+                await uow.CommitAsync();
                 updatedEmployer = await employerRepository.GetAsync(Sony.Id);
             }
 
@@ -81,7 +81,7 @@ namespace DAL.Tests.RepositoryTests
             using (var uow = unitOfWorkProvider.Create())
             {
                 employerRepository.Delete(Google.Id);
-                await uow.Commit();
+                await uow.CommitAsync();
                 deletedEmployer = await employerRepository.GetAsync(Google.Id);
             }
 

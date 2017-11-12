@@ -18,7 +18,7 @@ namespace BusinessLayer.QueryObjects
 
         protected override IQuery<JobApplication> ApplyWhereClause(IQuery<JobApplication> query, JobApplicationFilterDto filter)
         {
-            var definedPredicates = new List<IPredicate>();
+            List<IPredicate> definedPredicates = new List<IPredicate>();
 
             if (filter.JobOfferId != null)
                 definedPredicates.Add(new SimplePredicate(nameof(JobApplication.JobOfferId), ValueComparingOperator.Equal, filter.JobOfferId));
@@ -28,7 +28,6 @@ namespace BusinessLayer.QueryObjects
 
             if (filter.Status != null)
                 definedPredicates.Add(new SimplePredicate(nameof(JobApplication.Status), ValueComparingOperator.Equal, filter.Status));
-
 
             return MergePredicates(definedPredicates);
         }

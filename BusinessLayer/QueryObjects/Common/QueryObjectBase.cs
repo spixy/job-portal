@@ -46,19 +46,17 @@ namespace BusinessLayer.QueryObjects.Common
 			return queryResultDto;
 		}
 
-	    public IQuery<TEntity> MergePredicates(List<IPredicate> predicates,
-	        LogicalOperator logicalOperator = LogicalOperator.AND)
+	    protected IQuery<TEntity> MergePredicates(List<IPredicate> predicates, LogicalOperator logicalOperator = LogicalOperator.AND)
 	    {
-	        if (predicates.Count == 0)
+	        switch (predicates.Count)
 	        {
-	            return this.Query;
-	        }
-	        if (predicates.Count == 1)
-	        {
-	            return this.Query.Where(predicates.First());
-	        }
-	        var wherePredicate = new CompositePredicate(predicates, logicalOperator);
-	        return this.Query.Where(wherePredicate);
+	            case 0:
+	                return this.Query;
+	            case 1:
+	                return this.Query.Where(predicates.First());
+                default:
+                    return this.Query.Where(new CompositePredicate(predicates, logicalOperator));
+            }
 	    }
     }
 }
