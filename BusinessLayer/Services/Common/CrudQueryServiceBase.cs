@@ -41,7 +41,7 @@ namespace BusinessLayer.Services.Common
             {
                 entity = await this.Repository.GetAsync(entityId);
             }
-            return entity != null ? this.mapper.Map<TDto>(entity) : null;
+            return entity != null ? this.Mapper.Map<TDto>(entity) : null;
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace BusinessLayer.Services.Common
         /// <param name="entityDto">entity details</param>
         public virtual int Create(TDto entityDto)
         {
-            TEntity entity = this.mapper.Map<TEntity>(entityDto);
+            TEntity entity = this.Mapper.Map<TEntity>(entityDto);
             this.Repository.Create(entity);
             return entity.Id;
         }
@@ -69,7 +69,7 @@ namespace BusinessLayer.Services.Common
         public virtual async Task Update(TDto entityDto)
         {
             TEntity entity = await GetWithIncludesAsync(entityDto.Id);
-            this.mapper.Map(entityDto, entity);
+            this.Mapper.Map(entityDto, entity);
             this.Repository.Update(entity);
         }
 

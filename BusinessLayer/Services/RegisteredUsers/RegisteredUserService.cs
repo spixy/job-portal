@@ -8,7 +8,7 @@ using DataAccessLayer.Entities;
 using Infrastructure;
 using Infrastructure.Query;
 
-namespace BusinessLayer.Services
+namespace BusinessLayer.Services.RegisteredUsers
 {
     public class RegisteredUserService : CrudQueryServiceBase<RegisteredUser, RegisteredUserDto, FilterDtoBase>
     {

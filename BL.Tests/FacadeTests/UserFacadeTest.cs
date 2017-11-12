@@ -6,6 +6,8 @@ using BusinessLayer.DTOs.Common;
 using BusinessLayer.Facades;
 using BusinessLayer.QueryObjects.Common;
 using BusinessLayer.Services;
+using BusinessLayer.Services.Employers;
+using BusinessLayer.Services.RegisteredUsers;
 using DataAccessLayer.Entities;
 using Infrastructure;
 using Infrastructure.Query;
