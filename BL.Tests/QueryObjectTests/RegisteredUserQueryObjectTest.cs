@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using BL.Tests.QueryObjectTests.Common;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Common;
 using BusinessLayer.DTOs.Filters;

@@ -7,12 +7,11 @@ using BusinessLayer.DTOs.Enums;
 using BusinessLayer.DTOs.Filters;
 using BusinessLayer.QueryObjects.Common;
 using BusinessLayer.Services.Common;
-using BusinessLayer.Services.JobApplications;
 using DataAccessLayer.Entities;
 using Infrastructure;
 using Infrastructure.Query;
 
-namespace BusinessLayer.Services
+namespace BusinessLayer.Services.JobApplications
 {
     public class JobApplicationService :
         CrudQueryServiceBase<JobApplication, JobApplicationDto, JobApplicationFilterDto>, IJobApplicationService

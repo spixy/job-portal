@@ -4,7 +4,7 @@ using BusinessLayer.DTOs.Common;
 using BusinessLayer.DTOs.Filters;
 using BusinessLayer.Services.Common;
 
-namespace BusinessLayer.Services
+namespace BusinessLayer.Services.Candidate
 {
     public interface ICandidateService : ICrudService<JobCandidateDto, JobCandidateFilterDto>
     {

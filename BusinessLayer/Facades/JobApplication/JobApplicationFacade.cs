@@ -2,10 +2,13 @@
 using System.Threading.Tasks;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Filters;
+using BusinessLayer.Facades.Common;
 using BusinessLayer.Services;
+using BusinessLayer.Services.Candidate;
+using BusinessLayer.Services.JobApplications;
 using Infrastructure.UnitOfWork;
 
-namespace BusinessLayer.Facades
+namespace BusinessLayer.Facades.JobApplication
 {
     public class JobApplicationFacade : FacadeBase, IJobApplicationFacade
     {

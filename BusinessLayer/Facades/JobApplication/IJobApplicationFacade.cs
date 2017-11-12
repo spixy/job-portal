@@ -2,7 +2,7 @@
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Filters;
 
-namespace BusinessLayer.Facades
+namespace BusinessLayer.Facades.JobApplication
 {
     public interface IJobApplicationFacade
     {

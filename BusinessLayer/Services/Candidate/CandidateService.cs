@@ -8,7 +8,7 @@ using DataAccessLayer.Entities;
 using Infrastructure;
 using Infrastructure.Query;
 
-namespace BusinessLayer.Services.RegisteredUsers
+namespace BusinessLayer.Services.Candidate
 {
     public class CandidateService : CrudQueryServiceBase<JobCandidate, JobCandidateDto, JobCandidateFilterDto>
     {

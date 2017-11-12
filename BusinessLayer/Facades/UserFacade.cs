@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Filters;
+using BusinessLayer.Facades.Common;
 using BusinessLayer.Services.Employers;
 using BusinessLayer.Services.RegisteredUsers;
 using Infrastructure.UnitOfWork;

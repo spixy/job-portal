@@ -5,7 +5,7 @@ using Infrastructure.Query;
 using Infrastructure.Query.Predicates;
 using Moq;
 
-namespace BL.Tests.QueryObjectTests
+namespace BL.Tests.QueryObjectTests.Common
 {
     internal class QueryMockManager
     {

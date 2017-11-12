@@ -6,7 +6,7 @@ using Infrastructure;
 using Infrastructure.Query;
 using Moq;
 
-namespace BL.Tests.ServiceTests.Common
+namespace BL.Tests.Services.Common
 {
     internal class ServiceMockManager
     {

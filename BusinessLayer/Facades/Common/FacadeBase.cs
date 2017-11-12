@@ -1,6 +1,6 @@
 ﻿using Infrastructure.UnitOfWork;
 
-namespace BusinessLayer.Facades
+namespace BusinessLayer.Facades.Common
 {
     public abstract class FacadeBase
     {

@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using BL.Tests.FacadeTests.Common;
-using BL.Tests.ServiceTests.Common;
+using BL.Tests.Services.Common;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Filters;
 using BusinessLayer.QueryObjects.Common;
-using BusinessLayer.Services;
+using BusinessLayer.Services.JobApplications;
 using DataAccessLayer.Entities;
 using Infrastructure;
 using Infrastructure.Query;
