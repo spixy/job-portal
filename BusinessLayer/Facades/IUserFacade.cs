@@ -1,6 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using BusinessLayer.DTOs;
-using BusinessLayer.DTOs.Common;
+using BusinessLayer.DTOs.Filters;
 
 namespace BusinessLayer.Facades
 {
@@ -15,6 +16,6 @@ namespace BusinessLayer.Facades
         Task<EmployerDto> GetEmployer(int id);
         Task<RegisteredUserDto> GetRegisteredUserDto(int id);
 
-        Task<QueryResultDto<RegisteredUserDto, FilterDtoBase>> GetUsersWith(SkillDto skillDto);
+        Task<IEnumerable<RegisteredUserDto>> GetUsersWith(RegisteredUserFilterDto filter);
     }
 }

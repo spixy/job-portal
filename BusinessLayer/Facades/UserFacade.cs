@@ -1,6 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using BusinessLayer.DTOs;
-using BusinessLayer.DTOs.Common;
+using BusinessLayer.DTOs.Filters;
 using BusinessLayer.Services.Employers;
 using BusinessLayer.Services.RegisteredUsers;
 using Infrastructure.UnitOfWork;
@@ -43,11 +44,12 @@ namespace BusinessLayer.Facades
             }
         }
 
-        public async Task<QueryResultDto<RegisteredUserDto, FilterDtoBase>> GetUsersWith(SkillDto skillDto)
+        public async Task<IEnumerable<RegisteredUserDto>> GetUsersWith(RegisteredUserFilterDto filter)
         {
             using (this.UnitOfWorkProvider.Create())
             {
-                return await this.registeredUserService.GetUsersWith(skillDto);
+                var result = await this.registeredUserService.ListAllAsync(filter);
+                return result.Items;
             }
         }
 

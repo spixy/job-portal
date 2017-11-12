@@ -74,6 +74,8 @@
     <Compile Include="Facades\JobApplication\JobApplicationFacade.cs" />
     <Compile Include="Facades\UserFacade.cs" />
     <Compile Include="Services\Answers\IAnswerService.cs" />
+    <Compile Include="Services\Candidate\CandidateService.cs" />
+    <Compile Include="Services\Candidate\ICandidateService.cs" />
     <Compile Include="Services\Common\CrudQueryServiceBase.cs" />
     <Compile Include="Services\Common\ICrudService.cs" />
     <Compile Include="Services\Common\ServiceBase.cs" />

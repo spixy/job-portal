@@ -2,7 +2,6 @@
 using AutoMapper;
 using BL.Tests.FacadeTests.Common;
 using BusinessLayer.DTOs;
-using BusinessLayer.DTOs.Common;
 using BusinessLayer.DTOs.Filters;
 using BusinessLayer.Facades;
 using BusinessLayer.QueryObjects.Common;
@@ -33,7 +32,7 @@ namespace BL.Tests.FacadeTests
 
             FacadeMockManager mockManager = new FacadeMockManager();
             var employerRepositoryMock = mockManager.ConfigureRepositoryMock<Employer>();
-            var employerQueryMock = mockManager.ConfigureQueryObjectMock<EmployerDto, Employer, FilterDtoBase>(null);
+            var employerQueryMock = mockManager.ConfigureQueryObjectMock<EmployerDto, Employer, EmployerFilterDto>(null);
             UserFacade userfacade = CreateUserFacadeFacade(null, null, employerRepositoryMock, employerQueryMock);
 
             int createdId = userfacade.RegisterNewUser(expectedProductDto);
@@ -60,7 +59,7 @@ namespace BL.Tests.FacadeTests
 
             FacadeMockManager mockManager = new FacadeMockManager();
             var employerRepositoryMock = mockManager.ConfigureGetRepositoryMock(expectedProduct);
-            var employerQueryMock = mockManager.ConfigureQueryObjectMock<EmployerDto, Employer, FilterDtoBase>(null);
+            var employerQueryMock = mockManager.ConfigureQueryObjectMock<EmployerDto, Employer, EmployerFilterDto>(null);
             UserFacade userfacade = CreateUserFacadeFacade(null, null, employerRepositoryMock, employerQueryMock);
 
             EmployerDto foundEmployer = await userfacade.GetEmployer(id);

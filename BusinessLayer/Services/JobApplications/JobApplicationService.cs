@@ -26,8 +26,7 @@ namespace BusinessLayer.Services
 
         protected override async Task<JobApplication> GetWithIncludesAsync(int entityId)
         {
-            return await Repository.GetAsync(entityId, nameof(JobApplication.JobCandidate),
-                nameof(JobApplication.Answers));
+            return await Repository.GetAsync(entityId, nameof(JobApplication.JobCandidate), nameof(JobApplication.Answers));
         }
 
         public async Task<IEnumerable<JobApplicationDto>> GetByJobOffer(int jobOfferId)
@@ -50,20 +49,18 @@ namespace BusinessLayer.Services
 
         public async Task<IEnumerable<JobApplicationDto>> GetByFilterAsync(JobApplicationFilterDto filter)
         {
-            var queryResult = await Query.ExecuteQuery(filter);
+            var queryResult = await ListAllAsync(filter);
             return queryResult.Items;
         }
 
         public async Task<bool> DeclineApplication(int jobCandidateId)
         {
-            return await ChangeApplicationStatus(jobCandidateId,
-                job => job.Status = Status.Declined);
+            return await ChangeApplicationStatus(jobCandidateId, job => job.Status = Status.Declined);
         }
 
         public async Task<bool> AcceptApplication(int jobCandidateId)
         {
-            return await ChangeApplicationStatus(jobCandidateId,
-                job => job.Status = Status.Accepted);
+            return await ChangeApplicationStatus(jobCandidateId, job => job.Status = Status.Accepted);
         }
 
         private async Task<bool> ChangeApplicationStatus(int jobCandidateId,

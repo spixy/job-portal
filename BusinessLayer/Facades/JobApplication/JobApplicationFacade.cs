@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Filters;
 using BusinessLayer.Services;
-using DataAccessLayer.Entities;
 using Infrastructure.UnitOfWork;
 
 namespace BusinessLayer.Facades
@@ -10,27 +10,28 @@ namespace BusinessLayer.Facades
     public class JobApplicationFacade : FacadeBase, IJobApplicationFacade
     {
         private readonly JobApplicationService jobApplicationService;
-        private readonly CandidateService candidateService;
+        private readonly ICandidateService candidateServiceService;
 
-        public JobApplicationFacade(IUnitOfWorkProvider unitOfWorkProvider,
-            JobApplicationService jobApplicationService) : base(unitOfWorkProvider)
+        public JobApplicationFacade(IUnitOfWorkProvider unitOfWorkProvider, JobApplicationService jobApplicationService, ICandidateService candidateServiceService)
+            : base(unitOfWorkProvider)
         {
             this.jobApplicationService = jobApplicationService;
+            this.candidateServiceService = candidateServiceService;
         }
 
         public async Task<int> Create(JobApplicationCreateDto dto)
         {
             using (this.UnitOfWorkProvider.Create())
             {
-                JobCandidate candidate = await this.candidateService.GetAsync(dto.applicationDto.JobCandidateId);
+                JobCandidateDto candidate = await this.candidateServiceService.GetAsync(dto.ApplicationDto.JobCandidateId);
 
                 // unregistered user?
-                if (candidate == null && dto.candidateDto != null)
+                if (candidate == null && dto.CandidateDto != null)
                 {
-                    this.candidateService.Create(dto.candidateDto);
+                    this.candidateServiceService.Create(dto.CandidateDto);
                 }
 
-                return this.jobApplicationService.Create(dto.applicationDto);
+                return this.jobApplicationService.Create(dto.ApplicationDto);
             }
         }
 
@@ -47,6 +48,46 @@ namespace BusinessLayer.Facades
             using (this.UnitOfWorkProvider.Create())
             {
                 await this.jobApplicationService.ListAllAsync(dto);
+            }
+        }
+
+        public async Task<IEnumerable<JobApplicationDto>> GetByJobOffer(int id)
+        {
+            using (this.UnitOfWorkProvider.Create())
+            {
+                return await this.jobApplicationService.GetByJobOffer(id);
+            }
+        }
+
+        public async Task<IEnumerable<JobApplicationDto>> GetByJobCandidate(int id)
+        {
+            using (this.UnitOfWorkProvider.Create())
+            {
+                return await this.jobApplicationService.GetByJobCandidate(id);
+            }
+        }
+
+        public async Task<IEnumerable<JobApplicationDto>> GetByFilterAsync(JobApplicationFilterDto filter)
+        {
+            using (this.UnitOfWorkProvider.Create())
+            {
+                return await this.jobApplicationService.GetByFilterAsync(filter);
+            }
+        }
+
+        public async Task<bool> DeclineApplication(int jobCandidateId)
+        {
+            using (this.UnitOfWorkProvider.Create())
+            {
+                return await this.jobApplicationService.DeclineApplication(jobCandidateId);
+            }
+        }
+
+        public async Task<bool> AcceptApplication(int jobCandidateId)
+        {
+            using (this.UnitOfWorkProvider.Create())
+            {
+                return await this.jobApplicationService.AcceptApplication(jobCandidateId);
             }
         }
 
