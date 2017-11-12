@@ -1,4 +1,6 @@
-﻿using Castle.Windsor;
+﻿using System.Data.Entity;
+using Castle.Windsor;
+using DataAccessLayer.Contexts;
 using NUnit.Framework;
 
 namespace DAL.Tests
@@ -11,6 +13,7 @@ namespace DAL.Tests
         [OneTimeSetUp]
         public void InitializeBusinessLayerTests()
         {
+            Database.SetInitializer(new DropCreateDatabaseAlways<JobPortalDbContext>());
             Container.Install(new Config.DiInstaller());
         }
     }

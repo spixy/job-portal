@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Migrations;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using DataAccessLayer.Contexts;
+using DataAccessLayer.Entities;
+using DataAccessLayer.Enums;
 using DataAccessLayer.Repositories;
 using Infrastructure;
 using Infrastructure.Query;
@@ -13,6 +17,8 @@ namespace DAL.Tests.Config
 {
     public class DiInstaller : IWindsorInstaller
     {
+        private const string TestDbConnectionString = "InMemoryTestDBDemoEshop";
+
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(
@@ -20,7 +26,7 @@ namespace DAL.Tests.Config
                     .Instance(InitializeDatabase)
                     .LifestyleTransient(),
                 Component.For<IUnitOfWorkProvider>()
-                    .ImplementedBy<IUnitOfWorkProvider>()
+                    .ImplementedBy<EfUnitOfWorkProvider>()
                     .LifestyleSingleton(),
                 Component.For(typeof(IRepository<>))
                     .ImplementedBy(typeof(EfRepository<>))
@@ -31,11 +37,14 @@ namespace DAL.Tests.Config
             );
         }
 
-        private static DbContext InitializeDatabase()
+        private DbContext InitializeDatabase()
         {
-            var context = new JobPortalDbContext();
+            var context = new JobPortalDbContext(new LocalDbConnectionFactory("mssqllocaldb").CreateConnection(TestDbConnectionString));
+            context.RegisteredUsers.RemoveRange(context.RegisteredUsers);
+            context.SaveChanges();
 
-            // TODO: naplnit DB asi
+            RegisteredUser createdUser = new RegisteredUser { Id = 42, Education = Education.HighSchool, Email = "hu@hu.hu", Name = "Hugo" };
+            context.RegisteredUsers.AddOrUpdate(createdUser);
 
             context.SaveChanges();
             return context;

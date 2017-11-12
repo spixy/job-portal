@@ -23,7 +23,7 @@ namespace Infrastructure.UnitOfWork
             Context.SaveChanges();
         }
 
-        public async Task CommitSync()
+        public async Task CommitAsync()
         {
             await Context.SaveChangesAsync();
         }
