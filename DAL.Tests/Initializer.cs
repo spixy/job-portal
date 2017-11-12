@@ -10,9 +10,13 @@ namespace DAL.Tests
     {
         internal static readonly IWindsorContainer Container = new WindsorContainer();
 
+        /// <summary>
+        /// Initializes all Business Layer tests
+        /// </summary>
         [OneTimeSetUp]
         public void InitializeBusinessLayerTests()
         {
+            Effort.Provider.EffortProviderConfiguration.RegisterProvider();
             Database.SetInitializer(new DropCreateDatabaseAlways<JobPortalDbContext>());
             Container.Install(new Config.DiInstaller());
         }

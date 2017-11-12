@@ -8,7 +8,7 @@ namespace DataAccessLayer.Contexts
     public class JobPortalDbContext : DbContext
     {
         /// <summary>
-        /// Na netesty
+        /// Non-parametric constructor used by data access layer
         /// </summary>
         public JobPortalDbContext() : base(Config.DiInstaller.ConnectionString)
         {
@@ -16,8 +16,9 @@ namespace DataAccessLayer.Contexts
         }
 
         /// <summary>
-        /// Na testy
+        /// Constructor with db connection, required by data access layer tests
         /// </summary>
+        /// <param name="connection">The database connection</param>
         public JobPortalDbContext(DbConnection connection) : base(connection, true)
         {
             Database.CreateIfNotExists();

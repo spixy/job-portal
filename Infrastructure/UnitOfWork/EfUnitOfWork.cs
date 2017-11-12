@@ -18,9 +18,9 @@ namespace Infrastructure.UnitOfWork
             Context.Dispose();
         }
 
-        public void Commit()
+        public async Task Commit()
         {
-            Context.SaveChanges();
+            await Context.SaveChangesAsync();
         }
 
         public async Task CommitAsync()

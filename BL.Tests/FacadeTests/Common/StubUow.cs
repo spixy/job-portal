@@ -5,8 +5,9 @@ namespace BL.Tests.FacadeTests.Common
 {
     internal class StubUow : IUnitOfWork
     {
-        public void Commit()
+        public Task Commit()
         {
+            return Task.Delay(15);
         }
 
         public Task CommitAsync()
