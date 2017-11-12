@@ -53,7 +53,7 @@ namespace BusinessLayer.Facades.Employers
         {
             using (this.UnitOfWorkProvider.Create())
             {
-                var result = await this.employerService.GetFiltered(dto);;
+                var result = await this.employerService.GetFiltered(dto);
                 return result.Items;
             }
         }

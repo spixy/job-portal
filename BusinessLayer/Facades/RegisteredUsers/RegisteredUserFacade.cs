@@ -12,7 +12,7 @@ namespace BusinessLayer.Facades.Employers
     {
         private readonly IRegisteredUserService registeredUserService;
 
-        public RegisteredUserFacade(IUnitOfWorkProvider unitOfWorkProvider, IRegisteredUserService registeredUserService) : base(unitOfWorkProvider)
+        public RegisteredUserFacade(IUnitOfWorkProvider unitOfWorkProvider, RegisteredUserService registeredUserService) : base(unitOfWorkProvider)
         {
             this.registeredUserService = registeredUserService;
         }
@@ -45,7 +45,7 @@ namespace BusinessLayer.Facades.Employers
         {
             using (this.UnitOfWorkProvider.Create())
             {
-                var result = await this.registeredUserService.ListAllAsync(dto); ;
+                var result = await this.registeredUserService.ListAllAsync(dto);
                 return result.Items;
             }
         }

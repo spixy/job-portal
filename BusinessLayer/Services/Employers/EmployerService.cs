@@ -12,7 +12,7 @@ using Infrastructure.Query;
 
 namespace BusinessLayer.Services.Employers
 {
-    public class EmployerService : CrudQueryServiceBase<Employer, EmployerDto, EmployerFilterDto>
+    public class EmployerService : CrudQueryServiceBase<Employer, EmployerDto, EmployerFilterDto>, IEmployerService
     {
         public EmployerService(IMapper mapper, IRepository<Employer> repository,
             QueryObjectBase<EmployerDto, Employer, EmployerFilterDto, IQuery<Employer>> query)
