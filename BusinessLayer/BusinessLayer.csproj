@@ -73,6 +73,7 @@
     <Compile Include="Facades\JobApplication\IJobApplicationFacade.cs" />
     <Compile Include="Facades\JobApplication\JobApplicationFacade.cs" />
     <Compile Include="Facades\UserFacade.cs" />
+    <Compile Include="Services\Answers\AnswerService.cs" />
     <Compile Include="Services\Answers\IAnswerService.cs" />
     <Compile Include="Services\Candidate\CandidateService.cs" />
     <Compile Include="Services\Candidate\ICandidateService.cs" />
@@ -84,7 +85,9 @@
     <Compile Include="Services\JobApplications\IJobApplicationService.cs" />
     <Compile Include="Services\JobApplications\JobApplicationService.cs" />
     <Compile Include="Services\JobOffers\IJobOfferService.cs" />
+    <Compile Include="Services\JobOffers\JobOfferService.cs" />
     <Compile Include="Services\Questions\IQuestionService.cs" />
+    <Compile Include="Services\Questions\QuestionService.cs" />
     <Compile Include="Services\RegisteredUsers\IRegisteredUserService.cs" />
     <Compile Include="Services\RegisteredUsers\RegisteredUserService.cs" />
     <Compile Include="QueryObjects\AnswerQueryObject.cs" />

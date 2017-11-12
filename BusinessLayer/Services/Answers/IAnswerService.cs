@@ -6,7 +6,7 @@ using BusinessLayer.Services.Common;
 
 namespace BusinessLayer.Services.Answers
 {
-    public interface IQuestionAnswerService : ICrudService<AnswerDto, AnswerFilterDto>
+    public interface IAnswerService : ICrudService<AnswerDto, AnswerFilterDto>
     {
         /// <summary>
         /// Find all answers for given question

@@ -23,13 +23,6 @@ namespace BusinessLayer.Services.JobOffers
         Task<IEnumerable<JobOfferDto>> GetByName(string name);
 
         /// <summary>
-        /// Find all offers for given skills
-        /// </summary>
-        /// <param name="skill">skill</param>
-        /// <returns>Job offers for given set of skills</returns>
-        Task<IList<JobOfferDto>> GetBySkills(SkillDto skill);
-
-        /// <summary>
         /// Find all offers matching filter criteria
         /// </summary>
         /// <param name="filter">filter</param>
