@@ -23,7 +23,7 @@ namespace BL.Tests.FacadeTests
         public void Test_RegisterNewEmployer()
         {
             const int id = 55;
-            EmployerDto expectedProductDto = new EmployerDto
+            EmployerDto expectedDto = new EmployerDto
             {
                 Id = id,
                 Name = "Alibaba",
@@ -33,9 +33,9 @@ namespace BL.Tests.FacadeTests
             FacadeMockManager mockManager = new FacadeMockManager();
             var employerRepositoryMock = mockManager.ConfigureRepositoryMock<Employer>();
             var employerQueryMock = mockManager.ConfigureQueryObjectMock<EmployerDto, Employer, EmployerFilterDto>(null);
-            UserFacade userfacade = CreateUserFacadeFacade(null, null, employerRepositoryMock, employerQueryMock);
+            UserFacade userfacade = CreateUserFacade(null, null, employerRepositoryMock, employerQueryMock);
 
-            int createdId = userfacade.RegisterNewUser(expectedProductDto);
+            int createdId = userfacade.RegisterNewUser(expectedDto);
 
             Assert.AreEqual(createdId, id);
         }
@@ -60,14 +60,14 @@ namespace BL.Tests.FacadeTests
             FacadeMockManager mockManager = new FacadeMockManager();
             var employerRepositoryMock = mockManager.ConfigureGetRepositoryMock(expectedProduct);
             var employerQueryMock = mockManager.ConfigureQueryObjectMock<EmployerDto, Employer, EmployerFilterDto>(null);
-            UserFacade userfacade = CreateUserFacadeFacade(null, null, employerRepositoryMock, employerQueryMock);
+            UserFacade userfacade = CreateUserFacade(null, null, employerRepositoryMock, employerQueryMock);
 
             EmployerDto foundEmployer = await userfacade.GetEmployer(id);
 
             Assert.AreEqual(foundEmployer, expectedProductDto);
         }
 
-        private static UserFacade CreateUserFacadeFacade(
+        private static UserFacade CreateUserFacade(
             Mock<IRepository<RegisteredUser>> registeredUserRepositoryMock,
             Mock<QueryObjectBase<RegisteredUserDto, RegisteredUser, RegisteredUserFilterDto, IQuery<RegisteredUser>>> registeredUserQueryMock,
             Mock<IRepository<Employer>> employerRepositoryMock,

@@ -63,6 +63,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryObjectTests\Common\QueryMockManager.cs" />
     <Compile Include="QueryObjectTests\RegisteredUserQueryObjectTest.cs" />
+    <Compile Include="Services\Common\ServiceMockManager.cs" />
+    <Compile Include="Services\RegisteredUserServiceTests.cs" />
+    <Compile Include="Services\JobApplicationServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
