@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Filters;
@@ -55,6 +56,11 @@ namespace BusinessLayer.Facades
             {
                 return await this.jobOfferService.GetFilteredAsync(dto);
             }
+        }
+
+        public Task Create()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="FacadeTests\Common\FacadeMockManager.cs" />
     <Compile Include="FacadeTests\Common\StubUow.cs" />
+    <Compile Include="FacadeTests\JobApplicationFacadeTest.cs" />
     <Compile Include="FacadeTests\RegisteredUserFacadeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryObjectTests\Common\QueryMockManager.cs" />
