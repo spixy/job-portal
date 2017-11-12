@@ -2,6 +2,7 @@
 using AutoMapper;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Common;
+using BusinessLayer.DTOs.Filters;
 using BusinessLayer.QueryObjects.Common;
 using BusinessLayer.Services.Common;
 using DataAccessLayer.Entities;
@@ -21,11 +22,6 @@ namespace BusinessLayer.Services
         protected override async Task<RegisteredUser> GetWithIncludesAsync(int entityId)
         {
             return await this.Repository.GetAsync(entityId, nameof(RegisteredUser.JobApplications));
-        }
-
-        public async Task<QueryResultDto<RegisteredUserDto, FilterDtoBase>> GetUsersWith(SkillDto skillDto)
-        {
-            return await this.Query.ExecuteQuery(null);
         }
     }
 }

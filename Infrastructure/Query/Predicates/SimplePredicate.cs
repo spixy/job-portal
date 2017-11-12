@@ -25,7 +25,25 @@ namespace Infrastructure.Query.Predicates
 
         public bool Equals(SimplePredicate other)
         {
-            return string.Equals(TargetPropertyName, other.TargetPropertyName) && Equals(ComparedValue, other.ComparedValue) && ValueComparingOperator == other.ValueComparingOperator;
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return string.Equals(this.TargetPropertyName, other.TargetPropertyName) && this.ComparedValue.Equals(other.ComparedValue) && this.ValueComparingOperator == other.ValueComparingOperator;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as SimplePredicate);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = this.TargetPropertyName.GetHashCode();
+                hashCode = (hashCode * 397) ^ this.ComparedValue.GetHashCode();
+                hashCode = (hashCode * 397) ^ (int) this.ValueComparingOperator;
+                return hashCode;
+            }
         }
     }
 }

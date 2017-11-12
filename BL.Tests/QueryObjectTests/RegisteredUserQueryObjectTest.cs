@@ -15,7 +15,7 @@ namespace BL.Tests.QueryObjectTests
     internal class RegisteredUserQueryObjectTest
     {
         [Test]
-        public async Task Test_FindRegisteredUserWithSkill()
+        public async Task SimplePredicate()
         {
             Skill cSharp = new Skill { Name = "C#" };
 
@@ -26,6 +26,28 @@ namespace BL.Tests.QueryObjectTests
             RegisteredUserQueryObject productQueryObject = new RegisteredUserQueryObject(mapperMock.Object, queryMock.Object);
 
             RegisteredUserFilterDto filterDto = new RegisteredUserFilterDto { Skills = new List<Skill> { cSharp } };
+            QueryResultDto<RegisteredUserDto, RegisteredUserFilterDto> unused = await productQueryObject.ExecuteQuery(filterDto);
+
+            Assert.AreEqual(mockManager.CapturedPredicate, expectedPredicate);
+        }
+
+        [Test]
+        public async Task Test_CompositePredicate()
+        {
+            Skill cSharp = new Skill { Name = "C#" };
+            Skill python = new Skill { Name = "Python" };
+
+            QueryMockManager mockManager = new QueryMockManager();
+            IPredicate expectedPredicate = new CompositePredicate(new List<IPredicate>
+            {
+                new SimplePredicate(nameof(JobCandidate.Skills), ValueComparingOperator.EnumerableContains, cSharp),
+                new SimplePredicate(nameof(JobCandidate.Skills), ValueComparingOperator.EnumerableContains, python),
+            });
+            var mapperMock = mockManager.ConfigureMapperMock<RegisteredUser, RegisteredUserDto, RegisteredUserFilterDto>();
+            var queryMock = mockManager.ConfigureQueryMock<RegisteredUser>();
+            RegisteredUserQueryObject productQueryObject = new RegisteredUserQueryObject(mapperMock.Object, queryMock.Object);
+
+            RegisteredUserFilterDto filterDto = new RegisteredUserFilterDto { Skills = new List<Skill> { cSharp, python } };
             QueryResultDto<RegisteredUserDto, RegisteredUserFilterDto> unused = await productQueryObject.ExecuteQuery(filterDto);
 
             Assert.AreEqual(mockManager.CapturedPredicate, expectedPredicate);

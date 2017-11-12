@@ -70,8 +70,10 @@
     <Compile Include="DTOs\UserBaseDto.cs" />
     <Compile Include="Facades\Common\FacadeBase.cs" />
     <Compile Include="Facades\IUserFacade.cs" />
-    <Compile Include="Facades\JobApplicationFacade.cs" />
+    <Compile Include="Facades\JobApplication\IJobApplicationFacade.cs" />
+    <Compile Include="Facades\JobApplication\JobApplicationFacade.cs" />
     <Compile Include="Facades\UserFacade.cs" />
+    <Compile Include="Services\AnswerService.cs" />
     <Compile Include="Services\Common\CrudQueryServiceBase.cs" />
     <Compile Include="Services\Common\ServiceBase.cs" />
     <Compile Include="Services\EmployerService.cs" />
