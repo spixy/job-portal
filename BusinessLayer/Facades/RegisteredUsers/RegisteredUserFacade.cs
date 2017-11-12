@@ -10,9 +10,9 @@ namespace BusinessLayer.Facades.Employers
 {
     public class RegisteredUserFacade : FacadeBase, IRegisteredUserFacade
     {
-        private readonly RegisteredUserService registeredUserService;
+        private readonly IRegisteredUserService registeredUserService;
 
-        public RegisteredUserFacade(IUnitOfWorkProvider unitOfWorkProvider, RegisteredUserService registeredUserService) : base(unitOfWorkProvider)
+        public RegisteredUserFacade(IUnitOfWorkProvider unitOfWorkProvider, IRegisteredUserService registeredUserService) : base(unitOfWorkProvider)
         {
             this.registeredUserService = registeredUserService;
         }

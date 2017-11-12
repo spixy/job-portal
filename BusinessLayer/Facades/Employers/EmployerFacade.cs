@@ -10,9 +10,9 @@ namespace BusinessLayer.Facades.Employers
 {
     public class EmployerFacade : FacadeBase, IEmployerFacade
     {
-        private readonly EmployerService employerService;
+        private readonly IEmployerService employerService;
 
-        public EmployerFacade(IUnitOfWorkProvider unitOfWorkProvider, EmployerService employerService) : base(unitOfWorkProvider)
+        public EmployerFacade(IUnitOfWorkProvider unitOfWorkProvider, IEmployerService employerService) : base(unitOfWorkProvider)
         {
             this.employerService = employerService;
         }

@@ -12,7 +12,7 @@ namespace BusinessLayer.Facades
     {
         private readonly IJobOfferService jobOfferService;
 
-        public JobOfferFacade(IUnitOfWorkProvider unitOfWorkProvider, JobOfferService jobOfferService) : base(unitOfWorkProvider)
+        public JobOfferFacade(IUnitOfWorkProvider unitOfWorkProvider, IJobOfferService jobOfferService) : base(unitOfWorkProvider)
         {
             this.jobOfferService = jobOfferService;
         }

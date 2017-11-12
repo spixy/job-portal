@@ -11,7 +11,7 @@ using Infrastructure.Query;
 
 namespace BusinessLayer.Services.RegisteredUsers
 {
-    public class RegisteredUserService : CrudQueryServiceBase<RegisteredUser, RegisteredUserDto, RegisteredUserFilterDto>
+    public class RegisteredUserService : CrudQueryServiceBase<RegisteredUser, RegisteredUserDto, RegisteredUserFilterDto>, IRegisteredUserService
     {
         public RegisteredUserService(IMapper mapper, IRepository<RegisteredUser> repository,
             QueryObjectBase<RegisteredUserDto, RegisteredUser, RegisteredUserFilterDto, IQuery<RegisteredUser>> query)

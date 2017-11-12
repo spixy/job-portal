@@ -14,7 +14,7 @@ namespace BusinessLayer.Facades.JobApplication
         private readonly IJobApplicationService jobApplicationService;
         private readonly ICandidateService candidateServiceService;
 
-        public JobApplicationFacade(IUnitOfWorkProvider unitOfWorkProvider, JobApplicationService jobApplicationService, ICandidateService candidateServiceService)
+        public JobApplicationFacade(IUnitOfWorkProvider unitOfWorkProvider, IJobApplicationService jobApplicationService, ICandidateService candidateServiceService)
             : base(unitOfWorkProvider)
         {
             this.jobApplicationService = jobApplicationService;
