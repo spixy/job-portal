@@ -4,8 +4,8 @@ namespace BusinessLayer.DTOs
 {
     public class JobApplicationCreateDto : DtoBase
     {
-        public JobApplicationDto applicationDto { get; set; }
+        public JobApplicationDto ApplicationDto { get; set; }
 
-        public JobCandidateDto candidateDto { get; set; }
+        public JobCandidateDto CandidateDto { get; set; }
     }
 }

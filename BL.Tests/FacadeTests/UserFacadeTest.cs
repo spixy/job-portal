@@ -3,9 +3,11 @@ using AutoMapper;
 using BL.Tests.FacadeTests.Common;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Common;
+using BusinessLayer.DTOs.Filters;
 using BusinessLayer.Facades;
 using BusinessLayer.QueryObjects.Common;
-using BusinessLayer.Services;
+using BusinessLayer.Services.Employers;
+using BusinessLayer.Services.RegisteredUsers;
 using DataAccessLayer.Entities;
 using Infrastructure;
 using Infrastructure.Query;
@@ -68,9 +70,9 @@ namespace BL.Tests.FacadeTests
 
         private static UserFacade CreateUserFacadeFacade(
             Mock<IRepository<RegisteredUser>> registeredUserRepositoryMock,
-            Mock<QueryObjectBase<RegisteredUserDto, RegisteredUser, FilterDtoBase, IQuery<RegisteredUser>>> registeredUserQueryMock,
+            Mock<QueryObjectBase<RegisteredUserDto, RegisteredUser, RegisteredUserFilterDto, IQuery<RegisteredUser>>> registeredUserQueryMock,
             Mock<IRepository<Employer>> employerRepositoryMock,
-            Mock<QueryObjectBase<EmployerDto, Employer, FilterDtoBase, IQuery<Employer>>> employerQueryMock)
+            Mock<QueryObjectBase<EmployerDto, Employer, EmployerFilterDto, IQuery<Employer>>> employerQueryMock)
         {
             Mock<IUnitOfWorkProvider> uowMock = FacadeMockManager.ConfigureUowMock();
             IMapper mapperMock = FacadeMockManager.ConfigureRealMapper();

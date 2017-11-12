@@ -73,12 +73,18 @@
     <Compile Include="Facades\JobApplication\IJobApplicationFacade.cs" />
     <Compile Include="Facades\JobApplication\JobApplicationFacade.cs" />
     <Compile Include="Facades\UserFacade.cs" />
-    <Compile Include="Services\AnswerService.cs" />
+    <Compile Include="Services\Answers\IAnswerService.cs" />
     <Compile Include="Services\Common\CrudQueryServiceBase.cs" />
+    <Compile Include="Services\Common\ICrudService.cs" />
     <Compile Include="Services\Common\ServiceBase.cs" />
-    <Compile Include="Services\EmployerService.cs" />
-    <Compile Include="Services\JobApplicationService.cs" />
-    <Compile Include="Services\RegisteredUserService.cs" />
+    <Compile Include="Services\Employers\EmployerService.cs" />
+    <Compile Include="Services\Employers\IEmloyerService.cs" />
+    <Compile Include="Services\JobApplications\IJobApplicationService.cs" />
+    <Compile Include="Services\JobApplications\JobApplicationService.cs" />
+    <Compile Include="Services\JobOffers\IJobOfferService.cs" />
+    <Compile Include="Services\Questions\IQuestionService.cs" />
+    <Compile Include="Services\RegisteredUsers\IRegisteredUserService.cs" />
+    <Compile Include="Services\RegisteredUsers\RegisteredUserService.cs" />
     <Compile Include="QueryObjects\AnswerQueryObject.cs" />
     <Compile Include="QueryObjects\Common\QueryObjectBase.cs" />
     <Compile Include="QueryObjects\EmployerQueryObject.cs" />
@@ -90,6 +96,8 @@
     <Compile Include="QueryObjects\RegisteredUserQueryObject.cs" />
     <Compile Include="QueryObjects\SkillQueryObject.cs" />
     <Compile Include="QueryObjects\UserBaseQueryObject.cs" />
+    <Compile Include="Services\Skills\ISkillService.cs" />
+    <Compile Include="Services\Skills\SkillService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">

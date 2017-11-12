@@ -1,7 +1,8 @@
 ﻿using System.Threading.Tasks;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Common;
-using BusinessLayer.Services;
+using BusinessLayer.Services.Employers;
+using BusinessLayer.Services.RegisteredUsers;
 using Infrastructure.UnitOfWork;
 
 namespace BusinessLayer.Facades
