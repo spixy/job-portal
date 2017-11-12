@@ -69,10 +69,14 @@
     <Compile Include="DTOs\SkillDto.cs" />
     <Compile Include="DTOs\UserBaseDto.cs" />
     <Compile Include="Facades\Common\FacadeBase.cs" />
-    <Compile Include="Facades\IUserFacade.cs" />
+    <Compile Include="Facades\Employers\EmployerFacade.cs" />
+    <Compile Include="Facades\Employers\IEmployerFacade.cs" />
     <Compile Include="Facades\JobApplication\IJobApplicationFacade.cs" />
     <Compile Include="Facades\JobApplication\JobApplicationFacade.cs" />
-    <Compile Include="Facades\UserFacade.cs" />
+    <Compile Include="Facades\JobOffer\IJobOfferFacade.cs" />
+    <Compile Include="Facades\JobOffer\JobOfferFacade.cs" />
+    <Compile Include="Facades\RegisteredUsers\IRegisteredUserFacade.cs" />
+    <Compile Include="Facades\RegisteredUsers\RegisteredUserFacade.cs" />
     <Compile Include="Services\Answers\AnswerService.cs" />
     <Compile Include="Services\Answers\IAnswerService.cs" />
     <Compile Include="Services\Candidate\CandidateService.cs" />

@@ -3,10 +3,9 @@ using AutoMapper;
 using BL.Tests.FacadeTests.Common;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Filters;
-using BusinessLayer.Facades;
+using BusinessLayer.Facades.Employers;
 using BusinessLayer.QueryObjects.Common;
 using BusinessLayer.Services.Employers;
-using BusinessLayer.Services.RegisteredUsers;
 using DataAccessLayer.Entities;
 using Infrastructure;
 using Infrastructure.Query;
@@ -23,7 +22,7 @@ namespace BL.Tests.FacadeTests
         public void Test_RegisterNewEmployer()
         {
             const int id = 55;
-            EmployerDto expectedDto = new EmployerDto
+            EmployerDto expectedEmployerDto = new EmployerDto
             {
                 Id = id,
                 Name = "Alibaba",
@@ -33,24 +32,24 @@ namespace BL.Tests.FacadeTests
             FacadeMockManager mockManager = new FacadeMockManager();
             var employerRepositoryMock = mockManager.ConfigureRepositoryMock<Employer>();
             var employerQueryMock = mockManager.ConfigureQueryObjectMock<EmployerDto, Employer, EmployerFilterDto>(null);
-            UserFacade userfacade = CreateUserFacade(null, null, employerRepositoryMock, employerQueryMock);
+            EmployerFacade userfacade = CreateEmployerFacade(employerRepositoryMock, employerQueryMock);
 
-            int createdId = userfacade.RegisterNewUser(expectedDto);
+            int createdId = userfacade.Create(expectedEmployerDto);
 
             Assert.AreEqual(createdId, id);
         }
 
         [Test]
-        public async Task Test_GetEmployer()
+        public async Task Test_GetById()
         {
             const int id = 55;
-            EmployerDto expectedProductDto = new EmployerDto
+            EmployerDto expectedEmployerDto = new EmployerDto
             {
                 Id = id,
                 Name = "Alibaba",
                 Email = "mail@alibaba.cn"
             };
-            Employer expectedProduct = new Employer
+            Employer expectedEmployer = new Employer
             {
                 Id = id,
                 Name = "Alibaba",
@@ -58,32 +57,51 @@ namespace BL.Tests.FacadeTests
             };
 
             FacadeMockManager mockManager = new FacadeMockManager();
-            var employerRepositoryMock = mockManager.ConfigureGetRepositoryMock(expectedProduct);
+            var employerRepositoryMock = mockManager.ConfigureGetRepositoryMock(expectedEmployer);
             var employerQueryMock = mockManager.ConfigureQueryObjectMock<EmployerDto, Employer, EmployerFilterDto>(null);
-            UserFacade userfacade = CreateUserFacade(null, null, employerRepositoryMock, employerQueryMock);
+            EmployerFacade userfacade = CreateEmployerFacade(employerRepositoryMock, employerQueryMock);
 
-            EmployerDto foundEmployer = await userfacade.GetEmployer(id);
+            EmployerDto foundEmployer = await userfacade.Get(id);
 
-            Assert.AreEqual(foundEmployer, expectedProductDto);
+            Assert.AreEqual(foundEmployer, expectedEmployerDto);
         }
 
-        private static UserFacade CreateUserFacade(
-            Mock<IRepository<RegisteredUser>> registeredUserRepositoryMock,
-            Mock<QueryObjectBase<RegisteredUserDto, RegisteredUser, RegisteredUserFilterDto, IQuery<RegisteredUser>>> registeredUserQueryMock,
+        [Test]
+        public async Task Test_GetByName()
+        {
+            const int id = 54;
+            const string name = "Alibaba";
+            EmployerDto expectedEmployerDto = new EmployerDto
+            {
+                Id = id,
+                Name = name,
+                Email = "mail@alibaba.cn"
+            };
+            Employer expectedEmployer = new Employer
+            {
+                Id = id,
+                Name = name,
+                Email = "mail@alibaba.cn"
+            };
+
+            FacadeMockManager mockManager = new FacadeMockManager();
+            var employerRepositoryMock = mockManager.ConfigureGetRepositoryMock(expectedEmployer);
+            var employerQueryMock = mockManager.ConfigureQueryObjectMock<EmployerDto, Employer, EmployerFilterDto>(null);
+            EmployerFacade userfacade = CreateEmployerFacade(employerRepositoryMock, employerQueryMock);
+
+            EmployerDto foundEmployer = await userfacade.GetByName(name);
+
+            Assert.AreEqual(foundEmployer, expectedEmployerDto);
+        }
+
+        private static EmployerFacade CreateEmployerFacade(
             Mock<IRepository<Employer>> employerRepositoryMock,
             Mock<QueryObjectBase<EmployerDto, Employer, EmployerFilterDto, IQuery<Employer>>> employerQueryMock)
         {
             Mock<IUnitOfWorkProvider> uowMock = FacadeMockManager.ConfigureUowMock();
             IMapper mapperMock = FacadeMockManager.ConfigureRealMapper();
-
-            RegisteredUserService userService = (registeredUserRepositoryMock == null || registeredUserQueryMock == null)
-                ? null
-                : new RegisteredUserService(mapperMock, registeredUserRepositoryMock.Object, registeredUserQueryMock.Object);
-            EmployerService employerService = (employerRepositoryMock == null || employerQueryMock == null)
-                ? null
-                : new EmployerService(mapperMock, employerRepositoryMock.Object, employerQueryMock.Object);
-
-            UserFacade productFacade = new UserFacade(uowMock.Object, userService, employerService);
+            EmployerService employerService = new EmployerService(mapperMock, employerRepositoryMock.Object, employerQueryMock.Object);
+            EmployerFacade productFacade = new EmployerFacade(uowMock.Object, employerService);
             return productFacade;
         }
     }

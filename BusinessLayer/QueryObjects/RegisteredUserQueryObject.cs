@@ -37,8 +37,9 @@ namespace BusinessLayer.QueryObjects
             }
             if (filter.Skills != null)
             {
-                foreach (Skill skill in filter.Skills)
+                foreach (SkillDto skillDto in filter.Skills)
                 {
+                    Skill skill = this.Mapper.Map<Skill>(skillDto);
                     predicates.Add(new SimplePredicate(nameof(JobCandidate.Skills), ValueComparingOperator.EnumerableContains, skill));
                 }
             }

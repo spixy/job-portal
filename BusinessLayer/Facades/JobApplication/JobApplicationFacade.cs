@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Filters;
 using BusinessLayer.Facades.Common;
-using BusinessLayer.Services;
 using BusinessLayer.Services.Candidate;
 using BusinessLayer.Services.JobApplications;
 using Infrastructure.UnitOfWork;
@@ -12,7 +11,7 @@ namespace BusinessLayer.Facades.JobApplication
 {
     public class JobApplicationFacade : FacadeBase, IJobApplicationFacade
     {
-        private readonly JobApplicationService jobApplicationService;
+        private readonly IJobApplicationService jobApplicationService;
         private readonly ICandidateService candidateServiceService;
 
         public JobApplicationFacade(IUnitOfWorkProvider unitOfWorkProvider, JobApplicationService jobApplicationService, ICandidateService candidateServiceService)
@@ -50,7 +49,7 @@ namespace BusinessLayer.Facades.JobApplication
         {
             using (this.UnitOfWorkProvider.Create())
             {
-                await this.jobApplicationService.ListAllAsync(dto);
+                await this.jobApplicationService.GetByFilterAsync(dto);
             }
         }
 
