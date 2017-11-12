@@ -46,6 +46,9 @@
     <Compile Include="DTOs\Common\FilterDtoBase.cs" />
     <Compile Include="DTOs\Common\QueryResultDto.cs" />
     <Compile Include="DTOs\EmployerDto.cs" />
+    <Compile Include="DTOs\Enums\Country.cs" />
+    <Compile Include="DTOs\Enums\Education.cs" />
+    <Compile Include="DTOs\Enums\Status.cs" />
     <Compile Include="DTOs\JobApplicationCreateDto.cs" />
     <Compile Include="DTOs\Filters\AnswerFilterDto.cs" />
     <Compile Include="DTOs\Filters\EmployerFilterDto.cs" />

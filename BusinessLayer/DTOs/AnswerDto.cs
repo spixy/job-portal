@@ -1,5 +1,4 @@
-﻿using DataAccessLayer.Entities;
-using BusinessLayer.DTOs.Common;
+﻿using BusinessLayer.DTOs.Common;
 using System.ComponentModel.DataAnnotations;
 
 namespace BusinessLayer.DTOs
@@ -11,7 +10,7 @@ namespace BusinessLayer.DTOs
 
         public int QuestionId { get; set; }
 
-        public virtual Question Question { get; set; }
+        public virtual QuestionDto Question { get; set; }
 
         public int JobApplicationId { get; set; }
     }

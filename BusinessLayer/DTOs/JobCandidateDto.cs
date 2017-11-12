@@ -1,6 +1,5 @@
-﻿using DataAccessLayer.Entities;
-using DataAccessLayer.Enums;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using BusinessLayer.DTOs.Enums;
 
 namespace BusinessLayer.DTOs
 {
@@ -8,7 +7,7 @@ namespace BusinessLayer.DTOs
     {
         public Education Education { get; set; }
 
-        public List<Skill> Skills { get; set; }
+        public virtual List<SkillDto> Skills { get; set; }
 
         protected bool Equals(JobCandidateDto other)
         {

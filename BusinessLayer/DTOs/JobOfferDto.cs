@@ -1,5 +1,4 @@
-﻿using DataAccessLayer.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using BusinessLayer.DTOs.Common;
 
 namespace BusinessLayer.DTOs
@@ -14,10 +13,10 @@ namespace BusinessLayer.DTOs
 
         public string Description { get; set; }
 
-        public virtual List<Question> Questions { get; set; }
+        public virtual List<QuestionDto> Questions { get; set; }
 
-        public virtual List<JobApplication> JobApplications { get; set; }
+        public virtual List<JobApplicationDto> JobApplications { get; set; }
 
-        public virtual List<Skill> Skills { get; set; }
+        public virtual List<SkillDto> Skills { get; set; }
     }
 }

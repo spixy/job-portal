@@ -14,6 +14,6 @@ namespace DataAccessLayer.Entities
         [Required]
         public Education Education { get; set; }
 
-        public List<Skill> Skills { get; set; }
+        public virtual List<Skill> Skills { get; set; }
     }
 }

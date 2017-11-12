@@ -40,5 +40,7 @@ namespace DataAccessLayer.Entities
                 return (this.Id * 397) ^ this.Name.GetHashCode();
             }
         }
+
+        public override string ToString() => Name;
     }
 }

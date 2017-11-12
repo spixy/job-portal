@@ -1,6 +1,6 @@
-﻿using DataAccessLayer.Enums;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using BusinessLayer.DTOs.Common;
+using BusinessLayer.DTOs.Enums;
 
 namespace BusinessLayer.DTOs
 {

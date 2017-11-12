@@ -1,7 +1,6 @@
-﻿using DataAccessLayer.Entities;
-using DataAccessLayer.Enums;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using BusinessLayer.DTOs.Common;
+using BusinessLayer.DTOs.Enums;
 
 namespace BusinessLayer.DTOs
 {
@@ -9,12 +8,12 @@ namespace BusinessLayer.DTOs
     {
         public int JobOfferId { get; set; }
 
-        public JobOffer JobOffer { get; set; } // TODO: nema byt toto virtual?
+        public virtual JobOfferDto JobOffer { get; set; }
 
         public int JobCandidateId { get; set; }
 
         public Status Status { get; set; }
 
-        public virtual List<Answer> Answers { get; set; }
+        public virtual List<AnswerDto> Answers { get; set; }
     }
 }

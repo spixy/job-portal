@@ -23,7 +23,7 @@ namespace DataAccessLayer.Repositories
             return Context.Set<TEntity>().Add(entity);
         }
 
-        protected TEntity Get(int id)
+        public TEntity Get(int id)
         {
             return Context.Set<TEntity>().Find(id);
         }
