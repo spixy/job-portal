@@ -66,6 +66,7 @@
     <Compile Include="DTOs\SkillDto.cs" />
     <Compile Include="DTOs\UserBaseDto.cs" />
     <Compile Include="Facades\Common\FacadeBase.cs" />
+    <Compile Include="Facades\IUserFacade.cs" />
     <Compile Include="Facades\JobApplicationFacade.cs" />
     <Compile Include="Facades\UserFacade.cs" />
     <Compile Include="Services\Common\CrudQueryServiceBase.cs" />

@@ -1,11 +1,13 @@
-﻿using BusinessLayer.DTOs;
+﻿using System.Threading.Tasks;
+using BusinessLayer.DTOs;
+using BusinessLayer.DTOs.Common;
 using BusinessLayer.Services;
-using Infrastructure;
 using Infrastructure.UnitOfWork;
 
 namespace BusinessLayer.Facades
 {
-    public class UserFacade : FacadeBase
+    // TODO: asi rozdelit na RegisteredUserFacade a EmployerFacade
+    public class UserFacade : FacadeBase, IUserFacade
     {
         private readonly RegisteredUserService registeredUserService;
         private readonly EmployerService employerService;
@@ -32,11 +34,35 @@ namespace BusinessLayer.Facades
             }
         }
 
+        public async Task<RegisteredUserDto> GetRegisteredUserDto(int id)
+        {
+            using (this.UnitOfWorkProvider.Create())
+            {
+                return await this.registeredUserService.GetAsync(id);
+            }
+        }
+
+        public async Task<QueryResultDto<RegisteredUserDto, FilterDtoBase>> GetUsersWith(SkillDto skillDto)
+        {
+            using (this.UnitOfWorkProvider.Create())
+            {
+                return await this.registeredUserService.GetUsersWith(skillDto);
+            }
+        }
+
         public void RemoveUser(RegisteredUserDto dto)
         {
             using (this.UnitOfWorkProvider.Create())
             {
                 this.registeredUserService.Delete(dto.Id);
+            }
+        }
+
+        public async Task<EmployerDto> GetEmployer(int id)
+        {
+            using (this.UnitOfWorkProvider.Create())
+            {
+                return await this.employerService.GetAsync(id);
             }
         }
 

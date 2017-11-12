@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using Infrastructure.Query.Predicates.Operators;
 
@@ -9,16 +10,18 @@ namespace Infrastructure.Query.Predicates
     {
         private static readonly IDictionary<ValueComparingOperator, Func<MemberExpression, ConstantExpression, Expression>> Expressions =
             new Dictionary<ValueComparingOperator, Func<MemberExpression, ConstantExpression, Expression>>
-            {
-                {ValueComparingOperator.Equal, Expression.Equal },
-                {ValueComparingOperator.NotEqual, Expression.NotEqual },
-                {ValueComparingOperator.GreaterThan, Expression.GreaterThan },
-                {ValueComparingOperator.GreaterThanOrEqual, Expression.GreaterThanOrEqual },
-                {ValueComparingOperator.LessThan, Expression.LessThan },
-                {ValueComparingOperator.LessThanOrEqual, Expression.LessThanOrEqual },
-                {ValueComparingOperator.StringContains, (memberExpression, constantExpression) =>
-                    Expression.Call(memberExpression, typeof(string).GetMethod("Contains", new[] { typeof(string) }), constantExpression)}
-            };
+        {
+            { ValueComparingOperator.Equal, Expression.Equal },
+            { ValueComparingOperator.NotEqual, Expression.NotEqual },
+            { ValueComparingOperator.GreaterThan, Expression.GreaterThan },
+            { ValueComparingOperator.GreaterThanOrEqual, Expression.GreaterThanOrEqual },
+            { ValueComparingOperator.LessThan, Expression.LessThan },
+            { ValueComparingOperator.LessThanOrEqual, Expression.LessThanOrEqual },
+            { ValueComparingOperator.EnumerableContains, (memberExpression, constantExpression) =>
+                Expression.Call(memberExpression, typeof(IEnumerable<IEntity>).GetMethod("Contains", new[] { typeof(IEntity) }), constantExpression) },
+            { ValueComparingOperator.StringContains, (memberExpression, constantExpression) =>
+                Expression.Call(memberExpression, typeof(string).GetMethod("Contains", new[] { typeof(string) }), constantExpression) }
+        };
 
         public static Expression GetExpression(this SimplePredicate simplePredicate, ParameterExpression parameterExpression)
         {

@@ -16,6 +16,9 @@ namespace Infrastructure.Query.Predicates.Operators
         LessThanOrEqual,
 
         // Strings
-        StringContains
+        StringContains,
+
+        // Enumerables
+        EnumerableContains
     }
 }

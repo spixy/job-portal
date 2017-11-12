@@ -12,7 +12,7 @@ namespace BusinessLayer.Services
 {
     public class RegisteredUserService : CrudQueryServiceBase<RegisteredUser, RegisteredUserDto, FilterDtoBase>
     {
-        protected RegisteredUserService(IMapper mapper, IRepository<RegisteredUser> repository,
+        public RegisteredUserService(IMapper mapper, IRepository<RegisteredUser> repository,
             QueryObjectBase<RegisteredUserDto, RegisteredUser, FilterDtoBase, IQuery<RegisteredUser>> query)
             : base(mapper, repository, query)
         {
@@ -21,6 +21,11 @@ namespace BusinessLayer.Services
         protected override async Task<RegisteredUser> GetWithIncludesAsync(int entityId)
         {
             return await this.Repository.GetAsync(entityId, nameof(RegisteredUser.JobApplications));
+        }
+
+        public async Task<QueryResultDto<RegisteredUserDto, FilterDtoBase>> GetUsersWith(SkillDto skillDto)
+        {
+            return await this.Query.ExecuteQuery(null);
         }
     }
 }

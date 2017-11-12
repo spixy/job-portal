@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace DAL.Tests
 {
     [SetUpFixture]
-    public class Initializer
+    internal class Initializer
     {
         internal static readonly IWindsorContainer Container = new WindsorContainer();
 

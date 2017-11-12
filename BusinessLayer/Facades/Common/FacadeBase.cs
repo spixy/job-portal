@@ -1,5 +1,4 @@
-﻿using Infrastructure;
-using Infrastructure.UnitOfWork;
+﻿using Infrastructure.UnitOfWork;
 
 namespace BusinessLayer.Facades
 {

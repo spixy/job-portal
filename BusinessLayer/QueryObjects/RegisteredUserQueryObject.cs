@@ -35,6 +35,13 @@ namespace BusinessLayer.QueryObjects
                 predicates.Add(new SimplePredicate(nameof(RegisteredUser.Phone), ValueComparingOperator.Equal,
                     filter.Phone));
             }
+            if (filter.Skills != null)
+            {
+                foreach (Skill skill in filter.Skills)
+                {
+                    predicates.Add(new SimplePredicate(nameof(JobCandidate.Skills), ValueComparingOperator.EnumerableContains, skill));
+                }
+            }
 
             if (predicates.Count > 0)
             {
