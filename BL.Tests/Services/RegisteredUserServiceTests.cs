@@ -24,9 +24,13 @@ namespace BL.Tests.Services
             {
                 Id = id
             };
+            RegisteredUser expectedUser = new RegisteredUser
+            {
+                Id = id
+            };
 
             ServiceMockManager mockManager = new ServiceMockManager();
-            var repositoryMock = mockManager.ConfigureRepositoryMock<RegisteredUser>();
+            var repositoryMock = mockManager.ConfigureGetRepositoryMock(expectedUser);
             var queryMock = mockManager.ConfigureQueryObjectMock<RegisteredUserDto, RegisteredUser, RegisteredUserFilterDto>(null);
             RegisteredUserService jobApplicationService = CreateRegisteredUserService(repositoryMock, queryMock);
 

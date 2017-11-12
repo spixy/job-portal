@@ -18,7 +18,7 @@ namespace BL.Tests.QueryObjectTests
         [Test]
         public async Task SimplePredicate()
         {
-            Skill cSharp = new Skill { Name = "C#" };
+            SkillDto cSharp = new SkillDto { Name = "C#" };
 
             QueryMockManager mockManager = new QueryMockManager();
             IPredicate expectedPredicate = new SimplePredicate(nameof(JobCandidate.Skills), ValueComparingOperator.EnumerableContains, cSharp);
@@ -26,7 +26,7 @@ namespace BL.Tests.QueryObjectTests
             var queryMock = mockManager.ConfigureQueryMock<RegisteredUser>();
             RegisteredUserQueryObject productQueryObject = new RegisteredUserQueryObject(mapperMock.Object, queryMock.Object);
 
-            RegisteredUserFilterDto filterDto = new RegisteredUserFilterDto { Skills = new List<Skill> { cSharp } };
+            RegisteredUserFilterDto filterDto = new RegisteredUserFilterDto { Skills = new List<SkillDto> { cSharp } };
             QueryResultDto<RegisteredUserDto, RegisteredUserFilterDto> unused = await productQueryObject.ExecuteQuery(filterDto);
 
             Assert.AreEqual(mockManager.CapturedPredicate, expectedPredicate);
@@ -35,8 +35,8 @@ namespace BL.Tests.QueryObjectTests
         [Test]
         public async Task Test_CompositePredicate()
         {
-            Skill cSharp = new Skill { Name = "C#" };
-            Skill python = new Skill { Name = "Python" };
+            SkillDto cSharp = new SkillDto { Name = "C#" };
+            SkillDto python = new SkillDto { Name = "Python" };
 
             QueryMockManager mockManager = new QueryMockManager();
             IPredicate expectedPredicate = new CompositePredicate(new List<IPredicate>
@@ -48,7 +48,7 @@ namespace BL.Tests.QueryObjectTests
             var queryMock = mockManager.ConfigureQueryMock<RegisteredUser>();
             RegisteredUserQueryObject productQueryObject = new RegisteredUserQueryObject(mapperMock.Object, queryMock.Object);
 
-            RegisteredUserFilterDto filterDto = new RegisteredUserFilterDto { Skills = new List<Skill> { cSharp, python } };
+            RegisteredUserFilterDto filterDto = new RegisteredUserFilterDto { Skills = new List<SkillDto> { cSharp, python } };
             QueryResultDto<RegisteredUserDto, RegisteredUserFilterDto> unused = await productQueryObject.ExecuteQuery(filterDto);
 
             Assert.AreEqual(mockManager.CapturedPredicate, expectedPredicate);

@@ -16,29 +16,8 @@ using Infrastructure.UnitOfWork;
 namespace BL.Tests.FacadeTests
 {
     [TestFixture]
-    internal class UserFacadeTest
+    internal class RegisteredUserFacadeTest
     {
-        [Test]
-        public void Test_RegisterNewEmployer()
-        {
-            const int id = 55;
-            EmployerDto expectedEmployerDto = new EmployerDto
-            {
-                Id = id,
-                Name = "Alibaba",
-                Email = "mail@alibaba.cn"
-            };
-
-            FacadeMockManager mockManager = new FacadeMockManager();
-            var employerRepositoryMock = mockManager.ConfigureRepositoryMock<Employer>();
-            var employerQueryMock = mockManager.ConfigureQueryObjectMock<EmployerDto, Employer, EmployerFilterDto>(null);
-            EmployerFacade userfacade = CreateEmployerFacade(employerRepositoryMock, employerQueryMock);
-
-            int createdId = userfacade.Create(expectedEmployerDto);
-
-            Assert.AreEqual(createdId, id);
-        }
-
         [Test]
         public async Task Test_GetById()
         {
@@ -69,19 +48,19 @@ namespace BL.Tests.FacadeTests
         [Test]
         public async Task Test_GetByName()
         {
-            const int id = 54;
-            const string name = "Alibaba";
+            const int id = 1337;
+            const string name = "Amazon";
             EmployerDto expectedEmployerDto = new EmployerDto
             {
                 Id = id,
                 Name = name,
-                Email = "mail@alibaba.cn"
+                Email = "mail@amazon.com"
             };
             Employer expectedEmployer = new Employer
             {
                 Id = id,
                 Name = name,
-                Email = "mail@alibaba.cn"
+                Email = "mail@amazon.com"
             };
 
             FacadeMockManager mockManager = new FacadeMockManager();
