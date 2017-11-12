@@ -24,8 +24,14 @@ namespace BusinessLayer.Services.RegisteredUsers
             return await this.Repository.GetAsync(entityId, nameof(RegisteredUser.JobApplications));
         }
 
-        public async Task<IEnumerable<RegisteredUserDto>> GetBySkills(List<SkillDto> skills)
+        public async Task<IEnumerable<RegisteredUserDto>> GetBySkills(List<SkillDto> skillsDto)
         {
+            List<Skill> skills = new List<Skill>(skillsDto.Count);
+            foreach (SkillDto skillDto in skillsDto)
+            {
+                Skill skill = this.Mapper.Map<Skill>(skillDto);
+                skills.Add(skill);
+            }
             var queryResult = await Query.ExecuteQuery(new RegisteredUserFilterDto { Skills = skills });
             return queryResult.Items;
         }

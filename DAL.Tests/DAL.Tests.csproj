@@ -72,7 +72,7 @@
     <Compile Include="Config\DiInstaller.cs" />
     <Compile Include="Initializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QueryTests\EmployerPredicates.cs" />
+    <Compile Include="QueryTests\RegisteredUserPredicates.cs" />
     <Compile Include="RepositoryTests\EmployerRepositoryTests.cs" />
     <Compile Include="RepositoryTests\RegisteredUserRepositoryTests.cs" />
   </ItemGroup>

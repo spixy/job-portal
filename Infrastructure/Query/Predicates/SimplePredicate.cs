@@ -27,7 +27,7 @@ namespace Infrastructure.Query.Predicates
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return string.Equals(this.TargetPropertyName, other.TargetPropertyName) && this.ComparedValue.Equals(other.ComparedValue) && this.ValueComparingOperator == other.ValueComparingOperator;
+            return string.Equals(this.TargetPropertyName, other.TargetPropertyName) && Equals(this.ComparedValue, other.ComparedValue) && this.ValueComparingOperator == other.ValueComparingOperator;
         }
 
         public override bool Equals(object obj)
@@ -39,8 +39,8 @@ namespace Infrastructure.Query.Predicates
         {
             unchecked
             {
-                int hashCode = this.TargetPropertyName.GetHashCode();
-                hashCode = (hashCode * 397) ^ this.ComparedValue.GetHashCode();
+                int hashCode = (this.TargetPropertyName != null ? this.TargetPropertyName.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (this.ComparedValue != null ? this.ComparedValue.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (int) this.ValueComparingOperator;
                 return hashCode;
             }

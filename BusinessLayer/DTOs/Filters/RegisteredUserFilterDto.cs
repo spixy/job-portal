@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DataAccessLayer.Entities;
 using DataAccessLayer.Enums;
 
 namespace BusinessLayer.DTOs.Filters
@@ -7,6 +8,6 @@ namespace BusinessLayer.DTOs.Filters
     {
         public Education Education { get; set; }
 
-        public List<SkillDto> Skills { get; set; }
+        public List<Skill> Skills { get; set; }
     }
 }
