@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Infrastructure.Query.Predicates.Operators;
 
 namespace Infrastructure.Query.Predicates
 {

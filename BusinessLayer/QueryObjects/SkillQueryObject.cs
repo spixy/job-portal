@@ -7,6 +7,7 @@ using BusinessLayer.QueryObjects.Common;
 using DataAccessLayer.Entities;
 using Infrastructure.Query;
 using Infrastructure.Query.Predicates;
+using Infrastructure.Query.Predicates.Operators;
 
 namespace BusinessLayer.QueryObjects
 {

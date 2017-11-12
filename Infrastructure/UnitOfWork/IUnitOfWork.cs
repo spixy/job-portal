@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Infrastructure
+namespace Infrastructure.UnitOfWork
 {
     public interface IUnitOfWork : IDisposable
     {

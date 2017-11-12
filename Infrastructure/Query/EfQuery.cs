@@ -5,8 +5,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
-using DataAccessLayer;
 using Infrastructure.Query.Predicates;
+using Infrastructure.Query.Predicates.Operators;
+using Infrastructure.UnitOfWork;
 
 namespace Infrastructure.Query
 {

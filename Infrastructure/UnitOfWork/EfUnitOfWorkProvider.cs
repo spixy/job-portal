@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Threading;
-using DataAccessLayer;
 
-namespace Infrastructure
+namespace Infrastructure.UnitOfWork
 {
     public class EfUnitOfWorkProvider : IUnitOfWorkProvider, IDisposable
     {

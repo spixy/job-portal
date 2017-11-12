@@ -6,6 +6,7 @@ using BusinessLayer.DTOs.Filters;
 using BusinessLayer.QueryObjects.Common;
 using Infrastructure.Query;
 using Infrastructure.Query.Predicates;
+using Infrastructure.Query.Predicates.Operators;
 
 namespace BusinessLayer.QueryObjects
 {

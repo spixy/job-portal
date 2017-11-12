@@ -1,5 +1,5 @@
 ﻿
-namespace Infrastructure.Query.Predicates
+namespace Infrastructure.Query.Predicates.Operators
 {
     public enum LogicalOperator
     {

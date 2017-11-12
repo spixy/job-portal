@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Threading.Tasks;
-using Infrastructure;
 
-namespace DataAccessLayer
+namespace Infrastructure.UnitOfWork
 {
     public class EfUnitOfWork : IUnitOfWork
     {

@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using DataAccessLayer.Entities;
 using Infrastructure;
+using Infrastructure.UnitOfWork;
 using NUnit.Framework;
 
 namespace DAL.Tests.RepositoryTests

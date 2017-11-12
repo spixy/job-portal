@@ -7,6 +7,7 @@ using DataAccessLayer.Contexts;
 using DataAccessLayer.Repositories;
 using Infrastructure;
 using Infrastructure.Query;
+using Infrastructure.UnitOfWork;
 
 namespace DAL.Tests.Config
 {

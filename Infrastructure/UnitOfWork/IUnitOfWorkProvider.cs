@@ -1,5 +1,5 @@
 ﻿
-namespace Infrastructure
+namespace Infrastructure.UnitOfWork
 {
     public interface IUnitOfWorkProvider
     {
