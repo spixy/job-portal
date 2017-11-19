@@ -18,7 +18,7 @@ namespace Infrastructure.Query
 		/// <summary>
 		/// Adds a specified sort criteria to the query.
 		/// </summary>
-		IQuery<TEntity> Page(int pageToFetch, int pageSize = Config.DefaultPageSize);
+		IQuery<TEntity> Page(int pageToFetch, int pageSize);
 
 		/// <summary>
 		/// Executes the query and returns the results.

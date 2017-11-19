@@ -11,7 +11,7 @@ namespace Infrastructure.Query
     {
         protected readonly IUnitOfWorkProvider Provider;
 
-        public int PageSize { get; private set; } = Config.DefaultPageSize;
+        public int PageSize { get; private set; }
 
         public int? DesiredPage { get; private set; }
 
@@ -54,7 +54,7 @@ namespace Infrastructure.Query
             return this;
         }
 
-        public IQuery<TEntity> Page(int pageToFetch, int pageSize = Config.DefaultPageSize)
+        public IQuery<TEntity> Page(int pageToFetch, int pageSize)
         {
             if (pageToFetch < 1)
             {

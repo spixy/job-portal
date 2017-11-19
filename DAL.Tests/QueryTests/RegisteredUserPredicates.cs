@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DataAccessLayer.Entities;
-using DataAccessLayer.Enums;
 using Infrastructure.Query;
 using Infrastructure.Query.Predicates;
 using Infrastructure.Query.Predicates.Operators;
@@ -24,7 +23,7 @@ namespace DAL.Tests.QueryTests
             var expectedQueryResult = new QueryResult<RegisteredUser>(new List<RegisteredUser>
             {
                 new RegisteredUser {Email = "google@sasa.com", Name = "Sasa", Id = 1},
-            }, 1);
+            }, 1, 10);
 
             var predicate = new SimplePredicate(nameof(UserBase.Email), ValueComparingOperator.Equal, "google@sasa.com");
             using (unitOfWorkProvider.Create())
@@ -45,7 +44,7 @@ namespace DAL.Tests.QueryTests
             {
                 new RegisteredUser {Email = "gg@sasa.com", Name = "Sasa", Id = 1},
                 new RegisteredUser {Email = "ba@ba.com", Name = "Baba", Id = 2},
-            }, 1);
+            }, 1, 10);
 
             var predicate = new CompositePredicate(new List<IPredicate>
             {

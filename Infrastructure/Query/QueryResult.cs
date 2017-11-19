@@ -16,7 +16,7 @@ namespace Infrastructure.Query
 
 		public bool PagingEnabled => RequestedPageNumber != null;
 
-		public QueryResult(IList<TEntity> items, long totalItemsCount = long.MaxValue, int pageSize = Config.DefaultPageSize, int? requestedPageNumber = null)
+		public QueryResult(IList<TEntity> items, long totalItemsCount, int pageSize, int? requestedPageNumber = null)
 		{
 			TotalItemsCount = totalItemsCount;
 			RequestedPageNumber = requestedPageNumber;
