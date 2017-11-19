@@ -18,7 +18,10 @@ namespace PresentationLayer.Controllers
     {
         private int PageSize { get; set; } = JobPortalSettings.DefaultPageSize;
 
-        public IJobOfferFacade jobOfferFacade { get; set; }
+        //public IJobOfferFacade jobOfferFacade { get; set; }
+
+        // TODO: docasne riesenie
+        public IJobOfferFacade jobOfferFacade => MvcApplication.container.Resolve<JobOfferFacade>();
 
         // GET: /
         public async Task<ActionResult> Index()
@@ -27,7 +30,7 @@ namespace PresentationLayer.Controllers
             /*JobOfferFilterDto filter = new JobOfferFilterDto
             {
                 PageSize = this.PageSize,
-                RequestedPageNumber = 0
+                RequestedPageNumber = 1
             };
             IEnumerable<JobOfferDto> jobs = await this.jobOfferFacade.Get(filter);*/
             IEnumerable<JobOfferDto> jobs = new JobOfferDto[0];
