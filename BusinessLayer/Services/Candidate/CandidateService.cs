@@ -5,8 +5,8 @@ using BusinessLayer.DTOs.Filters;
 using BusinessLayer.QueryObjects.Common;
 using BusinessLayer.Services.Common;
 using DataAccessLayer.Entities;
-using Infrastructure;
 using Infrastructure.Query;
+using Infrastructure.Repository;
 
 namespace BusinessLayer.Services.Candidate
 {

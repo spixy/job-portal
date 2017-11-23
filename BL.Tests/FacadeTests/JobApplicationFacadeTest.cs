@@ -1,18 +1,13 @@
-﻿using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using BL.Tests.FacadeTests.Common;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Filters;
 using BusinessLayer.Facades;
-using BusinessLayer.Facades.Employers;
-using BusinessLayer.Facades.JobApplication;
 using BusinessLayer.QueryObjects.Common;
-using BusinessLayer.Services.Employers;
-using BusinessLayer.Services.JobApplications;
 using BusinessLayer.Services.JobOffers;
 using DataAccessLayer.Entities;
-using Infrastructure;
 using Infrastructure.Query;
+using Infrastructure.Repository;
 using Moq;
 using NUnit.Framework;
 using Infrastructure.UnitOfWork;
@@ -23,19 +18,20 @@ namespace BL.Tests.FacadeTests
     internal class JobApplicationFacadeTest
     {
         [Test]
-        public void Test_Create()
+        public void Test_Get()
         {
             const int id = 64;
             JobOfferDto expectedEmployerDto = new JobOfferDto
             {
                 Id = id,
-                Name = "SuperJob",
-                Description = "bla"
+                Name = "Software Engineer",
+                Description = "Work hard, play hard."
             };
             JobOffer expectedEmployer = new JobOffer
             {
                 Id = id,
-                Name = "SuperJob"
+                Name = "Software Engineer",
+                Description = "Work hard, play hard."
             };
 
             FacadeMockManager mockManager = new FacadeMockManager();
@@ -45,7 +41,7 @@ namespace BL.Tests.FacadeTests
 
             int foundEmployer = userfacade.Create(expectedEmployerDto);
 
-            Assert.AreEqual(foundEmployer, expectedEmployerDto);
+            Assert.AreEqual(foundEmployer, expectedEmployerDto.Id);
         }
 
         private static JobOfferFacade CreateJobOfferFacade(

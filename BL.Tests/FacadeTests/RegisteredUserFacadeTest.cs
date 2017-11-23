@@ -7,8 +7,8 @@ using BusinessLayer.Facades.Employers;
 using BusinessLayer.QueryObjects.Common;
 using BusinessLayer.Services.Employers;
 using DataAccessLayer.Entities;
-using Infrastructure;
 using Infrastructure.Query;
+using Infrastructure.Repository;
 using Moq;
 using NUnit.Framework;
 using Infrastructure.UnitOfWork;
@@ -41,34 +41,6 @@ namespace BL.Tests.FacadeTests
             EmployerFacade userfacade = CreateEmployerFacade(employerRepositoryMock, employerQueryMock);
 
             EmployerDto foundEmployer = await userfacade.Get(id);
-
-            Assert.AreEqual(foundEmployer, expectedEmployerDto);
-        }
-
-        [Test]
-        public async Task Test_GetByName()
-        {
-            const int id = 1337;
-            const string name = "Amazon";
-            EmployerDto expectedEmployerDto = new EmployerDto
-            {
-                Id = id,
-                Name = name,
-                Email = "mail@amazon.com"
-            };
-            Employer expectedEmployer = new Employer
-            {
-                Id = id,
-                Name = name,
-                Email = "mail@amazon.com"
-            };
-
-            FacadeMockManager mockManager = new FacadeMockManager();
-            var employerRepositoryMock = mockManager.ConfigureGetRepositoryMock(expectedEmployer);
-            var employerQueryMock = mockManager.ConfigureQueryObjectMock<EmployerDto, Employer, EmployerFilterDto>(null);
-            EmployerFacade userfacade = CreateEmployerFacade(employerRepositoryMock, employerQueryMock);
-
-            EmployerDto foundEmployer = await userfacade.GetByName(name);
 
             Assert.AreEqual(foundEmployer, expectedEmployerDto);
         }

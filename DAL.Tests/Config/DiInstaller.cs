@@ -7,9 +7,8 @@ using Castle.Windsor;
 using DataAccessLayer.Contexts;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Enums;
-using DataAccessLayer.Repositories;
-using Infrastructure;
 using Infrastructure.Query;
+using Infrastructure.Repository;
 using Infrastructure.UnitOfWork;
 
 namespace DAL.Tests.Config
@@ -22,7 +21,7 @@ namespace DAL.Tests.Config
         public static Employer Google, Sony;
         public static Office GoogleOffice, SonyOffice;
         public static JobCandidate Candidate1, Candidate2;
-        public static RegisteredUser David;
+        public static RegisteredUser David, Lubos;
         public static JobOffer SwEngineerJobOffer, FrontEndJobOffer;
         public static JobApplication JobApplication1;
         public static Question Q1, Q2;
@@ -206,7 +205,17 @@ namespace DAL.Tests.Config
                 JobApplications = new List<JobApplication> { JobApplication1 }
             };
 
+            Lubos = new RegisteredUser
+            {
+                Name = "Lubos",
+                Email = "lubos@lubos.sk",
+                Education = Education.DoctoralDegree,
+                Skills = new List<Skill> { Html },
+                JobApplications = new List<JobApplication>()
+            };
+
             context.RegisteredUsers.Add(David);
+            context.RegisteredUsers.Add(Lubos);
 
             #endregion
 

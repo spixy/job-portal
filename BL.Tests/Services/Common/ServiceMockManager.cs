@@ -4,6 +4,7 @@ using BusinessLayer.DTOs.Common;
 using BusinessLayer.QueryObjects.Common;
 using Infrastructure;
 using Infrastructure.Query;
+using Infrastructure.Repository;
 using Moq;
 
 namespace BL.Tests.Services.Common

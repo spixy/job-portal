@@ -6,8 +6,8 @@ using BusinessLayer.DTOs.Filters;
 using BusinessLayer.QueryObjects.Common;
 using BusinessLayer.Services.JobApplications;
 using DataAccessLayer.Entities;
-using Infrastructure;
 using Infrastructure.Query;
+using Infrastructure.Repository;
 using Moq;
 using NUnit.Framework;
 

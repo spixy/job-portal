@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DataAccessLayer.Entities;
+using DataAccessLayer.Enums;
 using Infrastructure.Query;
 using Infrastructure.Query.Predicates;
 using Infrastructure.Query.Predicates.Operators;
@@ -14,6 +16,7 @@ namespace DAL.Tests.QueryTests
     {
         private readonly IUnitOfWorkProvider unitOfWorkProvider = Initializer.Container.Resolve<IUnitOfWorkProvider>();
 
+
         [Test]
         public async Task Test_SimplePredicate()
         {
@@ -22,16 +25,25 @@ namespace DAL.Tests.QueryTests
 
             var expectedQueryResult = new QueryResult<RegisteredUser>(new List<RegisteredUser>
             {
-                new RegisteredUser {Email = "google@sasa.com", Name = "Sasa", Id = 1},
-            }, 1, 10);
+                new RegisteredUser
+                {
+                    Name = "David",
+                    Email = "david@david.sk",
+                    Education = Education.BachelorDegree,
+                    Skills = new List<Skill> { new Skill { Name = "UNIX" } }
+                }
+            }, 1, 10, 1);
 
-            var predicate = new SimplePredicate(nameof(UserBase.Email), ValueComparingOperator.Equal, "google@sasa.com");
+            SimplePredicate predicate = new SimplePredicate(nameof(UserBase.Email), ValueComparingOperator.Equal, "david@david.sk");
             using (unitOfWorkProvider.Create())
             {
-                actualQueryResult = await query.Where(predicate).ExecuteAsync();
+                actualQueryResult = await query.Where(predicate).Page(1, 10).ExecuteAsync();
             }
 
-            Assert.AreEqual(actualQueryResult, expectedQueryResult);
+            Assert.AreEqual(actualQueryResult.PageSize, expectedQueryResult.PageSize);
+            Assert.AreEqual(actualQueryResult.RequestedPageNumber, expectedQueryResult.RequestedPageNumber);
+            Assert.AreEqual(actualQueryResult.TotalItemsCount, expectedQueryResult.TotalItemsCount);
+            Assert.AreEqual(actualQueryResult.Items.First().Email, expectedQueryResult.Items.First().Email);
         }
 
         [Test]
@@ -42,22 +54,31 @@ namespace DAL.Tests.QueryTests
 
             var expectedQueryResult = new QueryResult<RegisteredUser>(new List<RegisteredUser>
             {
-                new RegisteredUser {Email = "gg@sasa.com", Name = "Sasa", Id = 1},
-                new RegisteredUser {Email = "ba@ba.com", Name = "Baba", Id = 2},
-            }, 1, 10);
+                new RegisteredUser
+                {
+                    Name = "Lubos",
+                    Email = "lubos@lubos.sk",
+                    Education = Education.DoctoralDegree,
+                    Skills = new List<Skill> { new Skill { Name = "HTML" } },
+                    JobApplications = new List<JobApplication>()
+                }
+            }, 1, 10, 1);
 
-            var predicate = new CompositePredicate(new List<IPredicate>
+            CompositePredicate predicate = new CompositePredicate(new List<IPredicate>
             {
-                new SimplePredicate(nameof(UserBase.Email), ValueComparingOperator.Equal, "ba@ba.com"),
-                new SimplePredicate(nameof(UserBase.Name), ValueComparingOperator.Equal, "Baba")
+                new SimplePredicate(nameof(UserBase.Email), ValueComparingOperator.Equal, "lubos@lubos.sk"),
+                new SimplePredicate(nameof(UserBase.Name), ValueComparingOperator.Equal, "Lubos")
             }, LogicalOperator.AND);
 
             using (unitOfWorkProvider.Create())
             {
-                actualQueryResult = await query.Where(predicate).ExecuteAsync();
+                actualQueryResult = await query.Where(predicate).Page(1, 10).ExecuteAsync();
             }
 
-            Assert.AreEqual(actualQueryResult, expectedQueryResult);
+            Assert.AreEqual(actualQueryResult.PageSize, expectedQueryResult.PageSize);
+            Assert.AreEqual(actualQueryResult.RequestedPageNumber, expectedQueryResult.RequestedPageNumber);
+            Assert.AreEqual(actualQueryResult.TotalItemsCount, expectedQueryResult.TotalItemsCount);
+            Assert.AreEqual(actualQueryResult.Items.First().Email, expectedQueryResult.Items.First().Email);
         }
     }
 }

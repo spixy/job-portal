@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using DataAccessLayer.Entities;
-using Infrastructure;
+using Infrastructure.Repository;
 using Infrastructure.UnitOfWork;
 using NUnit.Framework;
 using static DAL.Tests.Config.DiInstaller;

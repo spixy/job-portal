@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Enums;
-using Infrastructure;
+using Infrastructure.Repository;
 using Infrastructure.UnitOfWork;
 using NUnit.Framework;
 using static DAL.Tests.Config.DiInstaller;

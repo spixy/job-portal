@@ -40,7 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IEntity.cs" />
-    <Compile Include="IRepository.cs" />
     <Compile Include="Query\EfQuery.cs" />
     <Compile Include="Query\IQuery.cs" />
     <Compile Include="Query\Predicates\CompositePredicate.cs" />
@@ -51,6 +50,8 @@
     <Compile Include="Query\Predicates\SimplePredicateExtension.cs" />
     <Compile Include="Query\QueryBase.cs" />
     <Compile Include="Query\QueryResult.cs" />
+    <Compile Include="Repository\EfRepository.cs" />
+    <Compile Include="Repository\IRepository.cs" />
     <Compile Include="UnitOfWork\EfUnitOfWork.cs" />
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="UnitOfWork\IUnitOfWorkProvider.cs" />

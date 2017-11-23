@@ -4,9 +4,8 @@ using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using DataAccessLayer.Contexts;
-using DataAccessLayer.Repositories;
-using Infrastructure;
 using Infrastructure.Query;
+using Infrastructure.Repository;
 using Infrastructure.UnitOfWork;
 
 namespace DataAccessLayer.Config
