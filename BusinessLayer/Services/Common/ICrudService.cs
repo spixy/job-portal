@@ -38,5 +38,12 @@ namespace BusinessLayer.Services.Common
         /// </summary>
         /// <returns>all available dtos (for given type)</returns>
         Task<QueryResultDto<TDto, TFilterDto>> ListAllAsync();
+
+        /// <summary>
+        /// Gets all DTOs (for given type)
+        /// </summary>
+        /// <param name="filter">filter</param>
+        /// <returns>all available dtos (for given type)</returns>
+        Task<QueryResultDto<TDto, TFilterDto>> ListAllAsync(TFilterDto filter);
     }
 }

@@ -24,46 +24,34 @@ namespace PresentationLayer.Controllers
         public IJobOfferFacade jobOfferFacade => MvcApplication.container.Resolve<JobOfferFacade>();
 
         // GET: /
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int page = 0)
         {
             // TODO
-            /*JobOfferFilterDto filter = new JobOfferFilterDto
-            {
-                PageSize = this.PageSize,
-                RequestedPageNumber = 1
-            };
-            IEnumerable<JobOfferDto> jobs = await this.jobOfferFacade.Get(filter);*/
-            IEnumerable<JobOfferDto> jobs = new JobOfferDto[0];
-
-            return View(jobs);
-        }
-
-        // GET: Page/2
-        public async Task<ActionResult> Page(int page)
-        {
             JobOfferFilterDto filter = new JobOfferFilterDto
             {
                 PageSize = this.PageSize,
                 RequestedPageNumber = page
             };
-            IEnumerable<JobOfferDto> jobs = await this.jobOfferFacade.Get(filter);
+            //IEnumerable<JobOfferDto> jobs = await this.jobOfferFacade.Get(filter);
+            IEnumerable<JobOfferDto> jobs = new JobOfferDto[0];
 
             return View(jobs);
         }
 
         // POST: Filter
         [HttpPost]
-        public ActionResult Filter(JobOfferFilterDto filter)
+        public async Task<ActionResult> Filter(JobOfferFilterDto filter)
         {
             try
             {
                 // TODO: Add insert logic here
+                IEnumerable<JobOfferDto> jobs = await this.jobOfferFacade.Get(filter);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", jobs);
             }
             catch
             {
-                return View();
+                return View("Index");
             }
         }
 

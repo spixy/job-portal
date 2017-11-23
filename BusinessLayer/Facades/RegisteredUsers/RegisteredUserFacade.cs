@@ -12,7 +12,7 @@ namespace BusinessLayer.Facades.Employers
     {
         private readonly IRegisteredUserService registeredUserService;
 
-        public RegisteredUserFacade(IUnitOfWorkProvider unitOfWorkProvider, RegisteredUserService registeredUserService) : base(unitOfWorkProvider)
+        public RegisteredUserFacade(IUnitOfWorkProvider unitOfWorkProvider, IRegisteredUserService registeredUserService) : base(unitOfWorkProvider)
         {
             this.registeredUserService = registeredUserService;
         }
