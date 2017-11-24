@@ -50,17 +50,28 @@ namespace BusinessLayer.Facades
             }
         }
 
+        public void Update(int id, JobOfferDto jobOfferDto)
+        {
+            using (this.UnitOfWorkProvider.Create())
+            {
+                this.jobOfferService.Update(jobOfferDto);
+            }
+        }
+
+        public void Delete(int id)
+        {
+            using (this.UnitOfWorkProvider.Create())
+            {
+                this.jobOfferService.Delete(id);
+            }
+        }
+
         public async Task<IEnumerable<JobOfferDto>> Get(JobOfferFilterDto dto)
         {
             using (this.UnitOfWorkProvider.Create())
             {
                 return await this.jobOfferService.GetFilteredAsync(dto);
             }
-        }
-
-        public Task Create()
-        {
-            throw new NotImplementedException();
         }
     }
 }

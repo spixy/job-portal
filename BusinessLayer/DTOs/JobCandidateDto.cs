@@ -7,7 +7,7 @@ namespace BusinessLayer.DTOs
     {
         public Education Education { get; set; }
 
-        public virtual List<SkillDto> Skills { get; set; }
+        public List<SkillDto> Skills { get; set; }
 
         protected bool Equals(JobCandidateDto other)
         {

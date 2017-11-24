@@ -10,7 +10,7 @@ namespace BusinessLayer.DTOs
 
         public int QuestionId { get; set; }
 
-        public virtual QuestionDto Question { get; set; }
+        public QuestionDto Question { get; set; }
 
         public int JobApplicationId { get; set; }
     }

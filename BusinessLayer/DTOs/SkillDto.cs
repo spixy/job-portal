@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using BusinessLayer.DTOs.Common;
 
 namespace BusinessLayer.DTOs
@@ -8,9 +7,5 @@ namespace BusinessLayer.DTOs
     {
         [Required]
         public string Name { get; set; }
-
-        public virtual List<JobOfferDto> JobOffers { get; set; }
-
-        public virtual List<JobCandidateDto> JobCandidates { get; set; }
     }
 }

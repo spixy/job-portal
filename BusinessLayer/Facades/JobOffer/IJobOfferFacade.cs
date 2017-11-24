@@ -12,5 +12,7 @@ namespace BusinessLayer.Facades
         Task<IEnumerable<JobOfferDto>> Get(JobOfferFilterDto dto);
         Task<IEnumerable<JobOfferDto>> GetByEmployer(int employerId);
         Task<IEnumerable<JobOfferDto>> GetByName(string name);
+        void Update(int id, JobOfferDto jobOfferDto);
+        void Delete(int id);
     }
 }

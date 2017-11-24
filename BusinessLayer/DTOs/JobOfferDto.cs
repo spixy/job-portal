@@ -13,10 +13,10 @@ namespace BusinessLayer.DTOs
 
         public string Description { get; set; }
 
-        public virtual List<QuestionDto> Questions { get; set; }
+        public List<QuestionDto> Questions { get; set; }
 
-        public virtual List<JobApplicationDto> JobApplications { get; set; }
+        public List<JobApplicationDto> JobApplications { get; set; }
 
-        public virtual List<SkillDto> Skills { get; set; }
+        public List<SkillDto> Skills { get; set; }
     }
 }
