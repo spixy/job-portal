@@ -34,9 +34,9 @@ namespace BL.Tests.Services
             var queryMock = mockManager.ConfigureQueryObjectMock<RegisteredUserDto, RegisteredUser, RegisteredUserFilterDto>(null);
             RegisteredUserService jobApplicationService = CreateRegisteredUserService(repositoryMock, queryMock);
 
-            int createdId = jobApplicationService.Create(expectedDto);
-
-            Assert.AreEqual(createdId, id);
+            var createdId = jobApplicationService.Create(expectedDto);
+            
+            Assert.AreEqual(createdId.Id, id);
         }
 
         private static RegisteredUserService CreateRegisteredUserService(

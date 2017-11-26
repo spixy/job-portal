@@ -34,9 +34,9 @@ namespace BL.Tests.Services
             var queryMock = mockManager.ConfigureQueryObjectMock<JobApplicationDto, JobApplication, JobApplicationFilterDto>(null);
             JobApplicationService jobApplicationService = CreateJobApplicationService(repositoryMock, queryMock);
 
-            int createdId = jobApplicationService.Create(expectedDto);
+            var createdId = jobApplicationService.Create(expectedDto);
 
-            Assert.AreEqual(createdId, id);
+            Assert.AreEqual(createdId.Id, id);
         }
 
         [Test]
