@@ -19,7 +19,7 @@ namespace BusinessLayer.Services.Common
         /// Creates new entity
         /// </summary>
         /// <param name="entityDto">entity details</param>
-        int Create(TDto entityDto);
+        TDto Create(TDto entityDto);
 
         /// <summary>
         /// Updates entity

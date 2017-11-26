@@ -5,6 +5,7 @@ using BusinessLayer.DTOs.Filters;
 using BusinessLayer.Facades;
 using BusinessLayer.QueryObjects.Common;
 using BusinessLayer.Services.JobOffers;
+using BusinessLayer.Services.Questions;
 using DataAccessLayer.Entities;
 using Infrastructure.Query;
 using Infrastructure.Repository;
@@ -51,7 +52,8 @@ namespace BL.Tests.FacadeTests
             Mock<IUnitOfWorkProvider> uowMock = FacadeMockManager.ConfigureUowMock();
             IMapper mapperMock = FacadeMockManager.ConfigureRealMapper();
             JobOfferService employerService = new JobOfferService(mapperMock, employerRepositoryMock.Object, employerQueryMock.Object);
-            JobOfferFacade productFacade = new JobOfferFacade(uowMock.Object, employerService);
+            QuestionService questionService = new QuestionService(mapperMock, null, null);
+            JobOfferFacade productFacade = new JobOfferFacade(uowMock.Object, employerService, questionService);
             return productFacade;
         }
     }

@@ -11,6 +11,9 @@ namespace Infrastructure.UnitOfWork
         public EfUnitOfWork(Func<DbContext> dbContextFactory)
         {
             this.Context = dbContextFactory?.Invoke() ?? throw new ArgumentException("Db context factory cant be null!");
+#if DEBUG
+            this.Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+#endif
         }
 
         public void Dispose()

@@ -84,7 +84,7 @@ namespace PresentationLayer.Controllers
             }
             catch
             {
-                return View("Index");
+                return RedirectToAction("Index");
             }
         }
 
@@ -103,18 +103,18 @@ namespace PresentationLayer.Controllers
 
         // POST: Job/Edit/5
         [System.Web.Mvc.HttpPost]
-        public ActionResult Edit(int id, JobOfferDto jobOfferDto)
+        public async Task<ActionResult> Edit(int id, JobOfferDto jobOfferDto)
         {
             try
             {
                 // TODO: Add update logic here
-                this.jobOfferFacade.Update(id, jobOfferDto);
-                return RedirectToAction("Details", new { id });
+                await this.jobOfferFacade.Update(id, jobOfferDto);
             }
             catch
             {
-                return View("Index");
+                // ignored
             }
+            return RedirectToAction("Details", new { id });
         }
 
         // GET: Job/Delete/5

@@ -23,7 +23,7 @@ namespace BusinessLayer.Facades.JobApplication
 
         public async Task<int> Create(JobApplicationCreateDto dto)
         {
-            using (this.UnitOfWorkProvider.Create())
+            using (var uow = this.UnitOfWorkProvider.Create())
             {
                 JobCandidateDto candidate = await this.candidateServiceService.GetAsync(dto.ApplicationDto.JobCandidateId);
 
@@ -33,7 +33,9 @@ namespace BusinessLayer.Facades.JobApplication
                     this.candidateServiceService.Create(dto.CandidateDto);
                 }
 
-                return this.jobApplicationService.Create(dto.ApplicationDto);
+                var created = this.jobApplicationService.Create(dto.ApplicationDto);
+                uow.Commit();
+                return created.Id;
             }
         }
 

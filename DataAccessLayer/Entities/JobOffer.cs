@@ -19,13 +19,11 @@ namespace DataAccessLayer.Entities
         [Required]
         public int EmployerId { get; set; }
 
-        [Required]
         public virtual Employer Employer { get; set; }
 
         [Required]
         public int OfficeId { get; set; }
 
-        [Required]
         public virtual Office Office { get; set; }
 
         [Required]

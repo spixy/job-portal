@@ -19,9 +19,11 @@ namespace BusinessLayer.Facades.Employers
 
         public int Create(EmployerDto dto)
         {
-            using (this.UnitOfWorkProvider.Create())
+            using (var uow = this.UnitOfWorkProvider.Create())
             {
-                return this.employerService.Create(dto);
+                var created = this.employerService.Create(dto);
+                uow.Commit();
+                return created.Id;
             }
         }
 

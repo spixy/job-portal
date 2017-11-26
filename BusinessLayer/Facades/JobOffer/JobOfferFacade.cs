@@ -22,9 +22,11 @@ namespace BusinessLayer.Facades
 
         public int Create(JobOfferDto dto)
         {
-            using (this.UnitOfWorkProvider.Create())
+            using (var uow = this.UnitOfWorkProvider.Create())
             {
-                return this.jobOfferService.Create(dto);
+                var created = this.jobOfferService.Create(dto);
+                uow.Commit();
+                return created.Id;
             }
         }
 
@@ -52,12 +54,12 @@ namespace BusinessLayer.Facades
             }
         }
 
-        public void Update(int id, JobOfferDto jobOfferDto)
+        public async Task Update(int id, JobOfferDto jobOfferDto)
         {
             using (var uow = this.UnitOfWorkProvider.Create())
             {
-                this.jobOfferService.Update(jobOfferDto);
-                uow.Commit();
+                await this.jobOfferService.Update(jobOfferDto);
+                await uow.CommitAsync();
             }
         }
 

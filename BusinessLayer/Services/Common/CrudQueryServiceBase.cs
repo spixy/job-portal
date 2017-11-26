@@ -56,11 +56,11 @@ namespace BusinessLayer.Services.Common
         /// Creates new entity
         /// </summary>
         /// <param name="entityDto">entity details</param>
-        public virtual int Create(TDto entityDto)
+        public virtual TDto Create(TDto entityDto)
         {
             TEntity entity = this.Mapper.Map<TEntity>(entityDto);
-            this.Repository.Create(entity);
-            return entity.Id;
+            TEntity created = this.Repository.Create(entity);
+            return this.Mapper.Map<TDto>(created);
         }
 
         /// <summary>
