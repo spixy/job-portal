@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using BusinessLayer.DTOs.Common;
 
 namespace BusinessLayer.DTOs
@@ -7,5 +8,7 @@ namespace BusinessLayer.DTOs
     {
         [Required]
         public string Text { get; set; }
+
+        public List<JobApplicationDto> JobApplications { get; set; }
     }
 }

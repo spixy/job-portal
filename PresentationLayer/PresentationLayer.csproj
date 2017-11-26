@@ -160,8 +160,8 @@
     <Compile Include="App_Start\JobPortalSettings.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="App_Start\Windsor\WebApiInstaller.cs" />
-    <Compile Include="App_Start\Windsor\WindsorCompositionRoot.cs" />
+    <Compile Include="App_Start\Windsor\DiInstaller.cs" />
+    <Compile Include="App_Start\Windsor\WindsorControllerFactory.cs" />
     <Compile Include="Controllers\JobApplicationController.cs" />
     <Compile Include="Controllers\EmployerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

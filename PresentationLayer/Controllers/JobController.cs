@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿#define DI_FIX
+
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -12,10 +14,12 @@ namespace PresentationLayer.Controllers
 {
     public class JobController : Controller
     {
-        public IJobOfferFacade JobOfferFacade { get; set; }
-
+#if DI_FIX
         // TODO: docasne riesenie
-        private IJobOfferFacade jobOfferFacade => JobOfferFacade ?? MvcApplication.container.Resolve<JobOfferFacade>();
+        public IJobOfferFacade jobOfferFacade => MvcApplication.Container.Resolve<JobOfferFacade>();
+#else
+        public IJobOfferFacade jobOfferFacade { get; set; }
+#endif
 
         // GET: Job
         public async Task<ActionResult> Index(int page = 1)
@@ -114,26 +118,10 @@ namespace PresentationLayer.Controllers
         }
 
         // GET: Job/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            this.jobOfferFacade.Delete(id);
+           await this.jobOfferFacade.Delete(id);
             return RedirectToAction("Index");
-        }
-
-        // POST: Job/Delete/5
-        [System.Web.Mvc.HttpPost]
-        public ActionResult Delete(int id, JobOfferDto collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-                this.jobOfferFacade.Delete(id);
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View("Index");
-            }
         }
     }
 }

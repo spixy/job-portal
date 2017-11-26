@@ -98,6 +98,10 @@
     <Compile Include="Migrations\201711121050346_EntitiesChanged.Designer.cs">
       <DependentUpon>201711121050346_EntitiesChanged.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711262128591_QuestionChanged.cs" />
+    <Compile Include="Migrations\201711262128591_QuestionChanged.Designer.cs">
+      <DependentUpon>201711262128591_QuestionChanged.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -123,6 +127,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711121050346_EntitiesChanged.resx">
       <DependentUpon>201711121050346_EntitiesChanged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711262128591_QuestionChanged.resx">
+      <DependentUpon>201711262128591_QuestionChanged.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

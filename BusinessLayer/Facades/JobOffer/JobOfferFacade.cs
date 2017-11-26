@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Filters;
 using BusinessLayer.Facades.Common;
 using BusinessLayer.Services.JobOffers;
+using BusinessLayer.Services.Questions;
 using Infrastructure.UnitOfWork;
 
 namespace BusinessLayer.Facades
@@ -12,10 +12,12 @@ namespace BusinessLayer.Facades
     public class JobOfferFacade : FacadeBase, IJobOfferFacade
     {
         private readonly IJobOfferService jobOfferService;
+        private readonly IQuestionService questionService;
 
-        public JobOfferFacade(IUnitOfWorkProvider unitOfWorkProvider, IJobOfferService jobOfferService) : base(unitOfWorkProvider)
+        public JobOfferFacade(IUnitOfWorkProvider unitOfWorkProvider, IJobOfferService jobOfferService, IQuestionService questionService) : base(unitOfWorkProvider)
         {
             this.jobOfferService = jobOfferService;
+            this.questionService = questionService;
         }
 
         public int Create(JobOfferDto dto)
@@ -52,17 +54,29 @@ namespace BusinessLayer.Facades
 
         public void Update(int id, JobOfferDto jobOfferDto)
         {
-            using (this.UnitOfWorkProvider.Create())
+            using (var uow = this.UnitOfWorkProvider.Create())
             {
                 this.jobOfferService.Update(jobOfferDto);
+                uow.Commit();
             }
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            using (this.UnitOfWorkProvider.Create())
+            using (var uow = this.UnitOfWorkProvider.Create())
             {
+                JobOfferDto job = await this.jobOfferService.GetAsync(id, true);
+
+                foreach (QuestionDto question in job.Questions)
+                {
+                    if (question.JobApplications.Count == 1)
+                    {
+                        this.questionService.Delete(question.Id);
+                    }
+                }
+
                 this.jobOfferService.Delete(id);
+                await uow.CommitAsync();
             }
         }
 
