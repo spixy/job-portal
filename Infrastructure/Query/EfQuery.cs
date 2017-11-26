@@ -66,6 +66,14 @@ namespace Infrastructure.Query
             return UseAscendingOrder ? queryable.OrderBy(sortExpression) : queryable.OrderByDescending(sortExpression);
         }
 
+        /// <summary>
+        /// https://stackoverflow.com/a/23161618
+        /// </summary>
+        public void FixEfProviderServicesProblem()
+        {
+            var instance = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
+        }
+
         private IQueryable<TEntity> UseFilterCriteria(IQueryable<TEntity> queryable)
         {
             var bodyExpression = Predicate is CompositePredicate composite ? CombineBinaryExpressions(composite) : BuildBinaryExpression(Predicate as SimplePredicate);
