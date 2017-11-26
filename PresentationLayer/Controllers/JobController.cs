@@ -12,10 +12,10 @@ namespace PresentationLayer.Controllers
 {
     public class JobController : Controller
     {
-        //public IJobOfferFacade jobOfferFacade { get; set; }
+        public IJobOfferFacade JobOfferFacade { get; set; }
 
         // TODO: docasne riesenie
-        public IJobOfferFacade jobOfferFacade => MvcApplication.container.Resolve<JobOfferFacade>();
+        private IJobOfferFacade jobOfferFacade => JobOfferFacade ?? MvcApplication.container.Resolve<JobOfferFacade>();
 
         // GET: Job
         public async Task<ActionResult> Index(int page = 1)
@@ -53,7 +53,7 @@ namespace PresentationLayer.Controllers
             }
             catch
             {
-                return View("Index");
+                return View("Index", new JobOfferDto[0]);
             }
         }
 
