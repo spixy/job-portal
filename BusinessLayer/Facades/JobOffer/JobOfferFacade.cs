@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using BusinessLayer.DTOs;
+using BusinessLayer.DTOs.Common;
 using BusinessLayer.DTOs.Filters;
 using BusinessLayer.Facades.Common;
 using BusinessLayer.Services.JobOffers;
@@ -87,6 +88,14 @@ namespace BusinessLayer.Facades
             using (this.UnitOfWorkProvider.Create())
             {
                 return await this.jobOfferService.GetFilteredAsync(dto);
+            }
+        }
+
+        public async Task<QueryResultDto<JobOfferDto, JobOfferFilterDto>> GetAllOffers()
+        {
+            using (UnitOfWorkProvider.Create())
+            {
+                return await jobOfferService.ListAllAsync();
             }
         }
     }

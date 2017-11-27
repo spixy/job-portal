@@ -15,8 +15,6 @@ namespace BusinessLayer.DTOs
 
         public List<QuestionDto> Questions { get; set; }
 
-        public List<JobApplicationDto> JobApplications { get; set; }
-
         public List<SkillDto> Skills { get; set; }
     }
 }
