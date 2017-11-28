@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using BusinessLayer.DTOs;
 using BusinessLayer.Facades;
+using BusinessLayer.Facades.JobOffer;
 
 namespace WebApi.Controllers
 {

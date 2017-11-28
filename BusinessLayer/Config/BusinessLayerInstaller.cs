@@ -9,12 +9,12 @@ using Castle.Windsor;
 
 namespace BusinessLayer.Config
 {
-    public class DiInstaller : IWindsorInstaller
+    public class BusinessLayerInstaller : IWindsorInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             // DAL
-            new DataAccessLayer.Config.DiInstaller().Install(container, store);
+            new DataAccessLayer.Config.DataAccessLayerInstaller().Install(container, store);
 
             container.Register(
                 Classes.FromThisAssembly()

@@ -9,7 +9,7 @@ namespace PresentationLayer.Controllers
     /// </summary>
     public class EmployerController : Controller
     {
-        public IEmployerFacade employerFacade { get; set; }
+        public IEmployerFacade EmployerFacade { get; set; }
 
         // GET: Employer
         public ActionResult Index()

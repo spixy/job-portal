@@ -10,7 +10,7 @@ namespace DataAccessLayer.Contexts
         /// <summary>
         /// Non-parametric constructor used by data access layer
         /// </summary>
-        public JobPortalDbContext() : base(Config.DiInstaller.ConnectionString)
+        public JobPortalDbContext() : base(Config.DataAccessLayerInstaller.ConnectionString)
         {
             Database.SetInitializer(new JobPortalDbInitializer());
         }

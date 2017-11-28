@@ -1,5 +1,5 @@
 ﻿
-namespace PresentationLayer.App_Start
+namespace PresentationLayer
 {
     public static class JobPortalSettings
     {

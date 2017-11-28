@@ -7,8 +7,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Filters;
-using BusinessLayer.Facades;
-using PresentationLayer.App_Start;
+using BusinessLayer.Facades.JobOffer;
 
 namespace PresentationLayer.Controllers
 {
@@ -16,9 +15,9 @@ namespace PresentationLayer.Controllers
     {
 #if DI_FIX
         // TODO: docasne riesenie
-        public IJobOfferFacade jobOfferFacade => MvcApplication.Container.Resolve<JobOfferFacade>();
+        public IJobOfferFacade JobOfferFacade => MvcApplication.Container.Resolve<JobOfferFacade>();
 #else
-        public IJobOfferFacade jobOfferFacade { get; set; }
+        public IJobOfferFacade JobOfferFacade { get; set; }
 #endif
 
         // GET: Job
@@ -37,7 +36,7 @@ namespace PresentationLayer.Controllers
         // GET: Job/Details/5
         public async Task<ActionResult> Details(int id)
         {
-            JobOfferDto job = await this.jobOfferFacade.Get(id);
+            JobOfferDto job = await this.JobOfferFacade.Get(id);
 
             if (id == 0)
             {
@@ -52,7 +51,7 @@ namespace PresentationLayer.Controllers
         {
             try
             {
-                IEnumerable<JobOfferDto> jobs = await this.jobOfferFacade.Get(filter);
+                IEnumerable<JobOfferDto> jobs = await this.JobOfferFacade.Get(filter);
                 return View("Index", jobs);
             }
             catch
@@ -73,7 +72,7 @@ namespace PresentationLayer.Controllers
         {
             try
             {
-                int id = this.jobOfferFacade.Create(jobOfferDto);
+                int id = this.JobOfferFacade.Create(jobOfferDto);
 
                 if (id == 0)
                 {
@@ -91,7 +90,7 @@ namespace PresentationLayer.Controllers
         // GET: Job/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            JobOfferDto job = await this.jobOfferFacade.Get(id);
+            JobOfferDto job = await this.JobOfferFacade.Get(id);
 
             if (id == 0)
             {
@@ -108,7 +107,7 @@ namespace PresentationLayer.Controllers
             try
             {
                 // TODO: Add update logic here
-                await this.jobOfferFacade.Update(id, jobOfferDto);
+                await this.JobOfferFacade.Update(id, jobOfferDto);
             }
             catch
             {
@@ -120,7 +119,7 @@ namespace PresentationLayer.Controllers
         // GET: Job/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-           await this.jobOfferFacade.Delete(id);
+           await this.JobOfferFacade.Delete(id);
             return RedirectToAction("Index");
         }
     }

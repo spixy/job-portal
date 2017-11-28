@@ -1,6 +1,6 @@
 ﻿using System.Web.Http;
 
-namespace PresentationLayer.App_Start
+namespace PresentationLayer
 {
     public class WebApiConfig
     {

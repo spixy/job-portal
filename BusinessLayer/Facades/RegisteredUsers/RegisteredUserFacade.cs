@@ -6,7 +6,7 @@ using BusinessLayer.Facades.Common;
 using BusinessLayer.Services.RegisteredUsers;
 using Infrastructure.UnitOfWork;
 
-namespace BusinessLayer.Facades.Employers
+namespace BusinessLayer.Facades.RegisteredUsers
 {
     public class RegisteredUserFacade : FacadeBase, IRegisteredUserFacade
     {

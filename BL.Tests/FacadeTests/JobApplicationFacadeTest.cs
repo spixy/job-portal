@@ -3,6 +3,7 @@ using BL.Tests.FacadeTests.Common;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Filters;
 using BusinessLayer.Facades;
+using BusinessLayer.Facades.JobOffer;
 using BusinessLayer.QueryObjects.Common;
 using BusinessLayer.Services.JobOffers;
 using BusinessLayer.Services.Questions;

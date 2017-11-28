@@ -8,7 +8,7 @@ using BusinessLayer.Services.JobOffers;
 using BusinessLayer.Services.Questions;
 using Infrastructure.UnitOfWork;
 
-namespace BusinessLayer.Facades
+namespace BusinessLayer.Facades.JobOffer
 {
     public class JobOfferFacade : FacadeBase, IJobOfferFacade
     {

@@ -74,7 +74,7 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\DiInstaller.cs" />
+    <Compile Include="Config\DataAccessLayerInstaller.cs" />
     <Compile Include="Enums\Education.cs" />
     <Compile Include="Entities\Office.cs" />
     <Compile Include="Entities\RegisteredUser.cs" />

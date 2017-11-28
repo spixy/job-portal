@@ -2,7 +2,7 @@
 using System.Web.Optimization;
 using System.Web.Routing;
 using Castle.Windsor;
-using PresentationLayer.App_Start.Windsor;
+using PresentationLayer.Windsor;
 
 namespace PresentationLayer
 {
@@ -22,8 +22,8 @@ namespace PresentationLayer
 
         private void BootstrapContainer()
         {
-            Container.Install(new BusinessLayer.Config.DiInstaller());
-            Container.Install(new PresentationLayer.App_Start.Windsor.DiInstaller());
+            Container.Install(new BusinessLayer.Config.BusinessLayerInstaller());
+            Container.Install(new PresentationLayerInstaller());
 
             IControllerFactory controllerFactory = new WindsorControllerFactory(Container.Kernel);
             ControllerBuilder.Current.SetControllerFactory(controllerFactory);

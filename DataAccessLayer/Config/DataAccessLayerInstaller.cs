@@ -10,7 +10,7 @@ using Infrastructure.UnitOfWork;
 
 namespace DataAccessLayer.Config
 {
-    public class DiInstaller : IWindsorInstaller
+    public class DataAccessLayerInstaller : IWindsorInstaller
     {
         internal const string ConnectionString = "Data source=(localdb)\\mssqllocaldb;Database=my_db;Trusted_Connection=True;MultipleActiveResultSets=true";
 

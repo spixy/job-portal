@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Filters;
 
-namespace BusinessLayer.Facades
+namespace BusinessLayer.Facades.JobOffer
 {
     public interface IJobOfferFacade
     {

@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using BusinessLayer.Facades.Employers;
+using BusinessLayer.Facades.RegisteredUsers;
 
 namespace PresentationLayer.Controllers
 {
@@ -8,7 +9,7 @@ namespace PresentationLayer.Controllers
     /// </summary>
     public class RegisteredUserController : Controller
     {
-        public IRegisteredUserFacade registeredUserFacade { get; set; }
+        public IRegisteredUserFacade RegisteredUserFacade { get; set; }
 
         // GET: RegisteredUser
         public ActionResult Index()

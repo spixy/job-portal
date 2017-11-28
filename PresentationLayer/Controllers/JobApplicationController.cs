@@ -10,7 +10,7 @@ namespace PresentationLayer.Controllers
     [Route("ApplyJob")]
     public class JobApplicationController : Controller
     {
-        public IJobApplicationFacade jobApplicationFacade { get; set; }
+        public IJobApplicationFacade JobApplicationFacade { get; set; }
 
         // GET: ApplyJob
         public ActionResult Index()
