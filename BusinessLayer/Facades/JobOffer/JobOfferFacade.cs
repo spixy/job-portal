@@ -6,6 +6,7 @@ using BusinessLayer.DTOs.Filters;
 using BusinessLayer.Facades.Common;
 using BusinessLayer.Services.JobOffers;
 using BusinessLayer.Services.Questions;
+using BusinessLayer.Services.Skills;
 using Infrastructure.UnitOfWork;
 
 namespace BusinessLayer.Facades.JobOffer
@@ -14,11 +15,16 @@ namespace BusinessLayer.Facades.JobOffer
     {
         private readonly IJobOfferService jobOfferService;
         private readonly IQuestionService questionService;
+        private readonly ISkillService skillService;
 
-        public JobOfferFacade(IUnitOfWorkProvider unitOfWorkProvider, IJobOfferService jobOfferService, IQuestionService questionService) : base(unitOfWorkProvider)
+        public JobOfferFacade(IUnitOfWorkProvider unitOfWorkProvider,
+            IJobOfferService jobOfferService,
+            IQuestionService questionService,
+            ISkillService skillService) : base(unitOfWorkProvider)
         {
             this.jobOfferService = jobOfferService;
             this.questionService = questionService;
+            this.skillService = skillService;
         }
 
         public int Create(JobOfferDto dto)
@@ -52,6 +58,19 @@ namespace BusinessLayer.Facades.JobOffer
             using (this.UnitOfWorkProvider.Create())
             {
                 return await this.jobOfferService.GetByName(name);
+            }
+        }
+
+        public async Task<IEnumerable<JobOfferDto>> GetBySkillName(string skillName)
+        {
+            using (this.UnitOfWorkProvider.Create())
+            {
+                var skillDto = await this.skillService.GetByName(skillName);
+                if (skillDto == null)
+                {
+                    return new List<JobOfferDto>();
+                }
+                return await this.jobOfferService.GetBySkill(skillDto);
             }
         }
 

@@ -4,6 +4,7 @@ using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using DataAccessLayer.Contexts;
+using DataAccessLayer.Repositories;
 using Infrastructure.Query;
 using Infrastructure.Repository;
 using Infrastructure.UnitOfWork;
@@ -23,6 +24,9 @@ namespace DataAccessLayer.Config
                 Component.For<IUnitOfWorkProvider>()
                     .ImplementedBy<EfUnitOfWorkProvider>()
                     .LifestyleSingleton(),
+                Component.For<IJobOfferRepository>()
+                    .ImplementedBy<JobOfferRepository>()
+                    .LifestyleTransient(),
                 Component.For(typeof(IRepository<>))
                     .ImplementedBy(typeof(EfRepository<>))
                     .LifestyleTransient(),

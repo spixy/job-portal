@@ -154,7 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\WebApiConfig.cs" />
-    <Compile Include="Controllers\JobOfferController.cs" />
+    <Compile Include="Controllers\JobOffersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DependencyResolver.cs" />
     <Compile Include="DependencyScope.cs" />
@@ -162,7 +162,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WebApiInstaller.cs" />
+    <Compile Include="Config\WebApiInstaller.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

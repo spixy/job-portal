@@ -26,7 +26,7 @@ namespace BusinessLayer.QueryObjects
             var predicates = new List<IPredicate>(filter.Names
                 .Select(name => new SimplePredicate(
                     nameof(Skill.Name),
-                    ValueComparingOperator.StringContains,
+                    ValueComparingOperator.Equal,
                     name)));
             var predicate = new CompositePredicate(predicates, LogicalOperator.OR);
             return query.Where(predicate);
