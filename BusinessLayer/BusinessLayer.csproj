@@ -45,6 +45,7 @@
     <Compile Include="DTOs\Common\DtoBase.cs" />
     <Compile Include="DTOs\Common\FilterDtoBase.cs" />
     <Compile Include="DTOs\Common\QueryResultDto.cs" />
+    <Compile Include="DTOs\EmployerCreateDto.cs" />
     <Compile Include="DTOs\EmployerDto.cs" />
     <Compile Include="DTOs\Enums\Country.cs" />
     <Compile Include="DTOs\Enums\Education.cs" />
@@ -68,6 +69,9 @@
     <Compile Include="DTOs\RegisteredUserDto.cs" />
     <Compile Include="DTOs\SkillDto.cs" />
     <Compile Include="DTOs\UserBaseDto.cs" />
+    <Compile Include="DTOs\UserCreateDto.cs" />
+    <Compile Include="Facades\Auth\IUserFacade.cs" />
+    <Compile Include="Facades\Auth\UserFacade.cs" />
     <Compile Include="Facades\Common\FacadeBase.cs" />
     <Compile Include="Facades\Employers\EmployerFacade.cs" />
     <Compile Include="Facades\Employers\IEmployerFacade.cs" />
@@ -79,6 +83,8 @@
     <Compile Include="Facades\RegisteredUsers\RegisteredUserFacade.cs" />
     <Compile Include="Services\Answers\AnswerService.cs" />
     <Compile Include="Services\Answers\IAnswerService.cs" />
+    <Compile Include="Services\Auth\IUserService.cs" />
+    <Compile Include="Services\Auth\UserService.cs" />
     <Compile Include="Services\Candidate\CandidateService.cs" />
     <Compile Include="Services\Candidate\ICandidateService.cs" />
     <Compile Include="Services\Common\CrudQueryServiceBase.cs" />

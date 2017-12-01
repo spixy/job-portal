@@ -6,13 +6,16 @@ using Infrastructure;
 namespace DataAccessLayer.Entities
 {
     public class UserBase : IEntity
-    {
+	{
         public int Id { get; set; }
 
         [NotMapped]
         public virtual string TableName { get; } = nameof(JobPortalDbContext.UserBases);
 
-        [Required]
+	    [NotMapped]
+		public virtual string Roles { get; } = "UserBase";
+
+		[Required]
         public string Name { get; set; }
 
         [Required]
@@ -21,5 +24,5 @@ namespace DataAccessLayer.Entities
 
         [Phone]
         public string Phone { get; set; }
-    }
+	}
 }

@@ -32,7 +32,7 @@ namespace BusinessLayer.Facades.JobOffer
             using (var uow = this.UnitOfWorkProvider.Create())
             {
                 var created = this.jobOfferService.Create(dto);
-                uow.Commit();
+                uow.SaveChanges();
                 return created.Id;
             }
         }
@@ -79,7 +79,7 @@ namespace BusinessLayer.Facades.JobOffer
             using (var uow = this.UnitOfWorkProvider.Create())
             {
                 await this.jobOfferService.Update(jobOfferDto);
-                await uow.CommitAsync();
+                await uow.SaveChangesAsync();
             }
         }
 
@@ -98,7 +98,7 @@ namespace BusinessLayer.Facades.JobOffer
                 }
 
                 this.jobOfferService.Delete(id);
-                await uow.CommitAsync();
+                await uow.SaveChangesAsync();
             }
         }
 

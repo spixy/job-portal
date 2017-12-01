@@ -1,6 +1,8 @@
 ﻿#define DI_FIX
 
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -37,12 +39,6 @@ namespace PresentationLayer.Controllers
         public async Task<ActionResult> Details(int id)
         {
             JobOfferDto job = await this.JobOfferFacade.Get(id);
-
-            if (id == 0)
-            {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-            }
-
             return View(job);
         }
 
@@ -91,12 +87,6 @@ namespace PresentationLayer.Controllers
         public async Task<ActionResult> Edit(int id)
         {
             JobOfferDto job = await this.JobOfferFacade.Get(id);
-
-            if (id == 0)
-            {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-            }
-
             return View(job);
         }
 
@@ -109,10 +99,11 @@ namespace PresentationLayer.Controllers
                 // TODO: Add update logic here
                 await this.JobOfferFacade.Update(id, jobOfferDto);
             }
-            catch
+            catch (Exception ex)
             {
-                // ignored
+                Debug.WriteLine(ex);
             }
+
             return RedirectToAction("Details", new { id });
         }
 

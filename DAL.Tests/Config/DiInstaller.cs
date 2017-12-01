@@ -104,8 +104,10 @@ namespace DAL.Tests.Config
             Google = new Employer
             {
                 Name = "Google Inc.",
-                Email = "google@jobs.com"
-            };
+                Email = "google@jobs.com",
+	            Username = "google",
+	            Password = "*****"
+			};
 
             GoogleOffice = new Office
             {
@@ -119,7 +121,9 @@ namespace DAL.Tests.Config
             {
                 Name = "Sony Corporation",
                 Email = "sony@jobs.com",
-            };
+	            Username = "Sony-SK",
+	            Password = "*****"
+			};
 
             SonyOffice = new Office
             {
@@ -202,8 +206,10 @@ namespace DAL.Tests.Config
                 Email = "david@david.sk",
                 Education = Education.BachelorDegree,
                 Skills = new List<Skill> { Unix },
-                JobApplications = new List<JobApplication> { JobApplication1 }
-            };
+                JobApplications = new List<JobApplication> { JobApplication1 },
+	            Username = "David",
+	            Password = "*****"
+			};
 
             Lubos = new RegisteredUser
             {
@@ -211,8 +217,10 @@ namespace DAL.Tests.Config
                 Email = "lubos@lubos.sk",
                 Education = Education.DoctoralDegree,
                 Skills = new List<Skill> { Html },
-                JobApplications = new List<JobApplication>()
-            };
+                JobApplications = new List<JobApplication>(),
+	            Username = "Lubos",
+	            Password = "*****"
+			};
 
             context.RegisteredUsers.Add(David);
             context.RegisteredUsers.Add(Lubos);

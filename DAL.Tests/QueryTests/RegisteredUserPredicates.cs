@@ -30,7 +30,9 @@ namespace DAL.Tests.QueryTests
                     Name = "David",
                     Email = "david@david.sk",
                     Education = Education.BachelorDegree,
-                    Skills = new List<Skill> { new Skill { Name = "UNIX" } }
+                    Skills = new List<Skill> { new Skill { Name = "UNIX" } },
+					Username = "David",
+					Password = "****"
                 }
             }, 1, 10, 1);
 
@@ -60,8 +62,10 @@ namespace DAL.Tests.QueryTests
                     Email = "lubos@lubos.sk",
                     Education = Education.DoctoralDegree,
                     Skills = new List<Skill> { new Skill { Name = "HTML" } },
-                    JobApplications = new List<JobApplication>()
-                }
+                    JobApplications = new List<JobApplication>(),
+	                Username = "Lubos",
+	                Password = "*****"
+				}
             }, 1, 10, 1);
 
             CompositePredicate predicate = new CompositePredicate(new List<IPredicate>

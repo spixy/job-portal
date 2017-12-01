@@ -34,24 +34,24 @@ namespace BusinessLayer.Facades.JobApplication
                 }
 
                 var created = this.jobApplicationService.Create(dto.ApplicationDto);
-                uow.Commit();
+                uow.SaveChanges();
                 return created.Id;
             }
         }
 
-        public async Task Get(int id)
+        public async Task<JobApplicationDto> Get(int id)
         {
             using (this.UnitOfWorkProvider.Create())
             {
-                await this.jobApplicationService.GetAsync(id);
+                return await this.jobApplicationService.GetAsync(id);
             }
         }
 
-        public async Task Get(JobApplicationFilterDto dto)
+        public async Task<IEnumerable<JobApplicationDto>> Get(JobApplicationFilterDto dto)
         {
             using (this.UnitOfWorkProvider.Create())
             {
-                await this.jobApplicationService.GetByFilterAsync(dto);
+                return await this.jobApplicationService.GetByFilterAsync(dto);
             }
         }
 

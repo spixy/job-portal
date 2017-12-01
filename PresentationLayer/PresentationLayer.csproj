@@ -162,6 +162,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="App_Start\Windsor\PresentationLayerInstaller.cs" />
     <Compile Include="App_Start\Windsor\WindsorControllerFactory.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\JobApplicationController.cs" />
     <Compile Include="Controllers\EmployerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Account\LoginModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -213,14 +215,21 @@
     <Content Include="Views\JobApplication\List.cshtml" />
     <Content Include="Views\JobApplication\Details.cshtml" />
     <Content Include="Views\JobApplication\Create.cshtml" />
-    <Content Include="Views\Employer\Details.cshtml" />
-    <Content Include="Views\Employer\Edit.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Job\Index.cshtml" />
     <Content Include="Views\Job\Edit.cshtml" />
     <Content Include="Views\Job\Delete.cshtml" />
     <Content Include="Views\Job\Details.cshtml" />
     <Content Include="Views\Job\Create.cshtml" />
+    <Content Include="Views\Employer\MyJobs.cshtml" />
+    <Content Include="Views\Employer\JobOffer.cshtml" />
+    <Content Include="Views\Employer\JobApplication.cshtml" />
+    <Content Include="Views\Employer\CreateJob.cshtml" />
+    <Content Include="Views\Employer\EditJob.cshtml" />
+    <Content Include="Views\Employer\DeleteJob.cshtml" />
+    <Content Include="Views\Account\RegisterEmployer.cshtml" />
+    <Content Include="Views\Account\RegisterUser.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -52,7 +52,9 @@ namespace DataAccessLayer.Initializers
             Employer google = new Employer
             {
                 Name = "Google Inc.",
-                Email = "google@jobs.com"
+                Email = "google@jobs.com",
+				Username = "google",
+				Password = "******"
             };
 
             Office googleOffice = new Office
@@ -67,7 +69,9 @@ namespace DataAccessLayer.Initializers
             {
                 Name = "Sony Corporation",
                 Email = "sony@jobs.com",
-            };
+	            Username = "sony",
+	            Password = "******"
+			};
 
             Office sonyOffice = new Office
             {

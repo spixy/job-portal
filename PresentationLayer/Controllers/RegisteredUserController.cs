@@ -1,13 +1,13 @@
 ﻿using System.Web.Mvc;
-using BusinessLayer.Facades.Employers;
 using BusinessLayer.Facades.RegisteredUsers;
 
 namespace PresentationLayer.Controllers
 {
-    /// <summary>
-    /// Registruje userov, useri si mozu menit skilly, educations, atd
-    /// </summary>
-    public class RegisteredUserController : Controller
+	/// <summary>
+	/// Registruje userov, useri si mozu menit skilly, educations, atd
+	/// </summary>
+	[Authorize(Roles = "RegisteredUser")]
+	public class RegisteredUserController : Controller
     {
         public IRegisteredUserFacade RegisteredUserFacade { get; set; }
 

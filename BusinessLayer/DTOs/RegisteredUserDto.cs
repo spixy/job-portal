@@ -4,7 +4,13 @@ namespace BusinessLayer.DTOs
 {
     public class RegisteredUserDto : JobCandidateDto
     {
-        public List<JobApplicationDto> JobApplications { get; set; }
+	    public string Username { get; set; }
+
+	    public string Password { get; set; }
+
+	    public string Roles { get; set; }
+
+		public List<JobApplicationDto> JobApplications { get; set; }
 
         protected bool Equals(RegisteredUserDto other)
         {

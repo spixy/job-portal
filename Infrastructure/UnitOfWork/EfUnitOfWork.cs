@@ -11,9 +11,9 @@ namespace Infrastructure.UnitOfWork
         public EfUnitOfWork(Func<DbContext> dbContextFactory)
         {
             this.Context = dbContextFactory?.Invoke() ?? throw new ArgumentException("Db context factory cant be null!");
-#if DEBUG
+/*#if DEBUG
             this.Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-#endif
+#endif*/
         }
 
         public void Dispose()
@@ -21,12 +21,12 @@ namespace Infrastructure.UnitOfWork
             Context.Dispose();
         }
 
-        public void Commit()
+        public void SaveChanges()
         {
             Context.SaveChanges();
         }
 
-        public async Task CommitAsync()
+        public async Task SaveChangesAsync()
         {
             await Context.SaveChangesAsync();
         }

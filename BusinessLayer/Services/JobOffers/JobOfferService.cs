@@ -8,13 +8,12 @@ using BusinessLayer.Services.Common;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Repositories;
 using Infrastructure.Query;
-using Infrastructure.Repository;
 
 namespace BusinessLayer.Services.JobOffers
 {
     public class JobOfferService : CrudQueryServiceBase<JobOffer, JobOfferDto, JobOfferFilterDto>, IJobOfferService
     {
-        private IJobOfferRepository jobOfferRepository;
+        private readonly IJobOfferRepository jobOfferRepository;
 
         public JobOfferService(IMapper mapper, IJobOfferRepository jobOfferRepository,
             QueryObjectBase<JobOfferDto, JobOffer, JobOfferFilterDto, IQuery<JobOffer>> query)

@@ -5,11 +5,11 @@ namespace BL.Tests.FacadeTests.Common
 {
     internal class StubUow : IUnitOfWork
     {
-        public void Commit()
+        public void SaveChanges()
         {
         }
 
-        public Task CommitAsync()
+        public Task SaveChangesAsync()
         {
             return Task.Delay(15);
         }

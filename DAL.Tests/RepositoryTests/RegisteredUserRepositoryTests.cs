@@ -41,13 +41,15 @@ namespace DAL.Tests.RepositoryTests
                 Name = "Viktor",
                 Email = "viktor@viktor.sk",
                 Education = Education.HighSchool,
-                Skills = new List<Skill> { DotNet, CSharp, Html }
-            };
+                Skills = new List<Skill> { DotNet, CSharp, Html },
+	            Username = "Viktor",
+	            Password = "*****"
+			};
 
             using (var uow = unitOfWorkProvider.Create())
             {
                 userRepository.Create(viktor);
-                await uow.CommitAsync();
+                await uow.SaveChangesAsync();
             }
 
             Assert.IsFalse(viktor.Id.Equals(0));
@@ -65,11 +67,13 @@ namespace DAL.Tests.RepositoryTests
                 {
                     Id = David.Id,
                     Name = "Jozko",
-                    Email = "jozko@jozko.sk"
-                };
+                    Email = "jozko@jozko.sk",
+	                Username = "Jozko",
+	                Password = "*****"
+				};
 
                 userRepository.Update(newUser);
-                await uow.CommitAsync();
+                await uow.SaveChangesAsync();
                 updatedUser = await userRepository.GetAsync(David.Id);
             }
 
@@ -85,7 +89,7 @@ namespace DAL.Tests.RepositoryTests
             using (var uow = unitOfWorkProvider.Create())
             {
                 userRepository.Delete(David.Id);
-                await uow.CommitAsync();
+                await uow.SaveChangesAsync();
                 deletedUser = await userRepository.GetAsync(David.Id);
             }
 

@@ -5,7 +5,7 @@ namespace Infrastructure.UnitOfWork
 {
     public interface IUnitOfWork : IDisposable
     {
-        void Commit();
-        Task CommitAsync();
+        void SaveChanges();
+        Task SaveChangesAsync();
     }
 }

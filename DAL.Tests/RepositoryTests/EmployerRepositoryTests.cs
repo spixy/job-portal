@@ -37,13 +37,15 @@ namespace DAL.Tests.RepositoryTests
             var yahoo = new Employer
             {
                 Name = "Yahoo! Inc.",
-                Email = "yahoo@jobs.com"
-            };
+                Email = "yahoo@jobs.com",
+	            Username = "yahoo",
+	            Password = "*****"
+			};
 
             using (var uow = unitOfWorkProvider.Create())
             {
                 employerRepository.Create(yahoo);
-                await uow.CommitAsync();
+                await uow.SaveChangesAsync();
             }
 
             Assert.IsFalse(yahoo.Id.Equals(0));
@@ -61,11 +63,13 @@ namespace DAL.Tests.RepositoryTests
                 {
                     Id = Sony.Id,
                     Name = "Sony Slovakia",
-                    Email = "sony-slovakia@jobs.com"
-                };
+                    Email = "sony-slovakia@jobs.com",
+	                Username = "Sony-SK",
+	                Password = "*****"
+				};
 
                 employerRepository.Update(newEmployer);
-                await uow.CommitAsync();
+                await uow.SaveChangesAsync();
                 updatedEmployer = await employerRepository.GetAsync(Sony.Id);
             }
 
@@ -81,7 +85,7 @@ namespace DAL.Tests.RepositoryTests
             using (var uow = unitOfWorkProvider.Create())
             {
                 employerRepository.Delete(Google.Id);
-                await uow.CommitAsync();
+                await uow.SaveChangesAsync();
                 deletedEmployer = await employerRepository.GetAsync(Google.Id);
             }
 
