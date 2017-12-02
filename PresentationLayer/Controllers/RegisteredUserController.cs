@@ -6,10 +6,10 @@ namespace PresentationLayer.Controllers
 	/// <summary>
 	/// Registruje userov, useri si mozu menit skilly, educations, atd
 	/// </summary>
-	[Authorize(Roles = "RegisteredUser")]
+	[Authorize(Roles = "User" /*Role.User.GetString()*/)]
 	public class RegisteredUserController : Controller
-    {
-        public IRegisteredUserFacade RegisteredUserFacade { get; set; }
+	{
+		private IRegisteredUserFacade RegisteredUserFacade => MvcApplication.Container.Resolve<RegisteredUserFacade>();
 
         // GET: RegisteredUser
         public ActionResult Index()

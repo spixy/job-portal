@@ -45,17 +45,17 @@ namespace DataAccessLayer.Initializers
             context.JobCandidates.Add(candidate1);
             context.JobCandidates.Add(candidate2);
 
-            #endregion
+			#endregion
 
-            #region Employers
+			#region Employers
 
-            Employer google = new Employer
+			Employer google = new Employer
             {
                 Name = "Google Inc.",
                 Email = "google@jobs.com",
 				Username = "google",
-				Password = "******"
-            };
+				Password = "HsewCti7AW7QvbIMu976KVD0mILylbEoXU+p3sRfxBRL+wfuasxodi0SwuM=dpsI2M0k7vgc68wL" // zahashovane "google"
+			};
 
             Office googleOffice = new Office
             {
@@ -70,7 +70,7 @@ namespace DataAccessLayer.Initializers
                 Name = "Sony Corporation",
                 Email = "sony@jobs.com",
 	            Username = "sony",
-	            Password = "******"
+	            Password = "KHfaaRLJ2hXlNp/9WH05K2x2gOx2VrrxQ1EUkeYsTsb0WcIczmlT5vFwe9c=bqMzJSFAepKUm/VV" // zahashovane "sony"
 			};
 
             Office sonyOffice = new Office
@@ -144,9 +144,38 @@ namespace DataAccessLayer.Initializers
             context.JobApplications.Add(jobApplication1);
             context.Answers.Add(a1);
 
-            #endregion
+			#endregion
 
-            base.Seed(context);
+	        #region Job Applications
+
+			RegisteredUser David = new RegisteredUser
+	        {
+		        Name = "David",
+		        Email = "david@david.sk",
+		        Education = Education.BachelorDegree,
+		        Skills = new List<Skill> { unix },
+		        JobApplications = new List<JobApplication> { jobApplication1 },
+		        Username = "David",
+		        Password = "DuM4dT4M6ozQXl1TB9BG1frBKz+C2vUDW5quhtta3IJ16/vwXsgwBaSouj4=iDzHfQLao/mnlST/" // zahashovane "david"
+	        };
+
+	        RegisteredUser Lubos = new RegisteredUser
+	        {
+		        Name = "Lubos",
+		        Email = "lubos@lubos.sk",
+		        Education = Education.DoctoralDegree,
+		        Skills = new List<Skill> { html },
+		        JobApplications = new List<JobApplication>(),
+		        Username = "Lubos",
+		        Password = "l0Jy9gqcm18meRjv64WDXuyXhFhyu9Du7GKONBnJsl+aF548sq5GJoqcJOk=rMjTy9mRjGbH3F5Q" // zahashovane "lubos"
+	        };
+
+	        context.RegisteredUsers.Add(David);
+	        context.RegisteredUsers.Add(Lubos);
+
+	        #endregion
+
+			base.Seed(context);
         }
     }
 }

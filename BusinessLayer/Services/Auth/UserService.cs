@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -15,7 +16,8 @@ namespace BusinessLayer.Services.Auth
 {
 	public class UserService : ServiceBase, IUserService
 	{
-		private const int saltSize = 24;
+		private const int rawSaltSize = 24;
+		private const int base64SaltSize = rawSaltSize * 8 / 6;
 
 		private readonly QueryObjectBase<UserBaseDto, UserBase, UserBaseFilterDto, IQuery<UserBase>> userQueryObject;
 
@@ -30,42 +32,53 @@ namespace BusinessLayer.Services.Auth
 			return queryResult.Items.SingleOrDefault();
 		}
 
-		public bool VerifyHashedPassword(string hashedPassword, string password)
+		public bool VerifyHashedPassword(string userHashedPassword, string inputPassword)
 		{
-			string pass = CreatePassword(password, false);
+			/*Debug.WriteLine("X: google => " + this.CreatePassword("google"));
+			Debug.WriteLine("X: sony => " + this.CreatePassword("sony"));
+			Debug.WriteLine("X: lubos => " + this.CreatePassword("lubos"));
+			Debug.WriteLine("X: david => " + this.CreatePassword("david"));*/
 
-			int len = hashedPassword.Length - saltSize;
+			string inputHashedPassNoSalt = CreatePassword(inputPassword, false);
 
-			return hashedPassword.Substring(saltSize / 2, len) == pass;
+			int len = userHashedPassword.Length - base64SaltSize;
+			string userHashedPasswordsNoSalt = userHashedPassword.Substring(base64SaltSize / 2, len);
+
+			return userHashedPasswordsNoSalt == inputHashedPassNoSalt;
 		}
 
 		public string CreatePassword(string password, bool withSalt = true)
 		{
-			StringBuilder stringBuilder = new StringBuilder();
-			string salt = withSalt ? GenerateSalt(saltSize) : string.Empty;
-
 			using (var sha256 = new SHA256Managed())
 			{
-				byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+				byte[] hash = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
 
-				stringBuilder.Append(salt.Substring(0, saltSize / 2));
-				foreach (byte b in bytes)
+				if (withSalt)
 				{
-					stringBuilder.Append(b.ToString("x2"));
-				}
-				stringBuilder.Append(salt.Substring(saltSize / 2));
+					byte[] salt = GenerateSaltBytes(rawSaltSize);
+					string str = Convert.ToBase64String(salt);
 
-				return stringBuilder.ToString();
+					string result = Convert.ToBase64String(hash);
+
+					result = str.Substring(0, str.Length / 2) + result + str.Substring(str.Length / 2);
+
+					return result;
+				}
+				else
+				{
+					string result = Convert.ToBase64String(hash);
+					return result;
+				}
 			}
 		}
 
-		private string GenerateSalt(int length)
+		private byte[] GenerateSaltBytes(int length)
 		{
 			using (var cryptoServiceProvider = new RNGCryptoServiceProvider())
 			{
 				byte[] bytes = new byte[length];
 				cryptoServiceProvider.GetBytes(bytes);
-				return BitConverter.ToString(bytes).Replace("-", string.Empty).Substring(0, length);
+				return bytes;
 			}
 		}
 	}

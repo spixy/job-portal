@@ -9,5 +9,6 @@ namespace BusinessLayer.Services.RegisteredUsers
     public interface IRegisteredUserService : ICrudService<RegisteredUserDto, RegisteredUserFilterDto>
     {
         Task<IEnumerable<RegisteredUserDto>> GetBySkills(List<SkillDto> skills);
-    }
+	    RegisteredUserDto Create(RegisteredUserCreateDto createDto);
+	}
 }

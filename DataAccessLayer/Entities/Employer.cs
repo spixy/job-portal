@@ -10,9 +10,6 @@ namespace DataAccessLayer.Entities
         [NotMapped]
         public override string TableName { get; } = nameof(JobPortalDbContext.Employers);
 
-	    [NotMapped]
-		public override string Roles { get; } = "Employer";
-
 		public virtual List<JobOffer> JobOffers { get; set; }
 
 	    [Required]

@@ -106,7 +106,7 @@ namespace DAL.Tests.Config
                 Name = "Google Inc.",
                 Email = "google@jobs.com",
 	            Username = "google",
-	            Password = "*****"
+	            Password = "HsewCti7AW7QvbIMu976KVD0mILylbEoXU+p3sRfxBRL+wfuasxodi0SwuM=dpsI2M0k7vgc68wL" // zahashovane "google"
 			};
 
             GoogleOffice = new Office
@@ -122,7 +122,7 @@ namespace DAL.Tests.Config
                 Name = "Sony Corporation",
                 Email = "sony@jobs.com",
 	            Username = "Sony-SK",
-	            Password = "*****"
+	            Password = "KHfaaRLJ2hXlNp/9WH05K2x2gOx2VrrxQ1EUkeYsTsb0WcIczmlT5vFwe9c=bqMzJSFAepKUm/VV" // zahashovane "sony"
 			};
 
             SonyOffice = new Office
@@ -208,7 +208,7 @@ namespace DAL.Tests.Config
                 Skills = new List<Skill> { Unix },
                 JobApplications = new List<JobApplication> { JobApplication1 },
 	            Username = "David",
-	            Password = "*****"
+	            Password = "DuM4dT4M6ozQXl1TB9BG1frBKz+C2vUDW5quhtta3IJ16/vwXsgwBaSouj4=iDzHfQLao/mnlST/" // zahashovane "david"
 			};
 
             Lubos = new RegisteredUser
@@ -219,7 +219,7 @@ namespace DAL.Tests.Config
                 Skills = new List<Skill> { Html },
                 JobApplications = new List<JobApplication>(),
 	            Username = "Lubos",
-	            Password = "*****"
+	            Password = "l0Jy9gqcm18meRjv64WDXuyXhFhyu9Du7GKONBnJsl+aF548sq5GJoqcJOk=rMjTy9mRjGbH3F5Q" // zahashovane "lubos"
 			};
 
             context.RegisteredUsers.Add(David);

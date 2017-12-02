@@ -11,10 +11,10 @@ namespace BusinessLayer.Facades.Auth
 	public class UserFacade : FacadeBase, IUserFacade
 	{
 		private readonly IUserService userService;
-		private readonly IEmployerFacade employerFacade;
-		private readonly IRegisteredUserFacade registeredUserFacade;
+		private readonly EmployerFacade employerFacade;
+		private readonly RegisteredUserFacade registeredUserFacade;
 
-		public UserFacade(IUnitOfWorkProvider unitOfWorkProvider, IUserService userService, IEmployerFacade employerFacade, IRegisteredUserFacade registeredUserFacade) : base(unitOfWorkProvider)
+		public UserFacade(IUnitOfWorkProvider unitOfWorkProvider, IUserService userService, EmployerFacade employerFacade, RegisteredUserFacade registeredUserFacade) : base(unitOfWorkProvider)
 		{
 			this.userService = userService;
 			this.employerFacade = employerFacade;
@@ -29,21 +29,21 @@ namespace BusinessLayer.Facades.Auth
 			}
 		}
 
-		public async Task<AuthResult> AuthorizeUserAsync(string username, string password)
+		public async Task<LoginDto> AuthorizeUserAsync(string username, string password)
 		{
 			var ret = await this.employerFacade.AuthorizeUserAsync(username, password);
-			if (ret.Item1)
+			if (ret.Success)
 			{
-				return AuthResult.Employer;
+				return ret;
 			}
 
 			ret = await this.registeredUserFacade.AuthorizeUserAsync(username, password);
-			if (ret.Item1)
+			if (ret.Success)
 			{
-				return AuthResult.RegisteredUser;
+				return ret;
 			}
 
-			return AuthResult.Fail;
+			return ret;
 		}
 	}
 }

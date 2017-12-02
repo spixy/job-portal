@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Filters;
@@ -13,7 +12,7 @@ namespace BusinessLayer.Facades.Employers
         Task<EmployerDto> Get(int id);
         Task<EmployerDto> GetByEmail(string email);
         Task<EmployerDto> GetByName(string name);
-	    Task<Tuple<bool, string>> AuthorizeUserAsync(string username, string password);
-
+        Task<EmployerDto> GetByUsername(string name);
+		Task<LoginDto> AuthorizeUserAsync(string username, string password);
     }
 }

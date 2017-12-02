@@ -1,7 +1,7 @@
 ﻿@model BusinessLayer.DTOs.JobOfferDto
 
 @{
-    ViewBag.Title = "JobOffer";
+    ViewBag.Title = "Job Offer";
 }
 
 <h2>JobOffer</h2>
@@ -19,11 +19,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.EmployerId)
+            @Html.DisplayNameFor(model => model.Description)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.EmployerId)
+            @Html.DisplayFor(model => model.Description)
         </dd>
 
         <dt>
@@ -35,16 +35,55 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.JobApplications)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Description)
+            @Html.DisplayFor(model => model.JobApplications.Count)
         </dd>
-
     </dl>
 </div>
+
+<table class="table">
+    <tr>
+        <th>
+            Candidate
+        </th>
+        <th>
+            Answers
+        </th>
+        <th>
+            Status
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.JobApplications) {
+        <tr>
+            <td>
+                @Html.ActionLink(item.JobCandidate.Name, "Index", "Users", new { id = item.JobCandidate.Id }, null)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobCandidate.Education)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Skills)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Answers)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.ActionLink("Accept", "AcceptApplication", new { id=item.Id }) |
+                @Html.ActionLink("Decline", "DeclineApplication", new { id=item.Id })
+            </td>
+        </tr>
+    }
+</table>
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Edit", "EditJob", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

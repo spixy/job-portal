@@ -2,7 +2,7 @@
 
 namespace BusinessLayer.DTOs
 {
-	public class UserCreateDto : UserBaseDto
+	public class RegisteredUserCreateDto : UserBaseDto
 	{
 		[Required]
 		public string Username { get; set; }

@@ -62,8 +62,7 @@ namespace BusinessLayer.Services.JobApplications
             return await ChangeApplicationStatus(jobCandidateId, job => job.Status = Status.Accepted);
         }
 
-        private async Task<bool> ChangeApplicationStatus(int jobCandidateId,
-            Action<JobApplicationDto> changeFunction)
+        private async Task<bool> ChangeApplicationStatus(int jobCandidateId, Action<JobApplicationDto> changeFunction)
         {
             JobApplicationDto application = await GetAsync(jobCandidateId, false);
             if (application == null)

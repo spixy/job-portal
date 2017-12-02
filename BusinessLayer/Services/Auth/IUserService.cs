@@ -7,6 +7,6 @@ namespace BusinessLayer.Services.Auth
 	{
 		string CreatePassword(string password, bool withSalt = true);
 		Task<UserBaseDto> GetUserByUsernameAsync(string username);
-		bool VerifyHashedPassword(string hashedPassword, string password);
+		bool VerifyHashedPassword(string userHashedPassword, string inputPassword);
 	}
 }

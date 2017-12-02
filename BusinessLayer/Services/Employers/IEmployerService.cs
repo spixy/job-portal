@@ -11,5 +11,6 @@ namespace BusinessLayer.Services.Employers
         Task<EmployerDto> GetByName(string name);
         Task<EmployerDto> GetByEmail(string email);
         Task<QueryResultDto<EmployerDto, EmployerFilterDto>> GetFiltered(EmployerFilterDto filter);
-    }
+	    EmployerDto Create(EmployerCreateDto createDto);
+	}
 }

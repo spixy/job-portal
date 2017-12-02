@@ -12,7 +12,9 @@ namespace BusinessLayer.DTOs
 
         public int JobCandidateId { get; set; }
 
-        public Status Status { get; set; }
+	    public JobCandidateDto JobCandidate { get; set; }
+
+		public Status Status { get; set; }
 
         public List<AnswerDto> Answers { get; set; }
     }

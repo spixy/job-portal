@@ -12,9 +12,6 @@ namespace DataAccessLayer.Entities
         [NotMapped]
         public virtual string TableName { get; } = nameof(JobPortalDbContext.UserBases);
 
-	    [NotMapped]
-		public virtual string Roles { get; } = "UserBase";
-
 		[Required]
         public string Name { get; set; }
 

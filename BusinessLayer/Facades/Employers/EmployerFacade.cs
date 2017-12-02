@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
+using BusinessLayer.Account;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Filters;
 using BusinessLayer.Facades.Common;
@@ -33,9 +33,8 @@ namespace BusinessLayer.Facades.Employers
 					throw new ArgumentException();
 				}
 
-				EmployerDto employer = Mapper.Map<EmployerDto>(employerDto);
-				employer.Password = userService.CreatePassword(employerDto.Password);
-				this.employerService.Create(employer);
+			    employerDto.Password = userService.CreatePassword(employerDto.Password);
+				var employer = employerService.Create(employerDto);
 			    await uow.SaveChangesAsync();
 				return employer.Id;
 		    }
@@ -65,7 +64,16 @@ namespace BusinessLayer.Facades.Employers
             }
         }
 
-        public async Task<IEnumerable<EmployerDto>> Get(EmployerFilterDto dto)
+	    public async Task<EmployerDto> GetByUsername(string username)
+	    {
+			using (this.UnitOfWorkProvider.Create())
+			{				
+				var result = await this.employerService.GetFiltered(new EmployerFilterDto {UserName = username});
+				return result.Items.FirstOrDefault();
+			}
+		}
+
+	    public async Task<IEnumerable<EmployerDto>> Get(EmployerFilterDto dto)
         {
             using (this.UnitOfWorkProvider.Create())
             {
@@ -74,23 +82,23 @@ namespace BusinessLayer.Facades.Employers
             }
         }
 
-	    public async Task<Tuple<bool, string>> AuthorizeUserAsync(string username, string password)
+	    public async Task<LoginDto> AuthorizeUserAsync(string username, string password)
 	    {
 		    using (this.UnitOfWorkProvider.Create())
 		    {
 			    var employerResult = await this.employerService.ListAllAsync(new EmployerFilterDto {UserName = username});
 
 			    bool succ = false;
-			    string roles = "";
+			    Role role = Role.None;
 
-			    if (employerResult.Items.Count() == 1)
+				if (employerResult.Items.Count() == 1)
 			    {
 				    EmployerDto employer = employerResult.Items.SingleOrDefault();
 				    succ = this.userService.VerifyHashedPassword(employer.Password, password);
-				    roles = employer.Roles;
+				    role = Role.Employer;
 			    }
 
-			    return new Tuple<bool, string>(succ, roles);
+			    return new LoginDto(succ, role);
 		    }
 	    }
 	}

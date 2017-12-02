@@ -10,7 +10,7 @@ using Infrastructure.UnitOfWork;
 namespace BusinessLayer.Facades.JobApplication
 {
     public class JobApplicationFacade : FacadeBase, IJobApplicationFacade
-    {
+	{
         private readonly IJobApplicationService jobApplicationService;
         private readonly ICandidateService candidateServiceService;
 

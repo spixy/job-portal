@@ -22,21 +22,22 @@ namespace BusinessLayer.QueryObjects
 
             if (!string.IsNullOrWhiteSpace(filter.Email))
             {
-                predicates.Add(new SimplePredicate(nameof(Employer.Email), ValueComparingOperator.Equal,
-                    filter.Email));
+                predicates.Add(new SimplePredicate(nameof(Employer.Email), ValueComparingOperator.Equal, filter.Email));
             }
             if (!string.IsNullOrWhiteSpace(filter.Name))
             {
-                predicates.Add(new SimplePredicate(nameof(Employer.Name), ValueComparingOperator.Equal,
-                    filter.Name));
+                predicates.Add(new SimplePredicate(nameof(Employer.Name), ValueComparingOperator.Equal, filter.Name));
             }
             if (!string.IsNullOrWhiteSpace(filter.Phone))
             {
-                predicates.Add(new SimplePredicate(nameof(Employer.Phone), ValueComparingOperator.Equal,
-                    filter.Phone));
-            }
+                predicates.Add(new SimplePredicate(nameof(Employer.Phone), ValueComparingOperator.Equal, filter.Phone));
+			}
+			if (!string.IsNullOrWhiteSpace(filter.UserName))
+			{
+				predicates.Add(new SimplePredicate(nameof(Employer.Username), ValueComparingOperator.Equal, filter.UserName));
+			}
 
-            return MergePredicates(predicates);
+			return MergePredicates(predicates);
         }
     }
 }

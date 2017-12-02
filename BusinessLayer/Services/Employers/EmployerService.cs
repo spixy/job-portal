@@ -41,5 +41,11 @@ namespace BusinessLayer.Services.Employers
         {
             return await Query.ExecuteQuery(filter);
         }
+
+	    public EmployerDto Create(EmployerCreateDto createDto)
+	    {
+			EmployerDto employerDto = Mapper.Map<EmployerDto>(createDto);
+		    return this.Create(employerDto);
+	    }
     }
 }

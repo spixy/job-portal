@@ -9,7 +9,7 @@ namespace BusinessLayer.DTOs
 
         public List<SkillDto> Skills { get; set; }
 
-        protected bool Equals(JobCandidateDto other)
+	    protected bool Equals(JobCandidateDto other)
         {
             return base.Equals(other) && this.Education == other.Education && this.Skills.Equals(other.Skills);
         }

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using BusinessLayer.Account;
 using BusinessLayer.DTOs;
 using BusinessLayer.Facades.Auth;
 using BusinessLayer.Facades.Employers;
@@ -11,49 +14,69 @@ namespace PresentationLayer.Controllers
 {
     public class AccountController : Controller
     {
-		private IEmployerFacade employerFacade { get; set; }
-		private IRegisteredUserFacade registeredUserFacade { get; set; }
-		private IUserFacade userFacade { get; set; }
+	    private IEmployerFacade EmployerFacade => MvcApplication.Container.Resolve<EmployerFacade>();
+	    private IRegisteredUserFacade RegisteredUserFacade => MvcApplication.Container.Resolve<RegisteredUserFacade>();
+	    private IUserFacade UserFacade => MvcApplication.Container.Resolve<UserFacade>();
 
 		// GET: Account/Login
 		public ActionResult Login()
         {
-            return View();
+			return View();
         }
 
 	    // POST: Account/RegisterUser
 	    [HttpPost]
-	    public async Task<ActionResult> Login(LoginModel loginModel)
-	    {
-		    try
+	    public async Task<ActionResult> Login(LoginModel loginModel, string returnUrl)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View();
+			}
+
+			LoginDto result = await this.UserFacade.AuthorizeUserAsync(loginModel.Username, loginModel.Password);
+
+		    if (result.Success)
 		    {
-			    AuthResult result = await this.userFacade.AuthorizeUserAsync(loginModel.Username, loginModel.Password);
+				FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(1, loginModel.Username, DateTime.Now, DateTime.Now.AddHours(1), false, result.Roles.GetString());
+			    string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+			    HttpCookie authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+			    HttpContext.Response.Cookies.Add(authCookie);
 
-			    switch (result)
+			    if (!string.IsNullOrEmpty(returnUrl))
 			    {
-				    case AuthResult.Fail:
-					    return RedirectToAction("Login");
+				    string decodedUrl = Server.UrlDecode(returnUrl);
 
-				    case AuthResult.RegisteredUser:
-					    return RedirectToAction("Index", "RegisteredUser");
+				    if (Url.IsLocalUrl(decodedUrl))
+				    {
+					    return Redirect(decodedUrl);
+				    }
+				}
 
-					case AuthResult.Employer:
+			    switch (result.Roles)
+			    {
+					case Role.Employer:
 						return RedirectToAction("Index", "Employer");
 
+				    case Role.User:
+					    return RedirectToAction("Index", "RegisteredUser");
+
 					default:
-					    throw new ArgumentOutOfRangeException();
-			    }
-		    }
-		    catch
+						return RedirectToAction("Index", "Jobs");
+				}
+			}
+		    else
 		    {
+			    ModelState.AddModelError("", "Wrong username or password!");
 			    return View();
 		    }
-	    }
+		}
 
 		// GET: Account/Login
 		public ActionResult Logout()
 		{
-			return RedirectToAction("Index", "Job");
+			FormsAuthentication.SignOut();
+
+			return RedirectToAction("Index", "Jobs");
 		}
 
 		// GET: Account/RegisterEmployer
@@ -65,18 +88,21 @@ namespace PresentationLayer.Controllers
 		// POST: Account/RegisterEmployer
 		[HttpPost]
         public async Task<ActionResult> RegisterEmployer(EmployerCreateDto employerDto)
-        {
-            try
-            {
-	            await this.employerFacade.Create(employerDto);
+		{
+			if (!ModelState.IsValid)
+			{
+				return View();
+			}
 
-				return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+			await this.EmployerFacade.Create(employerDto);
+
+	        FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(1, employerDto.Username, DateTime.Now, DateTime.Now.AddHours(1), false, Role.Employer.GetString());
+	        string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+	        HttpCookie authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+	        HttpContext.Response.Cookies.Add(authCookie);
+
+			return RedirectToAction("Index", "Employer");
+		}
 
 		// GET: Account/RegisterUser
 		public ActionResult RegisterUser()
@@ -86,40 +112,21 @@ namespace PresentationLayer.Controllers
 
 		// POST: Account/RegisterUser
 		[HttpPost]
-	    public async Task<ActionResult> RegisterUser(UserCreateDto userDto)
-	    {
-		    try
-		    {
-			    await this.registeredUserFacade.Create(userDto);
+	    public async Task<ActionResult> RegisterUser(RegisteredUserCreateDto registeredUserDto)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View();
+			}
 
-			    return RedirectToAction("Index");
-		    }
-		    catch
-		    {
-			    return View();
-		    }
-	    }
+			await this.RegisteredUserFacade.Create(registeredUserDto);
 
-		// GET: Account/Edit/5
-		public ActionResult Edit(int id)
-        {
-            return View();
-        }
+		    FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(1, registeredUserDto.Username, DateTime.Now, DateTime.Now.AddHours(1), false, Role.User.GetString());
+		    string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+		    HttpCookie authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+		    HttpContext.Response.Cookies.Add(authCookie);
 
-        // POST: Account/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+		    return RedirectToAction("Index", "RegisteredUser");
+		}
     }
 }

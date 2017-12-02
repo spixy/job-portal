@@ -11,9 +11,6 @@ namespace DataAccessLayer.Entities
         [NotMapped]
         public override string TableName { get; } = nameof(JobPortalDbContext.JobCandidates);
 
-	    [NotMapped]
-		public override string Roles { get; } = "JobCandidate";
-
 		[Required]
         public Education Education { get; set; }
 

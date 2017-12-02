@@ -11,10 +11,15 @@ namespace BusinessLayer.DTOs
 
         public int OfficeId { get; set; }
 
-        public string Description { get; set; }
+	    public OfficeDto Office { get; set; }
+
+		public string Description { get; set; }
 
         public List<QuestionDto> Questions { get; set; }
 
         public List<SkillDto> Skills { get; set; }
-    }
+
+		public List<JobApplicationDto> JobApplications { get; set; }
+
+	}
 }

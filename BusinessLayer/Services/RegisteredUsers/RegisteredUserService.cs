@@ -35,5 +35,11 @@ namespace BusinessLayer.Services.RegisteredUsers
             var queryResult = await Query.ExecuteQuery(new RegisteredUserFilterDto { Skills = skills });
             return queryResult.Items;
         }
-    }
+
+	    public RegisteredUserDto Create(RegisteredUserCreateDto createDto)
+		{
+			RegisteredUserDto employerDto = Mapper.Map<RegisteredUserDto>(createDto);
+			return this.Create(employerDto);
+		}
+	}
 }

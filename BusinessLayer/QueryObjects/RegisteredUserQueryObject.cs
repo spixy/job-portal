@@ -22,20 +22,21 @@ namespace BusinessLayer.QueryObjects
 
             if (!string.IsNullOrWhiteSpace(filter.Email))
             {
-                predicates.Add(new SimplePredicate(nameof(RegisteredUser.Email), ValueComparingOperator.Equal,
-                    filter.Email));
+                predicates.Add(new SimplePredicate(nameof(RegisteredUser.Email), ValueComparingOperator.Equal, filter.Email));
             }
             if (!string.IsNullOrWhiteSpace(filter.Name))
             {
-                predicates.Add(new SimplePredicate(nameof(RegisteredUser.Name), ValueComparingOperator.Equal,
-                    filter.Name));
+                predicates.Add(new SimplePredicate(nameof(RegisteredUser.Name), ValueComparingOperator.Equal, filter.Name));
             }
             if (!string.IsNullOrWhiteSpace(filter.Phone))
             {
-                predicates.Add(new SimplePredicate(nameof(RegisteredUser.Phone), ValueComparingOperator.Equal,
-                    filter.Phone));
-            }
-            if (filter.Skills != null)
+                predicates.Add(new SimplePredicate(nameof(RegisteredUser.Phone), ValueComparingOperator.Equal, filter.Phone));
+			}
+			if (!string.IsNullOrWhiteSpace(filter.UserName))
+			{
+				predicates.Add(new SimplePredicate(nameof(RegisteredUser.Username), ValueComparingOperator.Equal, filter.UserName));
+			}
+			if (filter.Skills != null)
             {
                 foreach (Skill skill in filter.Skills)
                 {

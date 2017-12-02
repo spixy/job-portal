@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
+using BusinessLayer.Account;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Filters;
 using BusinessLayer.Facades.Common;
@@ -23,21 +23,20 @@ namespace BusinessLayer.Facades.RegisteredUsers
 		    this.userService = userService;
 	    }
 
-	    public async Task<int> Create(UserCreateDto userCreateDto)
+	    public async Task<int> Create(RegisteredUserCreateDto registeredUserCreateDto)
 	    {
 		    using (var uow = this.UnitOfWorkProvider.Create())
 		    {
-			    var queryResult = await this.registeredUserService.ListAllAsync(new RegisteredUserFilterDto { UserName = userCreateDto.Username });
+			    var queryResult = await this.registeredUserService.ListAllAsync(new RegisteredUserFilterDto { UserName = registeredUserCreateDto.Username });
 			    if (queryResult.Items.Count() == 1)
 			    {
 				    throw new ArgumentException();
 			    }
 
-			    RegisteredUserDto employer = Mapper.Map<RegisteredUserDto>(userCreateDto);
-			    employer.Password = userService.CreatePassword(userCreateDto.Password);
-			    this.registeredUserService.Create(employer);
+			    registeredUserCreateDto.Password = userService.CreatePassword(registeredUserCreateDto.Password);
+			    var user = registeredUserService.Create(registeredUserCreateDto);
 			    await uow.SaveChangesAsync();
-				return employer.Id;
+			    return user.Id;
 		    }
 	    }
 
@@ -66,23 +65,23 @@ namespace BusinessLayer.Facades.RegisteredUsers
             }
         }
 
-	    public async Task<Tuple<bool, string>> AuthorizeUserAsync(string username, string password)
+	    public async Task<LoginDto> AuthorizeUserAsync(string username, string password)
 		{
 			using (this.UnitOfWorkProvider.Create())
 			{
 				var userResult = await this.registeredUserService.ListAllAsync(new RegisteredUserFilterDto { UserName = username });
 
 				bool succ = false;
-				string roles = "";
+				Role role = Role.None;
 
 				if (userResult.Items.Count() == 1)
 				{
 					RegisteredUserDto user = userResult.Items.SingleOrDefault();
 					succ = this.userService.VerifyHashedPassword(user.Password, password);
-					roles = user.Roles;
+					role = Role.User;
 				}
 
-				return new Tuple<bool, string>(succ, roles);
+				return new LoginDto(succ, role);
 			}
 		}
 	}

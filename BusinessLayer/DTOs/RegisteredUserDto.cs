@@ -8,8 +8,6 @@ namespace BusinessLayer.DTOs
 
 	    public string Password { get; set; }
 
-	    public string Roles { get; set; }
-
 		public List<JobApplicationDto> JobApplications { get; set; }
 
         protected bool Equals(RegisteredUserDto other)
