@@ -4,10 +4,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>My job offers</h2>
 
 <p>
-    @Html.ActionLink("Create New", "CreateJob")
+    @Html.ActionLink("Create new job", "CreateJob")
 </p>
 <table class="table">
     <tr>
@@ -15,7 +15,7 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.Skills)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Office.Address)
@@ -35,7 +35,7 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Description)
+            @Html.DisplayFor(modelItem => item.Skills)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Office.Address)

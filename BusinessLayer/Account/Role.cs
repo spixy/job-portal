@@ -17,13 +17,10 @@ namespace BusinessLayer.Account
 			{
 				case Role.None:
 					return "";
-
 				case Role.User:
 					return "User";
-
 				case Role.Employer:
 					return "Employer";
-
 				default:
 					throw new ArgumentOutOfRangeException(nameof(role), role, null);
 			}
@@ -35,13 +32,10 @@ namespace BusinessLayer.Account
 			{
 				case "User":
 					return Role.User;
-
 				case "Employer":
 					return Role.Employer;
-
 				case "":
 					return Role.None;
-
 				default:
 					throw new ArgumentOutOfRangeException(nameof(str), str, null);
 			}

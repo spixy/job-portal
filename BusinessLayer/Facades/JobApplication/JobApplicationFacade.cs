@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using BusinessLayer.DTOs;
+using BusinessLayer.DTOs.Enums;
 using BusinessLayer.DTOs.Filters;
 using BusinessLayer.Facades.Common;
-using BusinessLayer.Services.Candidate;
 using BusinessLayer.Services.JobApplications;
+using BusinessLayer.Services.RegisteredUsers;
 using Infrastructure.UnitOfWork;
 
 namespace BusinessLayer.Facades.JobApplication
@@ -12,28 +13,35 @@ namespace BusinessLayer.Facades.JobApplication
     public class JobApplicationFacade : FacadeBase, IJobApplicationFacade
 	{
         private readonly IJobApplicationService jobApplicationService;
-        private readonly ICandidateService candidateServiceService;
+        private readonly IRegisteredUserService registeredUserService;
 
-        public JobApplicationFacade(IUnitOfWorkProvider unitOfWorkProvider, IJobApplicationService jobApplicationService, ICandidateService candidateServiceService)
-            : base(unitOfWorkProvider)
-        {
-            this.jobApplicationService = jobApplicationService;
-            this.candidateServiceService = candidateServiceService;
-        }
+		public JobApplicationFacade(IUnitOfWorkProvider unitOfWorkProvider, IJobApplicationService jobApplicationService, IRegisteredUserService registeredUserService) : base(unitOfWorkProvider)
+		{
+			this.jobApplicationService = jobApplicationService;
+			this.registeredUserService = registeredUserService;
+		}
 
         public async Task<int> Create(JobApplicationCreateDto dto)
         {
             using (var uow = this.UnitOfWorkProvider.Create())
             {
-                JobCandidateDto candidate = await this.candidateServiceService.GetAsync(dto.ApplicationDto.JobCandidateId);
+                RegisteredUserDto registerUser = await this.registeredUserService.GetAsync(dto.CandidateDto.Id);
 
-                // unregistered user?
-                if (candidate == null && dto.CandidateDto != null)
+				// already registered user?
+				if (registerUser != null)
                 {
-                    this.candidateServiceService.Create(dto.CandidateDto);
+	                dto.CandidateDto = registerUser;
                 }
 
-                var created = this.jobApplicationService.Create(dto.ApplicationDto);
+				JobApplicationDto application = new JobApplicationDto
+				{
+					Answers = dto.Answers,
+					JobOfferId = dto.JobOfferId,
+					JobCandidate = dto.CandidateDto,
+					Status = Status.Open
+				};
+
+				var created = this.jobApplicationService.Create(application);
                 uow.SaveChanges();
                 return created.Id;
             }

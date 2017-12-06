@@ -10,7 +10,7 @@ using HttpContext = System.Web.HttpContext;
 
 namespace PresentationLayer
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         public static readonly IWindsorContainer Container = new WindsorContainer();
 
@@ -24,7 +24,23 @@ namespace PresentationLayer
             BootstrapContainer();
         }
 
-        private void BootstrapContainer()
+		/*
+		TODO: vobec netusim kde ma byt tato metoda (ak to je aj pre ASP.NET neCore)
+	    public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+	    {
+		    if (env.IsDevelopment())
+		    {
+			    app.UseDeveloperExceptionPage();
+				app.UseBrowserLink();
+		    }
+		    else
+		    {
+			    //app.UseExceptionHandler("/error"); // TODO: zatial nemame 404 error page
+		    }
+	    }
+		*/
+
+		private void BootstrapContainer()
         {
             Container.Install(new BusinessLayer.Config.BusinessLayerInstaller());
             Container.Install(new PresentationLayerInstaller());

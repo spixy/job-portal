@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Threading.Tasks;
+using System.Web.Mvc;
 using BusinessLayer.DTOs;
 using BusinessLayer.Facades.JobApplication;
 
@@ -10,10 +11,10 @@ namespace PresentationLayer.Controllers
     [Route("ApplyJob")]
     public class JobApplicationController : Controller
     {
-        public IJobApplicationFacade JobApplicationFacade { get; set; }
+        private IJobApplicationFacade JobApplicationFacade => MvcApplication.Container.Resolve<JobApplicationFacade>();
 
-        // GET: ApplyJob
-        public ActionResult Index()
+		// GET: ApplyJob
+		public ActionResult Index()
         {
             return View();
         }
@@ -32,11 +33,11 @@ namespace PresentationLayer.Controllers
 
         // POST: ApplyJob/Create
         [HttpPost]
-        public ActionResult Create(JobApplicationCreateDto jobApplicationDto)
+        public async Task<ActionResult> Create(JobApplicationCreateDto jobApplicationDto)
         {
             try
             {
-                // TODO: Add insert logic here
+	            await this.JobApplicationFacade.Create(jobApplicationDto);
 
                 return RedirectToAction("Index");
             }

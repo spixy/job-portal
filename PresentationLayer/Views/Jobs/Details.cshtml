@@ -1,50 +1,85 @@
 ﻿@model BusinessLayer.DTOs.JobOfferDto
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Job Offer";
 }
 
-<h2>Details</h2>
+<h2>@Html.DisplayFor(model => model.Name)</h2>
 
 <div>
-    <h4>JobOfferDto</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EmployerId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EmployerId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.OfficeId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.OfficeId)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Description)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Description)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Skills)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Skills)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employer)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Employer.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Office)
+        </dt>
+        <dd>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Office.Address)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Office.City)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Office.Country)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Office.Email)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Office.Phone)
+            </div>
+        </dd>
+            
+        <dt>
+            @Html.ActionLink("Apply", "Create", "JobApplication", new { id = Model.Id }, null)
+        </dt>
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<table class="table">
+    <tr>
+        <th>
+            Question
+        </th>
+        <th>
+            Answer
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Questions)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Text)
+        </td>
+        <td>
+            <div class="col-md-10">
+                @Html.EditorFor(model => item.Id, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => item.Id, "", new { @class = "text-danger" })
+            </div>
+        </td>
+    </tr>
+    }
+</table>

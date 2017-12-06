@@ -1,7 +1,10 @@
-﻿namespace BusinessLayer.DTOs.Common
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BusinessLayer.DTOs.Common
 {
     public abstract class DtoBase
     {
-        public int Id { get; set; }
+	    [ScaffoldColumn(false)]
+		public int Id { get; set; }
     }
 }

@@ -7,9 +7,9 @@ namespace BusinessLayer.DTOs
     {
         public string Name { get; set; }
 
-        public int EmployerId { get; set; }
+        public EmployerDto Employer { get; set; }
 
-        public int OfficeId { get; set; }
+		public int OfficeId { get; set; }
 
 	    public OfficeDto Office { get; set; }
 

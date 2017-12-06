@@ -211,7 +211,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\JobApplication\List.cshtml" />
     <Content Include="Views\JobApplication\Details.cshtml" />
-    <Content Include="Views\JobApplication\Create.cshtml" />
     <Content Include="Views\Jobs\Index.cshtml" />
     <Content Include="Views\Jobs\Edit.cshtml" />
     <Content Include="Views\Jobs\Delete.cshtml" />
@@ -226,7 +225,6 @@
     <Content Include="Views\Account\RegisterUser.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Employer\Index.cshtml" />
-    <Content Include="Views\Employer\JobOffer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

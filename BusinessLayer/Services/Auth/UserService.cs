@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -34,17 +33,12 @@ namespace BusinessLayer.Services.Auth
 
 		public bool VerifyHashedPassword(string userHashedPassword, string inputPassword)
 		{
-			/*Debug.WriteLine("X: google => " + this.CreatePassword("google"));
-			Debug.WriteLine("X: sony => " + this.CreatePassword("sony"));
-			Debug.WriteLine("X: lubos => " + this.CreatePassword("lubos"));
-			Debug.WriteLine("X: david => " + this.CreatePassword("david"));*/
-
-			string inputHashedPassNoSalt = CreatePassword(inputPassword, false);
+			string inputHashedPassNoSugar = CreatePassword(inputPassword, false);
 
 			int len = userHashedPassword.Length - base64SaltSize;
-			string userHashedPasswordsNoSalt = userHashedPassword.Substring(base64SaltSize / 2, len);
+			string userHashedPasswordsNoSugar = userHashedPassword.Substring(base64SaltSize / 2, len);
 
-			return userHashedPasswordsNoSalt == inputHashedPassNoSalt;
+			return userHashedPasswordsNoSugar == inputHashedPassNoSugar;
 		}
 
 		public string CreatePassword(string password, bool withSalt = true)
@@ -55,13 +49,11 @@ namespace BusinessLayer.Services.Auth
 
 				if (withSalt)
 				{
-					byte[] salt = GenerateSaltBytes(rawSaltSize);
-					string str = Convert.ToBase64String(salt);
+					byte[] sugar = this.GenerateSugar(rawSaltSize);
+					string sugarStr = Convert.ToBase64String(sugar);
 
 					string result = Convert.ToBase64String(hash);
-
-					result = str.Substring(0, str.Length / 2) + result + str.Substring(str.Length / 2);
-
+					result = sugarStr.Substring(0, sugarStr.Length / 2) + result + sugarStr.Substring(sugarStr.Length / 2);
 					return result;
 				}
 				else
@@ -72,7 +64,7 @@ namespace BusinessLayer.Services.Auth
 			}
 		}
 
-		private byte[] GenerateSaltBytes(int length)
+		private byte[] GenerateSugar(int length)
 		{
 			using (var cryptoServiceProvider = new RNGCryptoServiceProvider())
 			{

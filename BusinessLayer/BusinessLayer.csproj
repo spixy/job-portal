@@ -81,6 +81,7 @@
     <Compile Include="DTOs\Filters\UserBaseFilterDto.cs" />
     <Compile Include="DTOs\JobApplicationDto.cs" />
     <Compile Include="DTOs\JobCandidateDto.cs" />
+    <Compile Include="DTOs\JobOfferCreateDto.cs" />
     <Compile Include="DTOs\JobOfferDto.cs" />
     <Compile Include="DTOs\LoginDto.cs" />
     <Compile Include="DTOs\OfficeDto.cs" />

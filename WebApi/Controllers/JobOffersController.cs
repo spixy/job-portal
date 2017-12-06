@@ -12,16 +12,17 @@ namespace WebApi.Controllers
     {
         public JobOfferFacade JobOfferFacade { get; set; }
 
-        /// <summary>
-        /// Retrieve all job offers or filtered job offers by skill parameter.
-        /// 
-        /// Example:
-        /// GET api/joboffers
-        /// GET api/joboffers?skill=html
-        /// </summary>
-        /// <param name="skill">Skill name</param>
-        /// <returns>Collection of all job offers or the filtered ones by skill</returns>
-        public async Task<IEnumerable<JobOfferDto>> Get(string skill = null)
+		/// <summary>
+		/// Retrieve all job offers or filtered job offers by skill parameter.
+		/// 
+		/// Example:
+		/// GET api/joboffers
+		/// GET api/joboffers?skill=html
+		/// </summary>
+		/// <param name="skill">Skill name</param>
+		/// <returns>Collection of all job offers or the filtered ones by skill</returns>
+		/// TODO: nemali by sme zoznam ponuk limitovat filtrom? GetAllOffers je v praxi asi celkom zataz na server a siet, ak tam bude milion jobov :D
+		public async Task<IEnumerable<JobOfferDto>> Get(string skill = null)
         {
             if (skill == null)
             {

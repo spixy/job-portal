@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Filters;
@@ -21,7 +22,7 @@ namespace PresentationLayer.Controllers
 	{
 		private IEmployerFacade EmployerFacade => MvcApplication.Container.Resolve<EmployerFacade>();
 		private IJobOfferFacade JobOfferFacade => MvcApplication.Container.Resolve<JobOfferFacade>();
-		private IJobApplicationFacade JobApplicationFacade1 => MvcApplication.Container.Resolve<JobApplicationFacade>();
+		private IJobApplicationFacade JobApplicationFacade => MvcApplication.Container.Resolve<JobApplicationFacade>();
 
 		private async Task<JobOfferDto> GetMyJobOffer(int id)
 		{
@@ -29,7 +30,7 @@ namespace PresentationLayer.Controllers
 			if (job != null)
 			{
 				EmployerDto employer = await EmployerFacade.GetByUsername(User.Identity.Name);
-				if (employer != null && job.EmployerId == employer.Id)
+				if (employer != null && job.Employer.Id == employer.Id)
 				{
 					return job;
 				}
@@ -39,11 +40,11 @@ namespace PresentationLayer.Controllers
 
 		private async Task<JobApplicationDto> GetMyJobApplication(int id)
 		{
-			JobApplicationDto job = await this.JobApplicationFacade1.Get(id);
+			JobApplicationDto job = await this.JobApplicationFacade.Get(id);
 			if (job != null)
 			{
 				EmployerDto employer = await EmployerFacade.GetByUsername(User.Identity.Name);
-				if (employer != null && job.JobOffer != null && job.JobOffer.EmployerId == employer.Id)
+				if (employer != null && job.JobOffer != null && job.JobOffer.Employer.Id == employer.Id)
 				{
 					return job;
 				}
@@ -93,13 +94,13 @@ namespace PresentationLayer.Controllers
 		[HttpPost]
 	    public async Task<ActionResult> JobApplication(int id, JobApplicationDto applicationDto)
 	    {
-			JobApplicationDto job = await this.JobApplicationFacade1.Get(id);
-		    if (job != null && job.JobOffer != null)
+			JobApplicationDto job = await this.JobApplicationFacade.Get(id);
+		    if (job?.JobOffer?.Employer != null) // lol
 		    {
 			    EmployerDto employer = await EmployerFacade.GetByUsername(User.Identity.Name);
-			    if (job.JobOffer.EmployerId == employer.Id)
+			    if (job.JobOffer.Employer.Id == employer.Id)
 			    {
-				    await this.JobApplicationFacade1.Update(applicationDto);
+				    await this.JobApplicationFacade.Update(applicationDto);
 				    return RedirectToAction("JobApplication", new { id });
 			    }
 			}
@@ -125,7 +126,7 @@ namespace PresentationLayer.Controllers
 			try
 			{
 				EmployerDto employer = await EmployerFacade.GetByUsername(User.Identity.Name);
-				jobDto.EmployerId = employer.Id;
+				jobDto.Employer.Id = employer.Id;
 
 				int id = this.JobOfferFacade.Create(jobDto);
 			    if (id != 0)
@@ -174,7 +175,7 @@ namespace PresentationLayer.Controllers
 			var job = await this.GetMyJobApplication(id);
 			if (job != null)
 			{
-				await this.JobApplicationFacade1.AcceptApplication(id);
+				await this.JobApplicationFacade.AcceptApplication(id);
 			}
 			return RedirectToAction("JobOffer", new { id });
 		}
@@ -185,7 +186,7 @@ namespace PresentationLayer.Controllers
 			var job = await this.GetMyJobApplication(id);
 			if (job != null)
 			{
-				await this.JobApplicationFacade1.DeclineApplication(id);
+				await this.JobApplicationFacade.DeclineApplication(id);
 			}
 			return RedirectToAction("JobOffer", new { id });
 		}
