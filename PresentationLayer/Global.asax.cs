@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
+using BusinessLayer.Config;
 using Castle.Windsor;
 using PresentationLayer.Windsor;
 using HttpContext = System.Web.HttpContext;
@@ -42,7 +43,7 @@ namespace PresentationLayer
 
 		private void BootstrapContainer()
         {
-            Container.Install(new BusinessLayer.Config.BusinessLayerInstaller());
+            Container.Install(new BusinessLayerInstaller());
             Container.Install(new PresentationLayerInstaller());
 
             IControllerFactory controllerFactory = new WindsorControllerFactory(Container.Kernel);
