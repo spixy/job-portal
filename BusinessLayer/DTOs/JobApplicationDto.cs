@@ -8,14 +8,14 @@ namespace BusinessLayer.DTOs
     {
         public int JobOfferId { get; set; }
 
-        public JobOfferDto JobOffer { get; set; }
+        public virtual JobOfferDto JobOffer { get; set; }
 
         public int JobCandidateId { get; set; }
 
-	    public JobCandidateDto JobCandidate { get; set; }
+	    public virtual JobCandidateDto JobCandidate { get; set; }
 
 		public Status Status { get; set; }
 
-        public List<AnswerDto> Answers { get; set; }
+        public virtual List<AnswerDto> Answers { get; set; }
     }
 }

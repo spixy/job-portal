@@ -16,14 +16,12 @@ namespace DataAccessLayer.Entities
 
         [Required]
         public int JobOfferId { get; set; }
-
-        [Required]
+		
         public virtual JobOffer JobOffer { get; set; }
 
         [Required]
         public int JobCandidateId { get; set; }
-
-        [Required]
+		
         public virtual JobCandidate JobCandidate { get; set; }
 
         [Required]

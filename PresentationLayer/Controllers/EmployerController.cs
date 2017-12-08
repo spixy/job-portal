@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using BusinessLayer.DTOs;
@@ -26,7 +26,7 @@ namespace PresentationLayer.Controllers
 
 		private async Task<JobOfferDto> GetMyJobOffer(int id)
 		{
-			JobOfferDto job = await this.JobOfferFacade.Get(id);
+			JobOfferDto job = await this.JobOfferFacade.Get(id, false);
 			if (job != null)
 			{
 				EmployerDto employer = await EmployerFacade.GetByUsername(User.Identity.Name);
@@ -40,7 +40,7 @@ namespace PresentationLayer.Controllers
 
 		private async Task<JobApplicationDto> GetMyJobApplication(int id)
 		{
-			JobApplicationDto job = await this.JobApplicationFacade.Get(id);
+			JobApplicationDto job = await this.JobApplicationFacade.Get(id, false);
 			if (job != null)
 			{
 				EmployerDto employer = await EmployerFacade.GetByUsername(User.Identity.Name);
@@ -172,10 +172,17 @@ namespace PresentationLayer.Controllers
 		// GET: Employer
 		public async Task<ActionResult> AcceptApplication(int id)
 		{
-			var job = await this.GetMyJobApplication(id);
-			if (job != null)
+			try
 			{
-				await this.JobApplicationFacade.AcceptApplication(id);
+				var job = await this.GetMyJobApplication(id);
+				if (job != null)
+				{
+					await this.JobApplicationFacade.AcceptApplication(id);
+				}
+			}
+			catch (Exception e)
+			{
+				throw;
 			}
 			return RedirectToAction("JobOffer", new { id });
 		}
@@ -183,10 +190,17 @@ namespace PresentationLayer.Controllers
 		// GET: Employer
 		public async Task<ActionResult> DeclineApplication(int id)
 		{
-			var job = await this.GetMyJobApplication(id);
-			if (job != null)
+			try
 			{
-				await this.JobApplicationFacade.DeclineApplication(id);
+				var job = await this.GetMyJobApplication(id);
+				if (job != null)
+				{
+					await this.JobApplicationFacade.DeclineApplication(id);
+				}
+			}
+			catch (Exception e)
+			{
+				throw;
 			}
 			return RedirectToAction("JobOffer", new { id });
 		}

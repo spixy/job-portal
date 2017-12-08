@@ -10,7 +10,7 @@ namespace DataAccessLayer.Entities
         [NotMapped]
         public override string TableName { get; } = nameof(JobPortalDbContext.RegisteredUsers);
 
-		public List<JobApplication> JobApplications { get; set; }
+		public virtual List<JobApplication> JobApplications { get; set; }
 
 	    [Required]
 	    public string Username { get; set; }

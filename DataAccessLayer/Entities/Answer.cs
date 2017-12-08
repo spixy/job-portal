@@ -18,13 +18,11 @@ namespace DataAccessLayer.Entities
         [Required]
         public int QuestionId { get; set; }
 
-        [Required]
         public virtual Question Question { get; set; }
 
         [Required]
         public int JobApplicationId { get; set; }
 
-        [Required]
         public virtual JobApplication JobApplication { get; set; }
     }
 }

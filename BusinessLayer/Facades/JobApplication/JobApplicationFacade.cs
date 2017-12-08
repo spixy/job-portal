@@ -89,18 +89,24 @@ namespace BusinessLayer.Facades.JobApplication
 
         public async Task<bool> DeclineApplication(int jobCandidateId)
         {
-            using (this.UnitOfWorkProvider.Create())
+            using (var uow = this.UnitOfWorkProvider.Create())
             {
-                return await this.jobApplicationService.DeclineApplication(jobCandidateId);
+                bool result = await this.jobApplicationService.DeclineApplication(jobCandidateId);
+	            if (result)
+		            await uow.SaveChangesAsync();
+				return result;
             }
         }
 
         public async Task<bool> AcceptApplication(int jobCandidateId)
         {
-            using (this.UnitOfWorkProvider.Create())
+            using (var uow = this.UnitOfWorkProvider.Create())
             {
-                return await this.jobApplicationService.AcceptApplication(jobCandidateId);
-            }
+				bool result = await this.jobApplicationService.AcceptApplication(jobCandidateId);
+				if (result)
+					await uow.SaveChangesAsync();
+	            return result;
+			}
         }
 
         public async Task Update(JobApplicationDto dto)

@@ -21,7 +21,7 @@ namespace BusinessLayer.Services.Questions
 
         protected override async Task<Question> GetWithIncludesAsync(int entityId)
         {
-            return await Repository.GetAsync(entityId, nameof (Question.JobApplications));
+            return await Repository.GetAsync(entityId);
         }
 
         public async Task<IEnumerable<QuestionDto>> GetByWords(string[] words)

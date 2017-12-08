@@ -90,12 +90,9 @@ namespace BusinessLayer.Facades.JobOffer
                 JobOfferDto job = await this.jobOfferService.GetAsync(id, true);
 
                 foreach (QuestionDto question in job.Questions)
-                {
-                    if (question.JobApplications.Count == 1)
-                    {
-                        this.questionService.Delete(question.Id);
-                    }
-                }
+				{
+					this.questionService.Delete(question.Id);
+				}
 
                 this.jobOfferService.Delete(id);
                 await uow.SaveChangesAsync();
