@@ -27,6 +27,9 @@ namespace DataAccessLayer.Config
                 Component.For<IJobOfferRepository>()
                     .ImplementedBy<JobOfferRepository>()
                     .LifestyleTransient(),
+                Component.For<ISkillRepository>()
+                    .ImplementedBy<SkillRepository>()
+                    .LifestyleTransient(),
                 Component.For(typeof(IRepository<>))
                     .ImplementedBy(typeof(EfRepository<>))
                     .LifestyleTransient(),

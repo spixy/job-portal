@@ -131,7 +131,9 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IJobOfferRepository.cs" />
+    <Compile Include="Repositories\ISkillRepository.cs" />
     <Compile Include="Repositories\JobOfferRepository.cs" />
+    <Compile Include="Repositories\SkillRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

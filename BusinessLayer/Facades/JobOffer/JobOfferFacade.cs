@@ -27,7 +27,7 @@ namespace BusinessLayer.Facades.JobOffer
             this.skillService = skillService;
         }
 
-        public int Create(JobOfferDto dto)
+        public int Create(JobOfferCreateDto dto)
         {
             using (var uow = this.UnitOfWorkProvider.Create())
             {

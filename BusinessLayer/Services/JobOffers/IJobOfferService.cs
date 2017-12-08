@@ -8,6 +8,8 @@ namespace BusinessLayer.Services.JobOffers
 {
     public interface IJobOfferService : ICrudService<JobOfferDto, JobOfferFilterDto>
     {
+        JobOfferDto Create(JobOfferCreateDto jobOfferCreateDto);
+
         /// <summary>
         /// Find all offers for given employer
         /// </summary>

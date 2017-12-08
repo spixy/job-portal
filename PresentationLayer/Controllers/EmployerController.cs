@@ -116,7 +116,7 @@ namespace PresentationLayer.Controllers
 
 		// POST: Employer/CreateJob
 		[HttpPost]
-	    public async Task<ActionResult> CreateJob(JobOfferDto jobDto)
+	    public async Task<ActionResult> CreateJob(JobOfferCreateDto jobDto)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -126,7 +126,7 @@ namespace PresentationLayer.Controllers
 			try
 			{
 				EmployerDto employer = await EmployerFacade.GetByUsername(User.Identity.Name);
-				jobDto.Employer.Id = employer.Id;
+				jobDto.EmployerId = employer.Id;
 
 				int id = this.JobOfferFacade.Create(jobDto);
 			    if (id != 0)

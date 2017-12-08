@@ -5,27 +5,41 @@ using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Filters;
 using BusinessLayer.QueryObjects.Common;
 using BusinessLayer.Services.Common;
+using BusinessLayer.Services.Skills;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Repositories;
 using Infrastructure.Query;
+using Infrastructure.Repository;
 
 namespace BusinessLayer.Services.JobOffers
 {
     public class JobOfferService : CrudQueryServiceBase<JobOffer, JobOfferDto, JobOfferFilterDto>, IJobOfferService
     {
         private readonly IJobOfferRepository jobOfferRepository;
+        private readonly ISkillRepository skillRepository;
+        private readonly IRepository<Question> questionRepository;
 
         public JobOfferService(IMapper mapper, IJobOfferRepository jobOfferRepository,
+            ISkillRepository skillRepository, IRepository<Question> questionRepository,
             QueryObjectBase<JobOfferDto, JobOffer, JobOfferFilterDto, IQuery<JobOffer>> query)
             : base(mapper, jobOfferRepository, query)
         {
             this.jobOfferRepository = jobOfferRepository;
+            this.skillRepository = skillRepository;
+            this.questionRepository = questionRepository;
         }
 
         protected override async Task<JobOffer> GetWithIncludesAsync(int entityId)
         {
             return await Repository.GetAsync(entityId, nameof(JobOffer.Employer), nameof(JobOffer.Skills),
                 nameof(JobOffer.Questions));
+        }
+
+        public JobOfferDto Create(JobOfferCreateDto jobOfferCreateDto)
+        {
+            JobOffer jobOffer = Mapper.Map<JobOffer>(jobOfferCreateDto);
+            JobOffer created = Repository.Create(jobOffer);
+            return Mapper.Map<JobOfferDto>(created);
         }
 
         public async Task<IEnumerable<JobOfferDto>> GetByEmployer(int employerId)
