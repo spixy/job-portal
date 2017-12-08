@@ -15,11 +15,18 @@ namespace BusinessLayer.Config
             config.CreateMap<AnswerDto, Answer>().ForMember(dest => dest.Question, opt => opt.Ignore());
 
             config.CreateMap<Employer, EmployerDto>().ReverseMap();
+			
+	        config.CreateMap<JobApplication, JobApplicationDto>();
 
-            config.CreateMap<JobApplication, JobApplicationDto>();
-            config.CreateMap<JobApplicationDto, JobApplication>().ForMember(dest => dest.JobOffer, opt => opt.Ignore());
+			//config.CreateMap<JobApplicationDto, JobApplication>().ForMember(dest => dest.JobOffer, opt => opt.Ignore());
 
-            config.CreateMap<JobOffer, JobOfferDto>().ReverseMap();
+			// opravuje Update JobApplication-u
+			config.CreateMap<JobApplicationDto, JobApplication>()
+		        .ForMember(dest => dest.JobOffer, opt => opt.Ignore())
+		        .ForMember(dest => dest.Answers, opt => opt.Ignore())
+		        .ForMember(dest => dest.JobCandidate, opt => opt.Ignore());
+
+			config.CreateMap<JobOffer, JobOfferDto>().ReverseMap();
             config.CreateMap<JobOffer, JobOfferCreateDto>().ReverseMap();
 
             config.CreateMap<Office, OfficeDto>().ReverseMap();
