@@ -12,8 +12,16 @@ namespace WebAPI
             container.Register(
                 Classes.FromThisAssembly()
                     .BasedOn<ApiController>()
-                    .LifestylePerWebRequest()
-            );
+                    .LifestylePerWebRequest()/*,
+                Component.For<IMapper>()
+					.OverWrite()
+	                .Instance(new Mapper(new MapperConfiguration(config =>
+					{
+						BusinessLayer.Config.MappingConfig.ConfigureMapping(config);
+						MappingConfig.ConfigureMapping(config);
+	                })))
+	                .LifestyleSingleton()*/
+			);
         }
     }
 }

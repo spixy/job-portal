@@ -40,11 +40,11 @@ namespace BusinessLayer.Facades.RegisteredUsers
 		    }
 	    }
 
-	    public async Task<RegisteredUserDto> Get(int id)
+	    public async Task<RegisteredUserDto> Get(int id, bool withIncludes = true)
         {
             using (this.UnitOfWorkProvider.Create())
             {
-                return await this.registeredUserService.GetAsync(id);
+                return await this.registeredUserService.GetAsync(id, withIncludes);
             }
         }
 

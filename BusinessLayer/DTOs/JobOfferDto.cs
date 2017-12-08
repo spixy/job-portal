@@ -19,7 +19,6 @@ namespace BusinessLayer.DTOs
 
         public List<SkillDto> Skills { get; set; }
 
-        // Causing transitive violations
-        // public List<JobApplicationDto> JobApplications { get; set; }
+        public List<JobApplicationDto> JobApplications { get; set; }
 	}
 }

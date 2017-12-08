@@ -11,7 +11,7 @@ namespace BusinessLayer.Facades.JobApplication
 		Task<int> Create(JobApplicationCreateDto dto);
 		Task<bool> DeclineApplication(int jobCandidateId);
 		void Delete(int id);
-		Task<JobApplicationDto> Get(int id);
+		Task<JobApplicationDto> Get(int id, bool withIncludes = true);
 		Task<IEnumerable<JobApplicationDto>> Get(JobApplicationFilterDto dto);
 		Task<IEnumerable<JobApplicationDto>> GetByFilterAsync(JobApplicationFilterDto filter);
 		Task<IEnumerable<JobApplicationDto>> GetByJobCandidate(int id);

@@ -37,11 +37,11 @@ namespace BusinessLayer.Facades.JobOffer
             }
         }
 
-        public async Task<JobOfferDto> Get(int id)
+        public async Task<JobOfferDto> Get(int id, bool withIncludes = true)
         {
             using (this.UnitOfWorkProvider.Create())
             {
-                return await this.jobOfferService.GetAsync(id);
+                return await this.jobOfferService.GetAsync(id, withIncludes);
             }
         }
 

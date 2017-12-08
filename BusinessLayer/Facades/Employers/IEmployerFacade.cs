@@ -9,7 +9,7 @@ namespace BusinessLayer.Facades.Employers
     {
 	    Task<int> Create(EmployerCreateDto dto);
         Task<IEnumerable<EmployerDto>> Get(EmployerFilterDto dto);
-        Task<EmployerDto> Get(int id);
+        Task<EmployerDto> Get(int id, bool withIncludes = true);
         Task<EmployerDto> GetByEmail(string email);
         Task<EmployerDto> GetByName(string name);
         Task<EmployerDto> GetByUsername(string name);
