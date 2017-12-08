@@ -159,7 +159,6 @@
     <Compile Include="Config\MappingConfig.cs" />
     <Compile Include="Config\WebApiConfig.cs" />
     <Compile Include="Controllers\JobOffersController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DependencyResolver.cs" />
     <Compile Include="DependencyScope.cs" />
     <Compile Include="Global.asax.cs">

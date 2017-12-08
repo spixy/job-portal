@@ -12,15 +12,18 @@ namespace BusinessLayer.Config
         public static void ConfigureMapping(IMapperConfigurationExpression config)
         {
             config.CreateMap<Answer, AnswerDto>();
-            config.CreateMap<AnswerDto, Answer>().ForMember(dest => dest.Question, opt => opt.Ignore());
+	        config.CreateMap<AnswerDto, Answer>()
+		        .ForMember(dest => dest.Text, opt => opt.Ignore())
+		        .ForMember(dest => dest.Question, opt => opt.Ignore())
+		        .ForMember(dest => dest.QuestionId, opt => opt.MapFrom(src => src.Question == null ? 0 : src.Question.Id));
 
-            config.CreateMap<Employer, EmployerDto>().ReverseMap();
+			config.CreateMap<Employer, EmployerDto>().ReverseMap();
 			
 	        config.CreateMap<JobApplication, JobApplicationDto>();
 
 			//config.CreateMap<JobApplicationDto, JobApplication>().ForMember(dest => dest.JobOffer, opt => opt.Ignore());
 
-			// opravuje Update JobApplication-u
+			// opravuje Update JobApplication-u, ale nefunguje Create
 			config.CreateMap<JobApplicationDto, JobApplication>()
 		        .ForMember(dest => dest.JobOffer, opt => opt.Ignore())
 		        .ForMember(dest => dest.Answers, opt => opt.Ignore())

@@ -1,60 +1,80 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Web.Http;
 using System.Web.Mvc;
 using BusinessLayer.DTOs;
 using BusinessLayer.Facades.JobApplication;
+using BusinessLayer.Facades.JobOffer;
+using Castle.MicroKernel.Registration;
 
 namespace PresentationLayer.Controllers
 {
     /// <summary>
     /// Vytvara a vybavuje job applications
     /// </summary>
-    [Route("ApplyJob")]
     public class JobApplicationController : Controller
     {
         private IJobApplicationFacade JobApplicationFacade => MvcApplication.Container.Resolve<JobApplicationFacade>();
+        private IJobOfferFacade JobOfferFacade => MvcApplication.Container.Resolve<JobOfferFacade>();
 
-		// GET: ApplyJob
+		// GET: JobApplication
 		public ActionResult Index()
         {
             return View();
         }
 
-        // GET: ApplyJob/Details/5
-        public ActionResult Details(int id)
+		// GET: JobApplication/Details/5
+		public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: ApplyJob/Create
-        public ActionResult Create()
+        // GET: JobApplication/Create/5
+        public async Task<ActionResult> Create(int id)
         {
-            return View();
+	        JobOfferDto jobOffer = await JobOfferFacade.Get(id, false);
+
+			JobApplicationCreateDto applicationCreateDto = new JobApplicationCreateDto
+	        {
+		        JobOfferId = jobOffer.Id,
+		        JobOfferName = jobOffer.Name,
+				Answers = CreateEmptyAnswers(jobOffer)
+			};
+
+			return View(applicationCreateDto);
         }
 
-        // POST: ApplyJob/Create
-        [HttpPost]
+	    private List<AnswerDto> CreateEmptyAnswers(JobOfferDto JobOffer)
+	    {
+		    var list = new List<AnswerDto>(JobOffer.Questions.Count);
+		    foreach (QuestionDto question in JobOffer.Questions)
+		    {
+			    list.Add(new AnswerDto{ Question = question });
+		    }
+		    return list;
+	    }
+
+		// POST: JobApplication/Create
+		[System.Web.Mvc.HttpPost]
         public async Task<ActionResult> Create(JobApplicationCreateDto jobApplicationDto)
         {
-            try
-            {
-	            await this.JobApplicationFacade.Create(jobApplicationDto);
+			int id = await this.JobApplicationFacade.Create(jobApplicationDto);
+	        if (id != 0)
+	        {
+		        return RedirectToAction("Details", new { id });
+			}
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+			return RedirectToAction("Index", "Employer");
+		}
 
-        // GET: ApplyJob/Edit/5
+        // GET: JobApplication/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: ApplyJob/Edit/5
-        [HttpPost]
+        // POST: JobApplication/Edit/5
+        [System.Web.Mvc.HttpPost]
         public ActionResult Edit(int id, JobApplicationDto jobApplicationDto)
         {
             try
@@ -69,14 +89,14 @@ namespace PresentationLayer.Controllers
             }
         }
 
-        // GET: ApplyJob/Delete/5
+        // GET: JobApplication/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: ApplyJob/Delete/5
-        [HttpPost]
+        // POST: JobApplication/Delete/5
+        [System.Web.Mvc.HttpPost]
         public ActionResult Delete(int id, JobApplicationDto jobApplicationDto)
         {
             try

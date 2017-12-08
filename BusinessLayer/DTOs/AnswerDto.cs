@@ -8,9 +8,7 @@ namespace BusinessLayer.DTOs
         [Required]
         public string Text { get; set; }
 
-        public int QuestionId { get; set; }
-
-        public virtual QuestionDto Question { get; set; }
+        public QuestionDto Question { get; set; }
 
         public int JobApplicationId { get; set; }
     }

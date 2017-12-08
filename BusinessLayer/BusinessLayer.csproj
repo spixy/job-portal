@@ -80,6 +80,7 @@
     <Compile Include="DTOs\Filters\SkillFilterDto.cs" />
     <Compile Include="DTOs\Filters\UserBaseFilterDto.cs" />
     <Compile Include="DTOs\JobApplicationDto.cs" />
+    <Compile Include="DTOs\JobApplicationUpdateDto.cs" />
     <Compile Include="DTOs\JobCandidateDto.cs" />
     <Compile Include="DTOs\JobOfferCreateDto.cs" />
     <Compile Include="DTOs\JobOfferDto.cs" />
