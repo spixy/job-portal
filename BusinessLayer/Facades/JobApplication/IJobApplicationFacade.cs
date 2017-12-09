@@ -8,7 +8,7 @@ namespace BusinessLayer.Facades.JobApplication
 	public interface IJobApplicationFacade
 	{
 		Task<bool> AcceptApplication(int jobCandidateId);
-		Task<int> Create(JobApplicationCreateDto dto);
+		int Create(JobApplicationCreateDto dto);
 		Task<bool> DeclineApplication(int jobCandidateId);
 		void Delete(int id);
 		Task<JobApplicationDto> Get(int id, bool withIncludes = true);

@@ -34,6 +34,7 @@ namespace BusinessLayer.Config
 			config.CreateMap<RegisteredUserCreateDto, RegisteredUserDto>();
 	        config.CreateMap<EmployerCreateDto, EmployerDto>();
 	        config.CreateMap<JobApplicationCreateDto, JobApplicationDto>();
+	        config.CreateMap<JobApplicationDto, JobApplicationUpdateDto>();
 
 			config.CreateMap<QueryResult<Answer>, QueryResultDto<AnswerDto, AnswerFilterDto>>();
             config.CreateMap<QueryResult<Employer>, QueryResultDto<EmployerDto, EmployerFilterDto>>();

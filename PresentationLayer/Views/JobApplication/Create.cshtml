@@ -66,8 +66,6 @@
                 </th>
                 <th></th>
             </tr>
-
-            <!--foreach (var anwser in Model.Answers)-->
             @for(int i = 0; i < Model.JobApplicationCreateDto.Answers.Count; i++)
             {
                 <tr>
@@ -76,13 +74,18 @@
                     </td>
                     <td>
                         <div class="col-md-10">
-                            @Html.EditorFor(model => Model.JobApplicationCreateDto.Answers[i].Text, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.HiddenFor(model => model.JobApplicationCreateDto.Answers[i].QuestionId)
+                            @Html.HiddenFor(model => model.JobApplicationCreateDto.Answers[i].JobApplicationId)
+                            @Html.EditorFor(model => model.JobApplicationCreateDto.Answers[i].Text, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => Model.JobApplicationCreateDto.Answers[i].Text, "", new { @class = "text-danger" })
                         </div>
                     </td>
                 </tr>
             }
         </table>
+        
+        @Html.HiddenFor(model => model.JobApplicationCreateDto.JobOfferId)
+        @Html.HiddenFor(model => model.JobApplicationCreateDto.CandidateDto.Id)
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

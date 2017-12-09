@@ -4,8 +4,9 @@ using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Enums;
 using BusinessLayer.DTOs.Filters;
 using BusinessLayer.Facades.Common;
+using BusinessLayer.Services.Answers;
+using BusinessLayer.Services.Candidate;
 using BusinessLayer.Services.JobApplications;
-using BusinessLayer.Services.RegisteredUsers;
 using Infrastructure.UnitOfWork;
 
 namespace BusinessLayer.Facades.JobApplication
@@ -13,36 +14,43 @@ namespace BusinessLayer.Facades.JobApplication
     public class JobApplicationFacade : FacadeBase, IJobApplicationFacade
 	{
         private readonly IJobApplicationService jobApplicationService;
-        private readonly IRegisteredUserService registeredUserService;
+        private readonly ICandidateService registeredUserService;
+        private readonly IAnswerService answerService;
 
-		public JobApplicationFacade(IUnitOfWorkProvider unitOfWorkProvider, IJobApplicationService jobApplicationService, IRegisteredUserService registeredUserService) : base(unitOfWorkProvider)
+		public JobApplicationFacade(IUnitOfWorkProvider unitOfWorkProvider, IJobApplicationService jobApplicationService, ICandidateService registeredUserService, IAnswerService answerService) : base(unitOfWorkProvider)
 		{
 			this.jobApplicationService = jobApplicationService;
 			this.registeredUserService = registeredUserService;
+			this.answerService = answerService;
 		}
 
-        public async Task<int> Create(JobApplicationCreateDto dto)
+        public int Create(JobApplicationCreateDto dto)
         {
             using (var uow = this.UnitOfWorkProvider.Create())
             {
-                RegisteredUserDto registerUser = await this.registeredUserService.GetAsync(dto.CandidateDto.Id);
+				if (dto.Id == 0)
+				{
+					dto.CandidateDto = this.registeredUserService.Create(dto.CandidateDto);
+				}
 
-				// already registered user?
-				if (registerUser != null)
-                {
-	                dto.CandidateDto = registerUser;
-                }
+	            int answersCount = dto.Answers?.Count ?? 0;
 
 				JobApplicationDto application = new JobApplicationDto
 				{
-					Answers = dto.Answers,
+					Answers = new List<AnswerDto>(answersCount),
 					JobOfferId = dto.JobOfferId,
 					JobCandidate = dto.CandidateDto,
 					Status = Status.Open
 				};
 
+	            for (int i = 0; i < answersCount; i++)
+	            {
+		            application.Answers.Add(this.answerService.Create(dto.Answers[i]));
+	            }
+
 				var created = this.jobApplicationService.Create(application);
-                uow.SaveChanges();
+
+				uow.SaveChanges();
                 return created.Id;
             }
         }

@@ -8,11 +8,22 @@ using Infrastructure.Repository;
 
 namespace BusinessLayer.Services.Common
 {
-    public abstract class CrudQueryServiceBase<TEntity, TDto, TFilterDto> : ServiceBase
+	public abstract class CrudQueryServiceBase<TEntity, TDto, TFilterDto> : CrudQueryServiceBase<TEntity, TDto, TDto, TFilterDto>
+		where TFilterDto : FilterDtoBase, new()
+		where TEntity : class, IEntity, new()
+		where TDto : DtoBase
+	{
+		protected CrudQueryServiceBase(IMapper mapper, IRepository<TEntity> repository, QueryObjectBase<TDto, TEntity, TFilterDto, IQuery<TEntity>> query) : base(mapper, repository, query)
+		{
+		}
+	}
+
+	public abstract class CrudQueryServiceBase<TEntity, TDto, TUpdateDto, TFilterDto> : ServiceBase
         where TFilterDto : FilterDtoBase, new()
         where TEntity : class, IEntity, new()
         where TDto : DtoBase
-    {
+        where TUpdateDto : DtoBase
+	{
         private static readonly TFilterDto ListAllFilter = new TFilterDto();
 
         protected readonly IRepository<TEntity> Repository;
@@ -67,7 +78,7 @@ namespace BusinessLayer.Services.Common
         /// Updates entity
         /// </summary>
         /// <param name="entityDto">entity details</param>
-        public virtual async Task Update(TDto entityDto)
+        public virtual async Task Update(TUpdateDto entityDto)
         {
             TEntity entity = await GetWithIncludesAsync(entityDto.Id);
             this.Mapper.Map(entityDto, entity);

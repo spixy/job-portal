@@ -63,9 +63,9 @@ namespace PresentationLayer.Controllers
 
 		// POST: JobApplication/Create
 		[System.Web.Mvc.HttpPost]
-        public async Task<ActionResult> Create(JobApplicationCreateViewModel jobApplicationDto)
+        public ActionResult Create(JobApplicationCreateViewModel jobApplicationDto)
         {
-			int id = await this.JobApplicationFacade.Create(jobApplicationDto.JobApplicationCreateDto);
+			int id = this.JobApplicationFacade.Create(jobApplicationDto.JobApplicationCreateDto);
 	        if (id != 0)
 	        {
 		        return RedirectToAction("Details", new { id });

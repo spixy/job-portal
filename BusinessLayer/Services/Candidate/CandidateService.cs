@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Filters;
@@ -10,7 +11,7 @@ using Infrastructure.Repository;
 
 namespace BusinessLayer.Services.Candidate
 {
-    public class CandidateService : CrudQueryServiceBase<JobCandidate, JobCandidateDto, JobCandidateFilterDto>
+    public class CandidateService : CrudQueryServiceBase<JobCandidate, JobCandidateDto, JobCandidateFilterDto>, ICandidateService
     {
         public CandidateService(IMapper mapper, IRepository<JobCandidate> repository, QueryObjectBase<JobCandidateDto, JobCandidate, JobCandidateFilterDto, IQuery<JobCandidate>> query)
             : base(mapper, repository, query)
@@ -21,5 +22,11 @@ namespace BusinessLayer.Services.Candidate
         {
             return this.Repository.GetAsync(entityId, nameof(JobCandidate.Skills));
         }
+
+	    public async Task<JobCandidateDto> GetByEmailAsync(string email)
+	    {
+		    var result = await this.Query.ExecuteQuery(new JobCandidateFilterDto() {Email = email});
+		    return result.Items.FirstOrDefault();
+	    }
     }
 }
