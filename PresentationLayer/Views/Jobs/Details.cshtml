@@ -58,30 +58,3 @@
         <input class="btn btn-default" type="button" value="Apply" onclick="location.href='@Url.Action("Create", "JobApplication", new { id = Model.Id })'" '  />
     </dl>
 </div>
-<!--
-<table class="table">
-    <tr>
-        <th>
-            Question
-        </th>
-        <th>
-            Answer
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model.Questions)
-    {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Text)
-        </td>
-        <td>
-            <div class="col-md-10">
-                @Html.EditorFor(model => item.Id, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => item.Id, "", new { @class = "text-danger" })
-            </div>
-        </td>
-    </tr>
-    }
-</table>-->
