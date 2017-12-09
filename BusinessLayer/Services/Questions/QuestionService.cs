@@ -14,8 +14,8 @@ namespace BusinessLayer.Services.Questions
     public class QuestionService : CrudQueryServiceBase<Question, QuestionDto, QuestionFilterDto>, IQuestionService
     {
         public QuestionService(IMapper mapper, IRepository<Question> repository,
-            QueryObjectBase<QuestionDto, Question, QuestionFilterDto, IQuery<Question>> quoryObject)
-            : base(mapper, repository, quoryObject)
+            QueryObjectBase<QuestionDto, Question, QuestionFilterDto, IQuery<Question>> queryObject)
+            : base(mapper, repository, queryObject)
         {
         }
 

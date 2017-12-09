@@ -14,8 +14,8 @@ namespace BusinessLayer.Services.Skills
     public class SkillService : CrudQueryServiceBase<Skill, SkillDto, SkillFilterDto>, ISkillService
     {
         public SkillService(IMapper mapper, IRepository<Skill> repository,
-            QueryObjectBase<SkillDto, Skill, SkillFilterDto, IQuery<Skill>> quoryObject)
-            : base(mapper, repository, quoryObject)
+            QueryObjectBase<SkillDto, Skill, SkillFilterDto, IQuery<Skill>> queryObject)
+            : base(mapper, repository, queryObject)
         {
         }
 
