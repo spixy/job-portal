@@ -6,7 +6,8 @@ using Infrastructure;
 
 namespace DataAccessLayer.Entities
 {
-    public class Skill : IEntity
+	// ja by som Skill dal ako string
+	public class Skill : IEntity
     {
         public int Id { get; set; }
 

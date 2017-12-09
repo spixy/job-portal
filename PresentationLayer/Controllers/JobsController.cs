@@ -16,8 +16,8 @@ namespace PresentationLayer.Controllers
         public EmployerFacade EmployerFacade { get; set; }
         public OfficeSelectListHelper OfficeSelectListHelper { get; set; }
 
-        // GET: Job
-        public async Task<ActionResult> Index(int page = 1)
+		// GET: Job
+		public async Task<ActionResult> Index(int page = 1)
         {
             // TODO
             JobOfferFilterDto filter = new JobOfferFilterDto

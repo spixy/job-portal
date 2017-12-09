@@ -169,8 +169,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\EducationSelectListHelper.cs" />
     <Compile Include="Helpers\OfficeSelectListHelper.cs" />
     <Compile Include="Models\Account\LoginModel.cs" />
+    <Compile Include="Models\JobApplication\JobApplicationCreateViewModel.cs" />
     <Compile Include="Models\JobOffer\JobOfferCreateViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -54,7 +54,7 @@ namespace Infrastructure.Repository
 
         public void Update(TEntity entity)
         {
-            TEntity foundEntity = this.Get(entity.Id);
+            TEntity foundEntity = Context.Set<TEntity>().Find(entity.Id);
             Context.Entry(foundEntity).CurrentValues.SetValues(entity);
         }
     }

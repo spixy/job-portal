@@ -10,6 +10,7 @@ namespace PresentationLayer.Helpers
     {
         public OfficeFacade OfficeFacade { get; set; }
 
+		// todo: mali byt tam byt iba offices aktualneho employera
         public async Task<IList<SelectListItem>> Get()
         {
             List<SelectListItem> listSelectListItems = new List<SelectListItem>();
@@ -18,7 +19,7 @@ namespace PresentationLayer.Helpers
             {
                 SelectListItem selectList = new SelectListItem()
                 {
-                    Text = office.Address + office.City + office.Country,
+                    Text = string.Format("{0} {1} {2}", office.Address, office.City, office.Country),
                     Value = office.Id.ToString()
                 };
                 listSelectListItems.Add(selectList);

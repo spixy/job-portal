@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Web.Http;
 using System.Web.Mvc;
 using BusinessLayer.DTOs;
 using BusinessLayer.Facades.JobApplication;
 using BusinessLayer.Facades.JobOffer;
-using Castle.MicroKernel.Registration;
+using PresentationLayer.Helpers;
+using PresentationLayer.Models.JobApplication;
 
 namespace PresentationLayer.Controllers
 {
@@ -16,6 +16,7 @@ namespace PresentationLayer.Controllers
     {
         private IJobApplicationFacade JobApplicationFacade => MvcApplication.Container.Resolve<JobApplicationFacade>();
         private IJobOfferFacade JobOfferFacade => MvcApplication.Container.Resolve<JobOfferFacade>();
+	    public EducationSelectListHelper EducationSelectListHelper { get; set; }
 
 		// GET: JobApplication
 		public ActionResult Index()
@@ -41,7 +42,13 @@ namespace PresentationLayer.Controllers
 				Answers = CreateEmptyAnswers(jobOffer)
 			};
 
-			return View(applicationCreateDto);
+	        JobApplicationCreateViewModel model = new JobApplicationCreateViewModel
+			{
+		        JobApplicationCreateDto = applicationCreateDto,
+				Educations = this.EducationSelectListHelper.Get()
+			};
+
+			return View(model);
         }
 
 	    private List<AnswerDto> CreateEmptyAnswers(JobOfferDto JobOffer)
@@ -49,16 +56,16 @@ namespace PresentationLayer.Controllers
 		    var list = new List<AnswerDto>(JobOffer.Questions.Count);
 		    foreach (QuestionDto question in JobOffer.Questions)
 		    {
-			    list.Add(new AnswerDto{ Question = question });
+			    list.Add(new AnswerDto{ QuestionId = question.Id, Question = question });
 		    }
 		    return list;
 	    }
 
 		// POST: JobApplication/Create
 		[System.Web.Mvc.HttpPost]
-        public async Task<ActionResult> Create(JobApplicationCreateDto jobApplicationDto)
+        public async Task<ActionResult> Create(JobApplicationCreateViewModel jobApplicationDto)
         {
-			int id = await this.JobApplicationFacade.Create(jobApplicationDto);
+			int id = await this.JobApplicationFacade.Create(jobApplicationDto.JobApplicationCreateDto);
 	        if (id != 0)
 	        {
 		        return RedirectToAction("Details", new { id });

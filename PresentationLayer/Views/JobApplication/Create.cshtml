@@ -1,4 +1,4 @@
-﻿@model BusinessLayer.DTOs.JobApplicationCreateDto
+﻿@model PresentationLayer.Models.JobApplication.JobApplicationCreateViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -11,24 +11,48 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>@Html.DisplayFor(model => model.JobOfferName)</h4>
+        <h4>@Html.DisplayFor(model => model.JobApplicationCreateDto.JobOfferName)</h4>
         <hr />
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CandidateDto.Education, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.JobApplicationCreateDto.CandidateDto.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CandidateDto.Education, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CandidateDto.Education, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.JobApplicationCreateDto.CandidateDto.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.JobApplicationCreateDto.CandidateDto.Name, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CandidateDto.Skills, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.JobApplicationCreateDto.CandidateDto.Education, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CandidateDto.Skills, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CandidateDto.Skills, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.JobApplicationCreateDto.CandidateDto.Education, Model.Educations, "")
+                @Html.ValidationMessageFor(model => model.JobApplicationCreateDto.CandidateDto.Education, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.JobApplicationCreateDto.CandidateDto.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.JobApplicationCreateDto.CandidateDto.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.JobApplicationCreateDto.CandidateDto.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.JobApplicationCreateDto.CandidateDto.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.JobApplicationCreateDto.CandidateDto.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.JobApplicationCreateDto.CandidateDto.Phone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Skill", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.JobApplicationCreateDto.CandidateDto.Skills[0].Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.JobApplicationCreateDto.CandidateDto.Skills[0].Name, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -44,16 +68,16 @@
             </tr>
 
             <!--foreach (var anwser in Model.Answers)-->
-            @for(int i = 0; i < Model.Answers.Count; i++)
+            @for(int i = 0; i < Model.JobApplicationCreateDto.Answers.Count; i++)
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => Model.Answers[i].Question.Text)
+                        @Html.DisplayFor(modelItem => Model.JobApplicationCreateDto.Answers[i].Question.Text)
                     </td>
                     <td>
                         <div class="col-md-10">
-                            @Html.EditorFor(model => Model.Answers[i].Text, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => Model.Answers[i].Text, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => Model.JobApplicationCreateDto.Answers[i].Text, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => Model.JobApplicationCreateDto.Answers[i].Text, "", new { @class = "text-danger" })
                         </div>
                     </td>
                 </tr>
