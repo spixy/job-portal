@@ -53,8 +53,25 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Questions)
+        </dt>
+
+        <dd>
+            @{
+                foreach (var question in Model.Questions)
+                {
+                    @Html.DisplayFor(model => question.Text)
+                    <br />
+                }
+            }
+
+        </dd>
+
         <hr />
 
-        <input class="btn btn-default" type="button" value="Apply" onclick="location.href='@Url.Action("Create", "JobApplication", new { id = Model.Id })'" />
     </dl>
+
+    <input class="btn btn-default" type="button" value="Apply" onclick="location.href='@Url.Action("Create", "JobApplication", new { id = Model.Id })'" />
+
 </div>
