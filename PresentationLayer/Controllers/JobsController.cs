@@ -5,6 +5,8 @@ using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Filters;
 using BusinessLayer.Facades.Employers;
 using BusinessLayer.Facades.JobOffer;
+using PresentationLayer.Helpers;
+using PresentationLayer.Models.JobOffer;
 
 namespace PresentationLayer.Controllers
 {
@@ -12,6 +14,7 @@ namespace PresentationLayer.Controllers
     {
 	    private IJobOfferFacade JobOfferFacade => MvcApplication.Container.Resolve<JobOfferFacade>();
         public EmployerFacade EmployerFacade { get; set; }
+        public OfficeSelectListHelper OfficeSelectListHelper { get; set; }
 
         // GET: Job
         public async Task<ActionResult> Index(int page = 1)
@@ -48,34 +51,33 @@ namespace PresentationLayer.Controllers
 	    }
 
         // GET: Jobs/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            return View();
+            JobOfferCreateViewModel model = new JobOfferCreateViewModel
+            {
+                Offices = await OfficeSelectListHelper.Get()
+            };
+
+            return View(model);
         }
 
         // POST: Jobs/Create
         [HttpPost]
-        public async Task<ActionResult> Create(JobOfferCreateDto jobDto)
+        public async Task<ActionResult> Create(JobOfferCreateViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return View();
+                model.Offices = await OfficeSelectListHelper.Get();
+                return View(model);
             }
 
-            try
-            {
-                var currentEmployer = await EmployerFacade.GetByUsername(User.Identity.Name);
-                jobDto.EmployerId = currentEmployer.Id;
+            var jobDto = model.JobOfferCreateDto;
+            var currentEmployer = await EmployerFacade.GetByUsername(User.Identity.Name);
+            jobDto.EmployerId = currentEmployer.Id;
 
-                var created = JobOfferFacade.Create(jobDto);
+            var created = JobOfferFacade.Create(jobDto);
 
-                return RedirectToAction("Index", "Employer");
-            }
-            catch
-            {
-                return RedirectToAction("Index", "Jobs");
-            }
-
+            return RedirectToAction("Index", "Employer");
         }
     }
 }

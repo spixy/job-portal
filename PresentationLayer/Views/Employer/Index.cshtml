@@ -47,9 +47,10 @@
             @Html.DisplayFor(modelItem => item.Office.Country)
         </td>
         <td>
-            @Html.ActionLink("Edit", "EditJob", new { id=item.Id }) |
-            @Html.ActionLink("Details", "JobOffer", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "DeleteJob", new { id=item.Id })
+            @Html.ActionLink("Edit", "EditJob", new { id = item.Id }) |
+            @*linkText, actionName, controllerName, routeValues, htmlAttributes*@
+            @Html.ActionLink("Details", "Details", "Jobs", new { id = item.Id }, null) |
+            @Html.ActionLink("Delete", "DeleteJob", new { id = item.Id })
         </td>
     </tr>
 }

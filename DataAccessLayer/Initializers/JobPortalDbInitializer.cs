@@ -81,10 +81,28 @@ namespace DataAccessLayer.Initializers
                 Phone = "+1 415-736-0000"
             };
 
+            Office aOffice = new Office
+            {
+                Address = "Trnitá 491/3",
+                City = "Brno",
+                Country = Country.CzechRepublic,
+                Phone = "511 187 100"
+            };
+
+            Office bOffice = new Office
+            {
+                Address = "Dornych 510/38",
+                City = "Brno",
+                Country = Country.CzechRepublic,
+                Phone = "511 187 100"
+            };
+
             context.Employers.Add(google);
             context.Employers.Add(sony);
             context.Offices.Add(googleOffice);
             context.Offices.Add(sonyOffice);
+            context.Offices.Add(aOffice);
+            context.Offices.Add(bOffice);
 
             #endregion
 
@@ -117,7 +135,7 @@ namespace DataAccessLayer.Initializers
                 Employer = sony,
                 Office = sonyOffice,
                 Skills = new List<Skill> { cSharp, dotNet, html },
-                Questions = new List<Question> { q2 }
+                Questions = new List<Question> { q1, q2 }
             };
 
             context.JobOffers.Add(swEngineerJobOffer);

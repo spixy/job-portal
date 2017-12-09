@@ -100,6 +100,8 @@
     <Compile Include="Facades\JobApplication\JobApplicationFacade.cs" />
     <Compile Include="Facades\JobOffer\IJobOfferFacade.cs" />
     <Compile Include="Facades\JobOffer\JobOfferFacade.cs" />
+    <Compile Include="Facades\Offices\IOfficeFacade.cs" />
+    <Compile Include="Facades\Offices\OfficeFacade.cs" />
     <Compile Include="Facades\RegisteredUsers\IRegisteredUserFacade.cs" />
     <Compile Include="Facades\RegisteredUsers\RegisteredUserFacade.cs" />
     <Compile Include="Account\Role.cs" />
@@ -118,6 +120,8 @@
     <Compile Include="Services\JobApplications\JobApplicationService.cs" />
     <Compile Include="Services\JobOffers\IJobOfferService.cs" />
     <Compile Include="Services\JobOffers\JobOfferService.cs" />
+    <Compile Include="Services\Offices\IOfficeService.cs" />
+    <Compile Include="Services\Offices\OfficeService.cs" />
     <Compile Include="Services\Questions\IQuestionService.cs" />
     <Compile Include="Services\Questions\QuestionService.cs" />
     <Compile Include="Services\RegisteredUsers\IRegisteredUserService.cs" />

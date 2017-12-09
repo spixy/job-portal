@@ -61,7 +61,7 @@ namespace ConsoleApp
                                                                 questionService,
                                                                 skillService);
 
-            jobOfferFacade.Create(new JobOfferCreateDto
+            int createdId = jobOfferFacade.Create(new JobOfferCreateDto
             {
                 Name = "New job offer by Google Inc.",
                 Description = "New description for this job",
@@ -79,6 +79,8 @@ namespace ConsoleApp
                     new SkillDto() {Name = "Php"}
                 }
             });
+
+            Console.WriteLine("Created ID: " + createdId);
 
             var results = await jobOfferFacade.GetByEmployer(1);
             foreach (var item in results)

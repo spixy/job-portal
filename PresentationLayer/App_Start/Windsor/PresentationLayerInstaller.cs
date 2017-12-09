@@ -14,6 +14,12 @@ namespace PresentationLayer.Windsor
                     .BasedOn<IController>()
                     .LifestylePerWebRequest()
             );
+
+            container.Register(
+                Classes.FromThisAssembly()
+                    .InNamespace("PresentationLayer.Helpers")
+                    .LifestyleTransient()
+            );
         }
     }
 }
