@@ -69,7 +69,7 @@ namespace BusinessLayer.Facades.JobOffer
             }
         }
 
-        public async Task<IEnumerable<JobOfferDto>> GetBySkillName(string skillName)
+        public async Task<IEnumerable<JobOfferDto>> GetBySkill(string skillName)
         {
             using (this.UnitOfWorkProvider.Create())
             {
@@ -82,7 +82,7 @@ namespace BusinessLayer.Facades.JobOffer
             }
         }
 
-        public async Task Update(int id, JobOfferUpdateDto jobOfferDto)
+		public async Task Update(int id, JobOfferUpdateDto jobOfferDto)
         {
             using (var uow = this.UnitOfWorkProvider.Create())
             {

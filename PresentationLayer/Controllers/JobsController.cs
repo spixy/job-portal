@@ -1,10 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Mvc;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Filters;
 using BusinessLayer.Facades.Employers;
 using BusinessLayer.Facades.JobOffer;
+using BusinessLayer.Facades.RegisteredUsers;
 using PresentationLayer.Helpers;
 using PresentationLayer.Models.JobOffer;
 using HttpPost = System.Web.Mvc.HttpPostAttribute;
@@ -15,7 +17,8 @@ namespace PresentationLayer.Controllers
     {
 	    public JobOfferFacade JobOfferFacade { get; set; }
 		public EmployerFacade EmployerFacade { get; set; }
-        public OfficeSelectListHelper OfficeSelectListHelper { get; set; }
+		public RegisteredUserFacade RegisteredUserFacade { get; set; }
+		public OfficeSelectListHelper OfficeSelectListHelper { get; set; }
 
 		// GET: Job
 		public async Task<ActionResult> Index(int page = 1)
@@ -41,8 +44,12 @@ namespace PresentationLayer.Controllers
 	    public async Task<ActionResult> Details(int id)
 	    {
 		    JobOfferDto job = await this.JobOfferFacade.Get(id);
-		    return View(job);
-	    }
+		    if (job != null)
+		    {
+			    return View(job);
+		    }
+		    throw new HttpResponseException(HttpStatusCode.NotFound);
+		}
 
         // GET: Jobs/Create
         public async Task<ActionResult> Create()
@@ -81,5 +88,22 @@ namespace PresentationLayer.Controllers
 				return View(model);
 			}
         }
-    }
+
+	    // GET: RegisteredUser
+	    public async Task<ActionResult> Recommended(int page = 1)
+	    {
+		    var user = await RegisteredUserFacade.GetByUsername(User.Identity.Name);
+
+		    JobOfferFilterDto filter = new JobOfferFilterDto
+		    {
+			    PageSize = JobPortalSettings.DefaultPageSize,
+			    RequestedPageNumber = page,
+			    Education = user.Education,
+			    Skills = user.Skills
+		    };
+
+		    var jobs = await this.JobOfferFacade.Get(filter);
+		    return View("Index", jobs);
+	    }
+	}
 }

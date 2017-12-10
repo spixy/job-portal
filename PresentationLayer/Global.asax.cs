@@ -13,7 +13,7 @@ namespace PresentationLayer
 {
     public class MvcApplication : HttpApplication
     {
-        public static readonly IWindsorContainer Container = new WindsorContainer();
+        private static readonly IWindsorContainer Container = new WindsorContainer();
 
         protected void Application_Start()
         {
@@ -24,22 +24,6 @@ namespace PresentationLayer
 
             BootstrapContainer();
         }
-
-		/*
-		TODO: vobec netusim kde ma byt tato metoda (ak to je aj pre ASP.NET neCore)
-	    public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-	    {
-		    if (env.IsDevelopment())
-		    {
-			    app.UseDeveloperExceptionPage();
-				app.UseBrowserLink();
-		    }
-		    else
-		    {
-			    //app.UseExceptionHandler("/error"); // TODO: zatial nemame 404 error page
-		    }
-	    }
-		*/
 
 		private void BootstrapContainer()
         {
@@ -58,7 +42,7 @@ namespace PresentationLayer
 			    FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
 			    if (authTicket != null && !authTicket.Expired)
 			    {
-				    var roles = authTicket.UserData.Split(','); // TODO
+				    string[] roles = authTicket.UserData.Split('|');
 				    HttpContext.Current.User = new System.Security.Principal.GenericPrincipal(new FormsIdentity(authTicket), roles);
 			    }
 		    }

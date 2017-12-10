@@ -23,10 +23,21 @@ namespace BusinessLayer.QueryObjects
             if (!string.IsNullOrWhiteSpace(filter.Name))
                 definedPredicates.Add(new SimplePredicate(nameof(JobOffer.Name), ValueComparingOperator.StringContains, filter.Name));
 
-            if (filter.EmployerId != null)
+			if (filter.EmployerId != null)
                 definedPredicates.Add(new SimplePredicate(nameof(JobOffer.EmployerId), ValueComparingOperator.Equal, filter.EmployerId));
 
-            return MergePredicates(definedPredicates);
+	        if (filter.Skills != null)
+	        {
+				var predicates = new List<IPredicate>();
+		        foreach (SkillDto skillDto in filter.Skills)
+		        {
+			        var skill = Mapper.Map<Skill>(skillDto);
+			        predicates.Add(new SimplePredicate(nameof(JobOffer.Skills), ValueComparingOperator.EnumerableContains, skill));
+				}
+		        definedPredicates.Add(new CompositePredicate(predicates, LogicalOperator.OR));
+			}
+
+			return MergePredicates(definedPredicates);
         }
     }
 }

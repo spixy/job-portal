@@ -23,7 +23,7 @@ namespace PresentationLayer.Controllers
 		// GET: JobApplication/Details/5
 		public async Task<ActionResult> Details(int id)
 		{
-			var application = await this.JobApplicationFacade.Get(id);
+			JobApplicationDto application = await this.JobApplicationFacade.Get(id);
 			return View(application);
         }
 
@@ -69,9 +69,9 @@ namespace PresentationLayer.Controllers
 			}
 		}
 
-		// Helpers //
+		// HELPERS //
 
-	    private static List<AnswerDto> CreateEmptyAnswers(JobOfferDto jobOffer)
+		private static List<AnswerDto> CreateEmptyAnswers(JobOfferDto jobOffer)
 		{
 			int questionsCount = jobOffer.Questions.Count;
 			var list = new List<AnswerDto>(questionsCount);

@@ -80,7 +80,6 @@ namespace PresentationLayer.Controllers
 		public ActionResult Logout()
 		{
 			FormsAuthentication.SignOut();
-
 			return RedirectToAction("Index", "Jobs");
 		}
 
@@ -100,14 +99,7 @@ namespace PresentationLayer.Controllers
 			}
 
 			await this.EmployerFacade.Create(employerDto);
-
-	        FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(1, employerDto.Username, DateTime.Now, DateTime.Now.AddHours(1), false, Role.Employer.GetString());
-	        string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
-	        HttpCookie authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-	        HttpContext.Response.Cookies.Add(authCookie);
-
-			string controllerName = RoleControllerMap[Role.Employer];
-			return RedirectToAction("Index", controllerName);
+			return this.FinishRegistration(employerDto.Username, Role.Employer);
 		}
 
 		// GET: Account/RegisterUser
@@ -126,14 +118,18 @@ namespace PresentationLayer.Controllers
 			}
 
 			await this.RegisteredUserFacade.Create(registeredUserDto);
+		    return this.FinishRegistration(registeredUserDto.Username, Role.User);
+		}
 
-		    FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(1, registeredUserDto.Username, DateTime.Now, DateTime.Now.AddHours(1), false, Role.User.GetString());
+	    private ActionResult FinishRegistration(string username, Role role)
+	    {
+		    FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(1, username, DateTime.Now, DateTime.Now.AddHours(1), false, role.GetString());
 		    string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
 		    HttpCookie authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-		    HttpContext.Response.Cookies.Add(authCookie);
+		    this.HttpContext.Response.Cookies.Add(authCookie);
 
-			string controllerName = RoleControllerMap[Role.User];
-			return RedirectToAction("Index", controllerName);
-		}
+		    string controllerName = RoleControllerMap[role];
+		    return this.RedirectToAction("Index", controllerName);
+	    }
     }
 }

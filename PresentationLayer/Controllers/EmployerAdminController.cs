@@ -104,13 +104,17 @@ namespace PresentationLayer.Controllers
 	        try
 	        {
 		        JobOfferDto job = await this.GetMyJobOffer(id);
-		        await this.JobOfferFacade.Update(id, jobDto);
-		        return RedirectToAction("JobOffer", new { id });
-			}
+		        if (job != null)
+		        {
+			        await this.JobOfferFacade.Update(id, jobDto);
+			        return RedirectToAction("JobOffer", new {id});
+		        }
+	        }
 	        catch
 			{
-				return View();
+				// ignored
 			}
+			return View();
 		}
 
 		// GET: Employer
@@ -166,8 +170,15 @@ namespace PresentationLayer.Controllers
 		[HttpPost]
 		public async Task<ActionResult> DeleteJob(int id, JobOfferDto jobApplicationDto)
 		{
-			await this.JobOfferFacade.Delete(id);
-			return RedirectToAction("Index");
+			try
+			{
+				await this.JobOfferFacade.Delete(id);
+				return RedirectToAction("Index");
+			}
+			catch
+			{
+				throw new HttpResponseException(HttpStatusCode.BadRequest);
+			}
 		}
 
 		// HELPERS //

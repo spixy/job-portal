@@ -16,18 +16,11 @@ namespace BusinessLayer.Services.JobOffers
     public class JobOfferService : CrudQueryServiceBase<JobOffer, JobOfferDto, JobOfferUpdateDto, JobOfferFilterDto>, IJobOfferService
     {
         private readonly IJobOfferRepository jobOfferRepository;
-        private readonly ISkillRepository skillRepository;
-        private readonly IRepository<Question> questionRepository;
 
-        public JobOfferService(IMapper mapper, IJobOfferRepository jobOfferRepository,
-            ISkillRepository skillRepository, IRepository<Question> questionRepository,
-            QueryObjectBase<JobOfferDto, JobOffer, JobOfferFilterDto, IQuery<JobOffer>> query)
-            : base(mapper, jobOfferRepository, query)
-        {
-            this.jobOfferRepository = jobOfferRepository;
-            this.skillRepository = skillRepository;
-            this.questionRepository = questionRepository;
-        }
+	    public JobOfferService(IMapper mapper, IRepository<JobOffer> repository, QueryObjectBase<JobOfferDto, JobOffer, JobOfferFilterDto, IQuery<JobOffer>> query, IJobOfferRepository jobOfferRepository) : base(mapper, repository, query)
+	    {
+		    this.jobOfferRepository = jobOfferRepository;
+	    }
 
         protected override async Task<JobOffer> GetWithIncludesAsync(int entityId)
         {

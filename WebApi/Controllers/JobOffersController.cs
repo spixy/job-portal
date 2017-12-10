@@ -34,7 +34,7 @@ namespace WebApi.Controllers
             }
 			else
 			{
-				jobs = await JobOfferFacade.GetBySkillName(skill);
+				jobs = await JobOfferFacade.GetBySkill(skill);
 			}
 
 			var result = new List<JobOfferDto>();
