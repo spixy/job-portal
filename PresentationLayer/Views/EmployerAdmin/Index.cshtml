@@ -48,8 +48,7 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "EditJob", new { id = item.Id }) |
-            @*linkText, actionName, controllerName, routeValues, htmlAttributes*@
-            @Html.ActionLink("Details", "JobOffer", "Employer", new { id = item.Id }, null) |
+            @Html.ActionLink("Details", "JobOffer", new { id = item.Id }, null) |
             @Html.ActionLink("Delete", "DeleteJob", new { id = item.Id })
         </td>
     </tr>

@@ -5,7 +5,6 @@ using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Filters;
 using BusinessLayer.QueryObjects.Common;
 using BusinessLayer.Services.Common;
-using BusinessLayer.Services.Skills;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Repositories;
 using Infrastructure.Query;

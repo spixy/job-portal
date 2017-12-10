@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Filters;
@@ -19,39 +17,11 @@ namespace PresentationLayer.Controllers
 	/// Administracia employerov
 	/// </summary>
 	[Authorize(Roles = "Employer" /*Role.Employer.GetString()*/)]
-	public class EmployerController : Controller
+	public class EmployerAdminController : Controller
 	{
 		private IEmployerFacade EmployerFacade => MvcApplication.Container.Resolve<EmployerFacade>();
 		private IJobOfferFacade JobOfferFacade => MvcApplication.Container.Resolve<JobOfferFacade>();
 		private IJobApplicationFacade JobApplicationFacade => MvcApplication.Container.Resolve<JobApplicationFacade>();
-
-		private async Task<JobOfferDto> GetMyJobOffer(int id)
-		{
-			JobOfferDto job = await this.JobOfferFacade.Get(id, false);
-			if (job != null)
-			{
-				EmployerDto employer = await EmployerFacade.GetByUsername(User.Identity.Name);
-				if (employer != null && job.Employer.Id == employer.Id)
-				{
-					return job;
-				}
-			}
-			return null;
-		}
-
-		private async Task<JobApplicationDto> GetMyJobApplication(int id)
-		{
-			JobApplicationDto job = await this.JobApplicationFacade.Get(id, false);
-			if (job != null)
-			{
-				EmployerDto employer = await EmployerFacade.GetByUsername(User.Identity.Name);
-				if (employer != null && job.JobOffer != null && job.JobOffer.Employer.Id == employer.Id)
-				{
-					return job;
-				}
-			}
-			return null;
-		}
 
 		// GET: Employer
         // Get method for current employer
@@ -159,7 +129,7 @@ namespace PresentationLayer.Controllers
 		    {
 			    // ignored
 		    }
-		    return RedirectToAction("Index", "Employer");
+		    return RedirectToAction("Index");
 		}
 
         // GET: Employer/EditJob/5
@@ -237,6 +207,36 @@ namespace PresentationLayer.Controllers
 		{
 			await this.JobOfferFacade.Delete(id);
 			return RedirectToAction("Index");
+		}
+
+		// HELPERS //
+
+		private async Task<JobOfferDto> GetMyJobOffer(int id)
+		{
+			JobOfferDto job = await this.JobOfferFacade.Get(id, false);
+			if (job != null)
+			{
+				EmployerDto employer = await EmployerFacade.GetByUsername(User.Identity.Name);
+				if (employer != null && job.Employer.Id == employer.Id)
+				{
+					return job;
+				}
+			}
+			return null;
+		}
+
+		private async Task<JobApplicationDto> GetMyJobApplication(int id)
+		{
+			JobApplicationDto job = await this.JobApplicationFacade.Get(id, false);
+			if (job != null)
+			{
+				EmployerDto employer = await EmployerFacade.GetByUsername(User.Identity.Name);
+				if (employer != null && job.JobOffer != null && job.JobOffer.Employer.Id == employer.Id)
+				{
+					return job;
+				}
+			}
+			return null;
 		}
 	}
 }

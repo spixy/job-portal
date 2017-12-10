@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -17,6 +18,12 @@ namespace PresentationLayer.Controllers
 	    private IEmployerFacade EmployerFacade => MvcApplication.Container.Resolve<EmployerFacade>();
 	    private IRegisteredUserFacade RegisteredUserFacade => MvcApplication.Container.Resolve<RegisteredUserFacade>();
 	    private IUserFacade UserFacade => MvcApplication.Container.Resolve<UserFacade>();
+
+	    private static readonly Dictionary<Role, string> RoleControllerMap = new Dictionary<Role, string>
+	    {
+		    {Role.Employer, "EmployerAdmin"},
+		    {Role.User, "RegisteredUserAdmin"}
+	    };
 
 		// GET: Account/Login
 		public ActionResult Login()
@@ -52,18 +59,16 @@ namespace PresentationLayer.Controllers
 				    }
 				}
 
-			    switch (result.Roles)
+			    string controllerName;
+			    if (RoleControllerMap.TryGetValue(result.Roles, out controllerName))
 			    {
-					case Role.Employer:
-						return RedirectToAction("Index", "Employer");
-
-				    case Role.User:
-					    return RedirectToAction("Index", "RegisteredUser");
-
-					default:
-						return RedirectToAction("Index", "Jobs");
+				    return RedirectToAction("Index", controllerName);
+			    }
+			    else
+			    {
+					return RedirectToAction("Index", "Jobs");
 				}
-			}
+		    }
 		    else
 		    {
 			    ModelState.AddModelError("", "Wrong username or password!");
@@ -101,7 +106,8 @@ namespace PresentationLayer.Controllers
 	        HttpCookie authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
 	        HttpContext.Response.Cookies.Add(authCookie);
 
-			return RedirectToAction("Index", "Employer");
+			string controllerName = RoleControllerMap[Role.Employer];
+			return RedirectToAction("Index", controllerName);
 		}
 
 		// GET: Account/RegisterUser
@@ -126,7 +132,8 @@ namespace PresentationLayer.Controllers
 		    HttpCookie authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
 		    HttpContext.Response.Cookies.Add(authCookie);
 
-		    return RedirectToAction("Index", "RegisteredUser");
+			string controllerName = RoleControllerMap[Role.User];
+			return RedirectToAction("Index", controllerName);
 		}
     }
 }

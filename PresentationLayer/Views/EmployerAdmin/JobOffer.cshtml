@@ -80,7 +80,7 @@
     @foreach (var item in Model.JobApplications) {
         <tr>
             <td>
-                @Html.ActionLink(item.JobCandidate.Name, "Index", "Users", new { id = item.JobCandidate.Id }, null)
+                @Html.ActionLink(item.JobCandidate.Name, "Index", "RegisteredUser", new { id = item.JobCandidate.Id }, null)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.JobCandidate.Education)

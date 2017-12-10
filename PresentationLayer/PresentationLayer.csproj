@@ -163,7 +163,7 @@
     <Compile Include="App_Start\Windsor\WindsorControllerFactory.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\JobApplicationController.cs" />
-    <Compile Include="Controllers\EmployerController.cs" />
+    <Compile Include="Controllers\EmployerAdminController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\RegisteredUserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -219,17 +219,17 @@
     <Content Include="Views\Jobs\Delete.cshtml" />
     <Content Include="Views\Jobs\Details.cshtml" />
     <Content Include="Views\Jobs\Create.cshtml" />
-    <Content Include="Views\Employer\JobOffer.cshtml" />
-    <Content Include="Views\Employer\JobApplication.cshtml" />
-    <Content Include="Views\Employer\CreateJob.cshtml" />
-    <Content Include="Views\Employer\EditJob.cshtml" />
-    <Content Include="Views\Employer\DeleteJob.cshtml" />
+    <Content Include="Views\EmployerAdmin\JobOffer.cshtml" />
+    <Content Include="Views\EmployerAdmin\JobApplication.cshtml" />
+    <Content Include="Views\EmployerAdmin\CreateJob.cshtml" />
+    <Content Include="Views\EmployerAdmin\EditJob.cshtml" />
+    <Content Include="Views\EmployerAdmin\DeleteJob.cshtml" />
     <Content Include="Views\Account\RegisterEmployer.cshtml" />
     <Content Include="Views\Account\RegisterUser.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Employer\Index.cshtml" />
+    <Content Include="Views\EmployerAdmin\Index.cshtml" />
     <Content Include="Views\JobApplication\Create.cshtml" />
-    <Content Include="Views\Employer\Details.cshtml" />
+    <Content Include="Views\EmployerAdmin\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
