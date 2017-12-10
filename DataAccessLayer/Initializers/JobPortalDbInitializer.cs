@@ -16,11 +16,21 @@ namespace DataAccessLayer.Initializers
             Skill dotNet = new Skill { Name = ".NET" };
             Skill html = new Skill { Name = "HTML" };
             Skill unix = new Skill { Name = "UNIX" };
+            Skill php = new Skill { Name = "PHP" };
+            Skill java = new Skill { Name = "Java" };
+            Skill ruby = new Skill { Name = "Ruby" };
+            Skill ror = new Skill { Name = "Ruby on Rails" };
+            Skill swift = new Skill { Name = "Swift" };
 
             context.Skills.Add(cSharp);
             context.Skills.Add(dotNet);
             context.Skills.Add(html);
             context.Skills.Add(unix);
+            context.Skills.Add(php);
+            context.Skills.Add(java);
+            context.Skills.Add(ruby);
+            context.Skills.Add(ror);
+            context.Skills.Add(swift);
 
             #endregion
 
@@ -47,7 +57,7 @@ namespace DataAccessLayer.Initializers
 
 			#endregion
 
-			#region Employers
+			#region Employers & Offices
 
 			Employer google = new Employer
             {
@@ -65,7 +75,15 @@ namespace DataAccessLayer.Initializers
                 Phone = "+1 415-736-0000"
             };
 
-			Employer sony = new Employer
+            Office zurichOffice = new Office
+            {
+                Address = "Brandschenkestrasse 110",
+                City = "Zürich",
+                Country = Country.Switzerland,
+                Phone = "+41 44 668 18 00"
+            };
+
+            Employer sony = new Employer
             {
                 Name = "Sony Corporation",
                 Email = "sony@jobs.com",
@@ -79,6 +97,14 @@ namespace DataAccessLayer.Initializers
                 City = "San Francisco",
                 Country = Country.USA,
                 Phone = "+1 415-736-0000"
+            };
+
+            Employer netsuite = new Employer
+            {
+                Name = "NetSuite Inc.",
+                Email = "netsuite@jobs.com",
+                Username = "netsuite",
+                Password = "zUSheS1WDjMwbhEJF1FEuncnMAdBxH98iBwSwdpVN3alg+EMYgzU0k3C0e0=t7H1Psjy6PzJlH+E" // zahashovane "netsuite"
             };
 
             Office aOffice = new Office
@@ -97,12 +123,51 @@ namespace DataAccessLayer.Initializers
                 Phone = "511 187 100"
             };
 
+            Employer facebook = new Employer
+            {
+                Name = "Facebook Inc.",
+                Email = "facebook@jobs.com",
+                Username = "facebook",
+                Password = "/sqw1+W+VhO+RbbuPVn3VI4a8hUbZBNQA85jwKSEwmubixZqexwYBew0sAo=TTK/uaA68EDa5TLw" // zahashovane "facebook"
+            };
+
+            Office facebookOffice = new Office
+            {
+                Address = "1 Hacker Way",
+                City = "Menlo Park, California",
+                Country = Country.USA,
+                Phone = "+1 650-543-4800"
+            };
+
+            Employer apple = new Employer
+            {
+                Name = "Apple Inc.",
+                Email = "apple@jobs.com",
+                Username = "apple",
+                Password = "wOKnSoVqFkys/gC0OnvT4jYKPSnupDb8+35ExzXRF8QtHBg1QgtrmULdTxs=I2U595O75nahPYWi" // zahashovane "apple"
+            };
+
+            Office appleOffice = new Office
+            {
+                Address = "1 Infinite Loop",
+                City = "Cupertino, California",
+                Country = Country.USA,
+                Phone = "+1 408-996-1010"
+            };
+
             context.Employers.Add(google);
             context.Employers.Add(sony);
+            context.Employers.Add(netsuite);
+            context.Employers.Add(facebook);
+            context.Employers.Add(apple);
+
             context.Offices.Add(googleOffice);
+            context.Offices.Add(zurichOffice);
             context.Offices.Add(sonyOffice);
             context.Offices.Add(aOffice);
             context.Offices.Add(bOffice);
+            context.Offices.Add(facebookOffice);
+            context.Offices.Add(appleOffice);
 
             #endregion
 
@@ -110,9 +175,19 @@ namespace DataAccessLayer.Initializers
 
             Question q1 = new Question { Text = "How are you?" };
             Question q2 = new Question { Text = "What is the answer?" };
+            Question q3 = new Question { Text = "What is your favourite programming language?" };
+            Question q4 = new Question { Text = "How much cost a trip to Mars?" };
+            Question q5 = new Question { Text = "How much is one plus three?" };
+            Question q6 = new Question { Text = "What is your best achievement so far?" };
+            Question q7 = new Question { Text = "What is your granfather's name?" };
 
             context.Questions.Add(q1);
             context.Questions.Add(q2);
+            context.Questions.Add(q3);
+            context.Questions.Add(q4);
+            context.Questions.Add(q5);
+            context.Questions.Add(q6);
+            context.Questions.Add(q7);
 
             #endregion
 
@@ -125,7 +200,27 @@ namespace DataAccessLayer.Initializers
                 Employer = google,
                 Office = googleOffice,
                 Skills = new List<Skill> { unix },
-                Questions = new List<Question> { q1, q2 }
+                Questions = new List<Question> { q1, q2, q4 }
+            };
+
+            JobOffer specialistJobOffer = new JobOffer
+            {
+                Name = "Technical Specialist",
+                Description = "Escalate internal solutions.",
+                Employer = google,
+                Office = googleOffice,
+                Skills = new List<Skill> { html, php, java },
+                Questions = new List<Question> { q2, q4, q6 }
+            };
+
+            JobOffer scientistJobOffer = new JobOffer
+            {
+                Name = "Research Scientist",
+                Description = "Different research at Google.",
+                Employer = google,
+                Office = zurichOffice,
+                Skills = new List<Skill> { cSharp, dotNet },
+                Questions = new List<Question> { q2, q7 }
             };
 
             JobOffer frontEndJobOffer = new JobOffer
@@ -135,11 +230,57 @@ namespace DataAccessLayer.Initializers
                 Employer = sony,
                 Office = sonyOffice,
                 Skills = new List<Skill> { cSharp, dotNet, html },
-                Questions = new List<Question> { q1, q2 }
+                Questions = new List<Question> { q1, q3, q5, q7 }
+            };
+
+            JobOffer programmerJobOffer = new JobOffer
+            {
+                Name = "Programmer Head",
+                Description = "Let's hack the world.",
+                Employer = netsuite,
+                Office = bOffice,
+                Skills = new List<Skill> { cSharp, dotNet, php, java, ruby, swift },
+                Questions = new List<Question> { q3, q6 }
+            };
+
+            JobOffer geekJobOffer = new JobOffer
+            {
+                Name = "Geek Job",
+                Description = "It's up to you..",
+                Employer = facebook,
+                Office = facebookOffice,
+                Skills = new List<Skill> { php, unix },
+                Questions = new List<Question> { q2 }
+            };
+
+            JobOffer designerJobOffer = new JobOffer
+            {
+                Name = "Apple Designer",
+                Description = "Design new Apple products.",
+                Employer = apple,
+                Office = appleOffice,
+                Skills = new List<Skill> { swift, ruby, ror },
+                Questions = new List<Question> { q1, q2, q3, q4, q5, q6, q7 }
+            };
+
+            JobOffer swiftJobOffer = new JobOffer
+            {
+                Name = "Swift Developer",
+                Description = "Develop further.",
+                Employer = apple,
+                Office = appleOffice,
+                Skills = new List<Skill> { swift },
+                Questions = new List<Question> { q1, q7 }
             };
 
             context.JobOffers.Add(swEngineerJobOffer);
+            context.JobOffers.Add(specialistJobOffer);
+            context.JobOffers.Add(scientistJobOffer);
             context.JobOffers.Add(frontEndJobOffer);
+            context.JobOffers.Add(programmerJobOffer);
+            context.JobOffers.Add(geekJobOffer);
+            context.JobOffers.Add(designerJobOffer);
+            context.JobOffers.Add(swiftJobOffer);
 
             #endregion
 
@@ -164,7 +305,7 @@ namespace DataAccessLayer.Initializers
 
 			#endregion
 
-	        #region Job Applications
+	        #region Job Candidates -- Registered Users
 
 			RegisteredUser David = new RegisteredUser
 	        {
