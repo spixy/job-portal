@@ -4,7 +4,7 @@
     ViewBag.Title = "Job Offer";
 }
 
-<h2>JobOffer</h2>
+<h2>@Html.DisplayFor(model => model.Name)</h2>
 
 <div>
     <hr />
@@ -80,7 +80,8 @@
     @foreach (var item in Model.JobApplications) {
         <tr>
             <td>
-                @Html.ActionLink(item.JobCandidate.Name, "Index", "RegisteredUsers", new { id = item.JobCandidate.Id }, null)
+                @*@Html.ActionLink(item.JobCandidate.Name, "Index", "RegisteredUsers", new { id = item.JobCandidate.Id }, null)*@
+                @Html.DisplayFor(modelItem => item.JobCandidate.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.JobCandidate.Education)
