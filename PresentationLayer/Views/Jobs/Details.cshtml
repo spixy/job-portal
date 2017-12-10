@@ -71,8 +71,10 @@
         <hr />
 
     </dl>
-
-    <input class="btn btn-default" type="button" value="Apply" onclick="location.href='@Url.Action("Create", "JobApplication", new { id = Model.Id })'" />
+    @if (!User.IsInRole("Employer"))
+    {
+        <input class="btn btn-default" type="button" value="Apply" onclick="location.href='@Url.Action("Create", "JobApplication", new { id = Model.Id })'" />
+    }
 
     <input class="btn btn-default" type="button" value="View all job offers from @Model.Employer.Name" onclick="location.href='@Url.Action("Details", "Employer", new { id = Model.Employer.Id })'" />
 
