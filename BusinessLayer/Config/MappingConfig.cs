@@ -14,13 +14,8 @@ namespace BusinessLayer.Config
             config.CreateMap<Answer, AnswerDto>();
 	        config.CreateMap<AnswerDto, Answer>()
 		        .ForMember(dest => dest.Question, opt => opt.Ignore());
-			
-	        config.CreateMap<JobApplication, JobApplicationDto>();
-			config.CreateMap<JobApplicationDto, JobApplication>()
-		        .ForMember(dest => dest.JobOffer, opt => opt.Ignore())
-		        .ForMember(dest => dest.Answers, opt => opt.Ignore())
-		        .ForMember(dest => dest.JobCandidate, opt => opt.Ignore());
 
+	        config.CreateMap<JobApplication, JobApplicationDto>().ReverseMap();
 			config.CreateMap<JobOffer, JobOfferDto>().ReverseMap();
             config.CreateMap<JobOffer, JobOfferCreateDto>().ReverseMap();
             config.CreateMap<Office, OfficeDto>().ReverseMap();
@@ -35,6 +30,13 @@ namespace BusinessLayer.Config
 	        config.CreateMap<EmployerCreateDto, EmployerDto>();
 	        config.CreateMap<JobApplicationCreateDto, JobApplicationDto>();
 	        config.CreateMap<JobApplicationDto, JobApplicationUpdateDto>();
+
+	        config.CreateMap<JobApplicationUpdateDto, JobApplication>()
+		        .ForMember(dest => dest.JobOffer, opt => opt.Ignore())
+		        .ForMember(dest => dest.Answers, opt => opt.Ignore())
+		        .ForMember(dest => dest.JobCandidate, opt => opt.Ignore())
+		        .ForMember(dest => dest.JobCandidateId, opt => opt.Ignore())
+		        .ForMember(dest => dest.JobOfferId, opt => opt.Ignore());
 
 			config.CreateMap<QueryResult<Answer>, QueryResultDto<AnswerDto, AnswerFilterDto>>();
             config.CreateMap<QueryResult<Employer>, QueryResultDto<EmployerDto, EmployerFilterDto>>();

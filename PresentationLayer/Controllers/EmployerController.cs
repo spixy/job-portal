@@ -193,37 +193,31 @@ namespace PresentationLayer.Controllers
 		// GET: Employer
 		public async Task<ActionResult> AcceptApplication(int id)
 		{
-			try
+			var job = await this.GetMyJobApplication(id);
+			if (job != null)
 			{
-				var job = await this.GetMyJobApplication(id);
-				if (job != null)
-				{
-					await this.JobApplicationFacade.AcceptApplication(id);
-				}
+				await this.JobApplicationFacade.AcceptApplication(id);
+				return RedirectToAction("JobOffer", new { job.JobOffer.Id });
 			}
-			catch (Exception e)
+			else
 			{
-				throw;
+				return new EmptyResult();
 			}
-			return RedirectToAction("JobOffer", new { id });
 		}
 
 		// GET: Employer
 		public async Task<ActionResult> DeclineApplication(int id)
 		{
-			try
+			var job = await this.GetMyJobApplication(id);
+			if (job != null)
 			{
-				var job = await this.GetMyJobApplication(id);
-				if (job != null)
-				{
-					await this.JobApplicationFacade.DeclineApplication(id);
-				}
+				await this.JobApplicationFacade.DeclineApplication(id);
+				return RedirectToAction("JobOffer", new { job.JobOffer.Id });
 			}
-			catch (Exception e)
+			else
 			{
-				throw;
+				return new EmptyResult();
 			}
-			return RedirectToAction("JobOffer", new { id });
 		}
 
 		// GET: Employer/DeleteJob/5

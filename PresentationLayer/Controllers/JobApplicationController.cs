@@ -71,7 +71,7 @@ namespace PresentationLayer.Controllers
 		        return RedirectToAction("Details", new { id });
 			}
 
-			return RedirectToAction("Index", "Employer");
+			return RedirectToAction("Index", "RegisteredUser");
 		}
 
         // GET: JobApplication/Edit/5
