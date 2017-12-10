@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using BL.Tests.FacadeTests.Common;
-using BL.Tests.Services.Common;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Filters;
 using BusinessLayer.QueryObjects.Common;

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Common;
 using BusinessLayer.DTOs.Filters;
@@ -12,7 +8,7 @@ using Infrastructure.UnitOfWork;
 
 namespace BusinessLayer.Facades.Offices
 {
-    public class OfficeFacade : FacadeBase, IOfficeFacade
+    public class OfficeFacade : FacadeBase
     {
         private readonly IOfficeService officeService;
 

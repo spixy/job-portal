@@ -1,0 +1,79 @@
+﻿@model BusinessLayer.DTOs.JobApplicationDto
+
+@{
+    ViewBag.Title = "JobApplication";
+}
+
+<h2>Job Application</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Job
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JobOffer.Name)
+        </dd>
+
+        <dt>
+            Description
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JobOffer.Description)
+        </dd>
+
+        <dt>
+            Employer
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JobOffer.Employer.Name)
+        </dd>
+
+        <dt>
+            My Education
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JobCandidate.Education)
+        </dd>
+
+        <dt>
+            My Skills
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JobCandidate.Skills)
+        </dd>
+    </dl>
+    
+    
+    <table class="table">
+        <tr>
+            <th>
+                Question
+            </th>
+            <th>
+                Answer
+            </th>
+            <th></th>
+        </tr>
+        @for(int i = 0; i < Model.Answers.Count; i++)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Answers[i].Question.Text)
+                </td>
+                <td>
+                    <div class="col-md-10">
+                        @Html.HiddenFor(model => model.Answers[i].QuestionId)
+                        @Html.HiddenFor(model => model.Answers[i].JobApplicationId)
+                        @Html.EditorFor(model => model.Answers[i].Text, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => Model.Answers[i].Text, "", new { @class = "text-danger" })
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+
+</div>
+<p>@Html.ActionLink("Back to List", "Index")
+</p>

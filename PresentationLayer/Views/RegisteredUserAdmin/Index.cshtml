@@ -4,11 +4,8 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>My job applications</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -18,24 +15,26 @@
            Job description
         </th>
         <th>
+            Employer
+        </th>
+        <th>
             Status
         </th>
-        <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.JobOffer.Name)
+            @Html.ActionLink(item.JobOffer.Name, "Details", "JobApplication", new { id=item.Id }, null)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.JobOffer.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Status)
+            @Html.DisplayFor(modelItem => item.JobOffer.Employer.Name)
         </td>
         <td>
-            @Html.ActionLink("Details", "JobApplication", new { id=item.Id })
+            @Html.DisplayFor(modelItem => item.Status)
         </td>
     </tr>
 }

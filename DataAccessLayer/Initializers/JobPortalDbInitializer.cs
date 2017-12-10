@@ -63,6 +63,7 @@ namespace DataAccessLayer.Initializers
             {
                 Name = "Google Inc.",
                 Email = "google@jobs.com",
+	            Phone = "12 345 678",
 				Username = "google",
 				Password = "HsewCti7AW7QvbIMu976KVD0mILylbEoXU+p3sRfxBRL+wfuasxodi0SwuM=dpsI2M0k7vgc68wL" // zahashovane "google"
 			};
@@ -103,7 +104,7 @@ namespace DataAccessLayer.Initializers
             {
                 Name = "NetSuite Inc.",
                 Email = "netsuite@jobs.com",
-                Username = "netsuite",
+				Username = "netsuite",
                 Password = "zUSheS1WDjMwbhEJF1FEuncnMAdBxH98iBwSwdpVN3alg+EMYgzU0k3C0e0=t7H1Psjy6PzJlH+E" // zahashovane "netsuite"
             };
 
@@ -127,7 +128,8 @@ namespace DataAccessLayer.Initializers
             {
                 Name = "Facebook Inc.",
                 Email = "facebook@jobs.com",
-                Username = "facebook",
+	            Phone = "666 666 666",
+				Username = "facebook",
                 Password = "/sqw1+W+VhO+RbbuPVn3VI4a8hUbZBNQA85jwKSEwmubixZqexwYBew0sAo=TTK/uaA68EDa5TLw" // zahashovane "facebook"
             };
 
@@ -143,7 +145,8 @@ namespace DataAccessLayer.Initializers
             {
                 Name = "Apple Inc.",
                 Email = "apple@jobs.com",
-                Username = "apple",
+	            Phone = "44 555 666",
+				Username = "apple",
                 Password = "wOKnSoVqFkys/gC0OnvT4jYKPSnupDb8+35ExzXRF8QtHBg1QgtrmULdTxs=I2U595O75nahPYWi" // zahashovane "apple"
             };
 

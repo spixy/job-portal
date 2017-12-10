@@ -11,7 +11,7 @@ using Infrastructure.UnitOfWork;
 
 namespace BusinessLayer.Facades.JobApplication
 {
-    public class JobApplicationFacade : FacadeBase, IJobApplicationFacade
+    public class JobApplicationFacade : FacadeBase
 	{
         private readonly IJobApplicationService jobApplicationService;
 		private readonly ICandidateService registeredUserService;

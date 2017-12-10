@@ -1,18 +1,4 @@
-﻿using AutoMapper;
-using BL.Tests.FacadeTests.Common;
-using BusinessLayer.DTOs;
-using BusinessLayer.DTOs.Filters;
-using BusinessLayer.Facades;
-using BusinessLayer.Facades.JobOffer;
-using BusinessLayer.QueryObjects.Common;
-using BusinessLayer.Services.JobOffers;
-using BusinessLayer.Services.Questions;
-using DataAccessLayer.Entities;
-using Infrastructure.Query;
-using Infrastructure.Repository;
-using Moq;
-using NUnit.Framework;
-using Infrastructure.UnitOfWork;
+﻿using NUnit.Framework;
 
 namespace BL.Tests.FacadeTests
 {

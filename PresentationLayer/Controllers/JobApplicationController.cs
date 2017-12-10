@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using BusinessLayer.DTOs;
@@ -16,15 +15,16 @@ namespace PresentationLayer.Controllers
     /// </summary>
     public class JobApplicationController : Controller
     {
-        private IJobApplicationFacade JobApplicationFacade => MvcApplication.Container.Resolve<JobApplicationFacade>();
-        private IRegisteredUserFacade RegisteredUserFacade => MvcApplication.Container.Resolve<RegisteredUserFacade>();
-		private IJobOfferFacade JobOfferFacade => MvcApplication.Container.Resolve<JobOfferFacade>();
-	    public EducationSelectListHelper EducationSelectListHelper { get; set; }
+	    public JobApplicationFacade JobApplicationFacade { get; set; }
+		public RegisteredUserFacade RegisteredUserFacade { get; set; }
+		public JobOfferFacade JobOfferFacade { get; set; }
+		public EducationSelectListHelper EducationSelectListHelper { get; set; }
 
 		// GET: JobApplication/Details/5
-		public ActionResult Details(int id)
-        {
-            return View();
+		public async Task<ActionResult> Details(int id)
+		{
+			var application = await this.JobApplicationFacade.Get(id);
+			return View(application);
         }
 
         // GET: JobApplication/Create/5

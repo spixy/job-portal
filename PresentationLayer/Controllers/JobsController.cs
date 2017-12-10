@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Mvc;
 using BusinessLayer.DTOs;
@@ -15,8 +13,8 @@ namespace PresentationLayer.Controllers
 {
     public class JobsController : Controller
     {
-	    private IJobOfferFacade JobOfferFacade => MvcApplication.Container.Resolve<JobOfferFacade>();
-        public EmployerFacade EmployerFacade { get; set; }
+	    public JobOfferFacade JobOfferFacade { get; set; }
+		public EmployerFacade EmployerFacade { get; set; }
         public OfficeSelectListHelper OfficeSelectListHelper { get; set; }
 
 		// GET: Job

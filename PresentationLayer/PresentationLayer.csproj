@@ -233,6 +233,7 @@
     <Content Include="Views\Employer\Details.cshtml" />
     <Content Include="Views\Employer\Index.cshtml" />
     <Content Include="Views\RegisteredUserAdmin\Index.cshtml" />
+    <Content Include="Views\RegisteredUserAdmin\JobApplication.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -8,7 +8,7 @@ using Infrastructure.UnitOfWork;
 
 namespace BusinessLayer.Facades.Auth
 {
-	public class UserFacade : FacadeBase, IUserFacade
+	public class UserFacade : FacadeBase
 	{
 		private readonly IUserService userService;
 		private readonly EmployerFacade employerFacade;

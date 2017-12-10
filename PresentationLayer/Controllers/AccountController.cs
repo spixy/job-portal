@@ -15,11 +15,11 @@ namespace PresentationLayer.Controllers
 {
     public class AccountController : Controller
     {
-	    private IEmployerFacade EmployerFacade => MvcApplication.Container.Resolve<EmployerFacade>();
-	    private IRegisteredUserFacade RegisteredUserFacade => MvcApplication.Container.Resolve<RegisteredUserFacade>();
-	    private IUserFacade UserFacade => MvcApplication.Container.Resolve<UserFacade>();
+	    public EmployerFacade EmployerFacade { get; set; }
+		public RegisteredUserFacade RegisteredUserFacade { get; set; }
+		public UserFacade UserFacade { get; set; }
 
-	    private static readonly Dictionary<Role, string> RoleControllerMap = new Dictionary<Role, string>
+		private static readonly Dictionary<Role, string> RoleControllerMap = new Dictionary<Role, string>
 	    {
 		    {Role.Employer, "EmployerAdmin"},
 		    {Role.User, "RegisteredUserAdmin"}

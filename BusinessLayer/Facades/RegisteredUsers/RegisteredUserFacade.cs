@@ -12,7 +12,7 @@ using Infrastructure.UnitOfWork;
 
 namespace BusinessLayer.Facades.RegisteredUsers
 {
-    public class RegisteredUserFacade : FacadeBase, IRegisteredUserFacade
+    public class RegisteredUserFacade : FacadeBase
     {
         private readonly IRegisteredUserService registeredUserService;
 	    private readonly IUserService userService;

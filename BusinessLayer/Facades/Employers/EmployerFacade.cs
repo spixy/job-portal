@@ -12,7 +12,7 @@ using Infrastructure.UnitOfWork;
 
 namespace BusinessLayer.Facades.Employers
 {
-    public class EmployerFacade : FacadeBase, IEmployerFacade
+    public class EmployerFacade : FacadeBase
     {
         private readonly IEmployerService employerService;
 	    private readonly IUserService userService;

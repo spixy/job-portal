@@ -1,34 +1,64 @@
 ﻿@model BusinessLayer.DTOs.JobApplicationDto
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "JobApplication";
 }
 
-<h2>Details</h2>
+<h2>@Html.DisplayFor(model => model.JobOffer.Name)</h2>
 
 <div>
-    <h4>JobApplicationDto</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.JobOfferId)
-        </dt>
 
+        <dt>
+            Employer
+        </dt>
         <dd>
-            @Html.DisplayFor(model => model.JobOfferId)
+            @Html.ActionLink(Model.JobOffer.Employer.Name, "Details", "Employer", new { id = Model.JobOffer.Employer.Id }, null)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.JobCandidateId)
+            Description
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.JobCandidateId)
+            @Html.DisplayFor(model => model.JobOffer.Description)
         </dd>
 
+        <dt>
+            My Education
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JobCandidate.Education)
+        </dd>
+
+        <dt>
+            My Skills
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JobCandidate.Skills)
+        </dd>
     </dl>
+
+
+    <table class="table">
+        <tr>
+            <th>
+                Question
+            </th>
+            <th>
+                Answer
+            </th>
+        </tr>
+        @for (int i = 0; i < Model.Answers.Count; i++)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Answers[i].Question.Text)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Answers[i].Text, new { htmlAttributes = new { @class = "form-control" } })
+            </td>
+        </tr>
+        }
+    </table>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

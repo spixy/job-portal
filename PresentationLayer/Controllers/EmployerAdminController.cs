@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Filters;
@@ -19,12 +18,12 @@ namespace PresentationLayer.Controllers
 	[Authorize(Roles = "Employer" /*Role.Employer.GetString()*/)]
 	public class EmployerAdminController : Controller
 	{
-		private IEmployerFacade EmployerFacade => MvcApplication.Container.Resolve<EmployerFacade>();
-		private IJobOfferFacade JobOfferFacade => MvcApplication.Container.Resolve<JobOfferFacade>();
-		private IJobApplicationFacade JobApplicationFacade => MvcApplication.Container.Resolve<JobApplicationFacade>();
+		public EmployerFacade EmployerFacade { get; set; }
+		public JobOfferFacade JobOfferFacade { get; set; }
+		public JobApplicationFacade JobApplicationFacade { get; set; }
 
 		// GET: Employer
-        // Get method for current employer
+		// Get method for current employer
 		public async Task<ActionResult> Index(int page = 1)
 		{
 			EmployerDto employer = await EmployerFacade.GetByUsername(User.Identity.Name);
