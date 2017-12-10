@@ -58,7 +58,8 @@ namespace PresentationLayer.Controllers
             JobOfferCreateViewModel model = new JobOfferCreateViewModel
             {
                 Offices = await OfficeSelectListHelper.Get(),
-                NumberOfQuestions = 1
+                NumberOfQuestions = 1,
+                NumberOfSkills = 1
             };
 
             return View(model);
@@ -68,8 +69,14 @@ namespace PresentationLayer.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(JobOfferCreateViewModel model)
         {
-            if (!CorrectNumberOfQuestions(model) || !ModelState.IsValid)
+            if (!CorrectNumberOfQuestions(model) || NumberOfSkillsChanged(model) || !ModelState.IsValid)
             {
+                if (NumberOfSkillsChanged(model))
+                {
+                    ModelState.Remove("NumberOfSkills");
+                    ChangeNumberOfSkills(model);
+                }
+
                 model.Offices = await OfficeSelectListHelper.Get();
                 return View(model);
             }
@@ -91,6 +98,8 @@ namespace PresentationLayer.Controllers
 			}
         }
 
+        #region Helpers (VERY UGLY, should use javascript instead)
+
         private bool CorrectNumberOfQuestions(JobOfferCreateViewModel model)
         {
             if (Request.Form["ChangeQuestions"] != null)
@@ -107,5 +116,50 @@ namespace PresentationLayer.Controllers
             }
             return true;
         }
+
+        private bool NumberOfSkillsChanged(JobOfferCreateViewModel model)
+        {
+            return NumberOfSkillsIncreased(model) || NumberOfSkillsDecreased(model);
+        }
+
+        private bool NumberOfSkillsIncreased(JobOfferCreateViewModel model)
+        {
+            if (Request.Form["AddSkill"] != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool NumberOfSkillsDecreased(JobOfferCreateViewModel model)
+        {
+            if (Request.Form["RemoveSkill"] != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private void ChangeNumberOfSkills(JobOfferCreateViewModel model)
+        {
+            if (model.JobOfferCreateDto.Skills == null)
+            {
+                model.JobOfferCreateDto.Skills = new List<SkillDto>();
+            }
+
+            if (NumberOfSkillsIncreased(model))
+            {
+                model.JobOfferCreateDto.Skills.Add(new SkillDto());
+                model.NumberOfSkills++;
+            }
+
+            if (NumberOfSkillsDecreased(model) && model.NumberOfSkills > 1)
+            {
+                model.JobOfferCreateDto.Skills.RemoveAt(model.NumberOfSkills - 1);
+                model.NumberOfSkills--;
+            }
+        }
+
+        #endregion
     }
 }

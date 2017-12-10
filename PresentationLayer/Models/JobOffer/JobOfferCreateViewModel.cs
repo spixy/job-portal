@@ -9,6 +9,9 @@ namespace PresentationLayer.Models.JobOffer
     {
         [Range(1,20)]
         public int NumberOfQuestions { get; set; }
+
+        public int NumberOfSkills { get; set; }
+
         public IEnumerable<SelectListItem> Offices { get; set; }
 
         public JobOfferCreateDto JobOfferCreateDto { get; set; }
