@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -56,7 +57,8 @@ namespace PresentationLayer.Controllers
         {
             JobOfferCreateViewModel model = new JobOfferCreateViewModel
             {
-                Offices = await OfficeSelectListHelper.Get()
+                Offices = await OfficeSelectListHelper.Get(),
+                NumberOfQuestions = 1
             };
 
             return View(model);
@@ -66,7 +68,7 @@ namespace PresentationLayer.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(JobOfferCreateViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (!CorrectNumberOfQuestions(model) || !ModelState.IsValid)
             {
                 model.Offices = await OfficeSelectListHelper.Get();
                 return View(model);
@@ -105,5 +107,22 @@ namespace PresentationLayer.Controllers
 		    var jobs = await this.JobOfferFacade.Get(filter);
 		    return View("Index", jobs);
 	    }
-	}
+
+        private bool CorrectNumberOfQuestions(JobOfferCreateViewModel model)
+        {
+            if (Request.Form["ChangeQuestions"] != null)
+            {
+                if (model.JobOfferCreateDto.Questions == null)
+                {
+                    model.JobOfferCreateDto.Questions = new List<QuestionDto>();
+                }
+                while (model.JobOfferCreateDto.Questions.Count < model.NumberOfQuestions)
+                {
+                    model.JobOfferCreateDto.Questions.Add(new QuestionDto());
+                }
+                return false;
+            }
+            return true;
+        }
+    }
 }
