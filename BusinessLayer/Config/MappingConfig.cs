@@ -29,14 +29,21 @@ namespace BusinessLayer.Config
 			config.CreateMap<RegisteredUserCreateDto, RegisteredUserDto>();
 	        config.CreateMap<EmployerCreateDto, EmployerDto>();
 	        config.CreateMap<JobApplicationCreateDto, JobApplicationDto>();
-	        config.CreateMap<JobApplicationDto, JobApplicationUpdateDto>();
 
+	        config.CreateMap<JobApplicationDto, JobApplicationUpdateDto>();
 	        config.CreateMap<JobApplicationUpdateDto, JobApplication>()
 		        .ForMember(dest => dest.JobOffer, opt => opt.Ignore())
 		        .ForMember(dest => dest.Answers, opt => opt.Ignore())
 		        .ForMember(dest => dest.JobCandidate, opt => opt.Ignore())
 		        .ForMember(dest => dest.JobCandidateId, opt => opt.Ignore())
 		        .ForMember(dest => dest.JobOfferId, opt => opt.Ignore());
+
+	        config.CreateMap<JobOfferDto, JobOfferUpdateDto>();
+	        config.CreateMap<JobOfferUpdateDto, JobOffer>()
+		        .ForMember(dest => dest.Employer, opt => opt.Ignore())
+		        .ForMember(dest => dest.JobApplications, opt => opt.Ignore())
+		        .ForMember(dest => dest.Office, opt => opt.Ignore())
+		        .ForMember(dest => dest.OfficeId, opt => opt.Ignore());
 
 			config.CreateMap<QueryResult<Answer>, QueryResultDto<AnswerDto, AnswerFilterDto>>();
             config.CreateMap<QueryResult<Employer>, QueryResultDto<EmployerDto, EmployerFilterDto>>();

@@ -6,7 +6,7 @@ using BusinessLayer.Services.Common;
 
 namespace BusinessLayer.Services.JobApplications
 {
-    public interface IJobApplicationService : ICrudService<JobApplicationDto, JobApplicationFilterDto>
+    public interface IJobApplicationService : ICrudService<JobApplicationDto, JobApplicationUpdateDto, JobApplicationFilterDto>
     {
         /// <summary>
         /// Find all applications for given job offer

@@ -16,6 +16,5 @@ namespace BusinessLayer.Facades.JobApplication
 		Task<IEnumerable<JobApplicationDto>> GetByFilterAsync(JobApplicationFilterDto filter);
 		Task<IEnumerable<JobApplicationDto>> GetByJobCandidate(int id);
 		Task<IEnumerable<JobApplicationDto>> GetByJobOffer(int id);
-		Task Update(JobApplicationDto dto);
 	}
 }

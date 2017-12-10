@@ -3,10 +3,17 @@ using BusinessLayer.DTOs.Common;
 
 namespace BusinessLayer.Services.Common
 {
-    public interface ICrudService<TDto, TFilterDto>
+	public interface ICrudService<TDto, TFilterDto> : ICrudService<TDto, TDto, TFilterDto>
+		where TFilterDto : FilterDtoBase, new()
+		where TDto : DtoBase
+	{
+	}
+
+	public interface ICrudService<TDto, TUpdateDto, TFilterDto>
         where TFilterDto : FilterDtoBase, new()
         where TDto : DtoBase
-    {
+		where TUpdateDto : DtoBase
+	{
         /// <summary>
         ///  Gets user with given ID
         /// </summary>
@@ -25,7 +32,7 @@ namespace BusinessLayer.Services.Common
         /// Updates entity
         /// </summary>
         /// <param name="entityDto">entity details</param>
-        Task Update(TDto entityDto);
+        Task Update(TUpdateDto entityDto);
 
         /// <summary>
         /// Deletes entity with given Id

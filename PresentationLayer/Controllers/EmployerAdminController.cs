@@ -40,25 +40,6 @@ namespace PresentationLayer.Controllers
 			return View(jobs);
 		}
 
-        // GET: Employer/Details/{employer-id}
-        // Get method for public visitors
-	    [System.Web.Mvc.AllowAnonymous]
-        public async Task<ActionResult> Details(int id, int page = 1)
-	    {
-	        EmployerDto employer = await EmployerFacade.Get(id);
-
-	        JobOfferFilterDto filter = new JobOfferFilterDto
-	        {
-	            PageSize = JobPortalSettings.DefaultPageSize,
-	            RequestedPageNumber = page,
-	            EmployerId = employer.Id
-	        };
-
-	        var jobs = await this.JobOfferFacade.Get(filter);
-	        ViewBag.Headline = string.Format("{0} - {1}", employer.Name, "Job offers");
-	        return View(jobs);
-	    }
-
         // GET: Employer/JobOffer/5
         public async Task<ActionResult> JobOffer(int id)
 		{
@@ -68,35 +49,6 @@ namespace PresentationLayer.Controllers
 				return View(job);
 			}
 			throw new HttpResponseException(HttpStatusCode.NotFound);
-		}
-
-		// GET: Employer/JobApplication/5
-		public async Task<ActionResult> JobApplication(int id)
-		{
-			JobApplicationDto job = await this.GetMyJobApplication(id);
-			if (job != null)
-			{
-				return View(job);
-			}
-		    throw new HttpResponseException(HttpStatusCode.NotFound);
-		}
-
-		// POST: Employer/JobApplication/5
-		[HttpPost]
-	    public async Task<ActionResult> JobApplication(int id, JobApplicationDto applicationDto)
-	    {
-			JobApplicationDto job = await this.JobApplicationFacade.Get(id);
-		    if (job?.JobOffer?.Employer != null) // lol
-		    {
-			    EmployerDto employer = await EmployerFacade.GetByUsername(User.Identity.Name);
-			    if (job.JobOffer.Employer.Id == employer.Id)
-			    {
-				    await this.JobApplicationFacade.Update(applicationDto);
-				    return RedirectToAction("JobApplication", new { id });
-			    }
-			}
-
-		    throw new HttpResponseException(HttpStatusCode.BadRequest);
 		}
 
 		// GET: Employer/CreateJob
@@ -135,7 +87,7 @@ namespace PresentationLayer.Controllers
         // GET: Employer/EditJob/5
         public async Task<ActionResult> EditJob(int id)
 		{
-			JobOfferDto job = await this.GetMyJobOffer(id);
+			JobOfferUpdateDto job = await this.JobOfferFacade.Get<JobOfferUpdateDto>(id, false);
 			if (job != null)
 			{
 				return View(job);
@@ -145,14 +97,13 @@ namespace PresentationLayer.Controllers
 
 		// POST: Employer/EditJob/5
 		[HttpPost]
-        public async Task<ActionResult> EditJob(int id, JobOfferDto jobDto)
+        public async Task<ActionResult> EditJob(int id, JobOfferUpdateDto jobDto)
         {
 	        if (!ModelState.IsValid)
 	        {
 		        return View();
 	        }
-
-	        JobOfferDto job = await this.GetMyJobOffer(id);
+			JobOfferDto job = await this.GetMyJobOffer(id);
 	        if (job != null)
 			{
 				await this.JobOfferFacade.Update(id, jobDto);

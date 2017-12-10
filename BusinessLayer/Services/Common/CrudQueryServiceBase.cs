@@ -56,12 +56,12 @@ namespace BusinessLayer.Services.Common
             return entity != null ? this.Mapper.Map<TDto>(entity) : null;
         }
 
-        /// <summary>
-        /// Gets entity (with complex types) according to ID
-        /// </summary>
-        /// <param name="entityId">entity ID</param>
-        /// <returns>The DTO representing the entity</returns>
-        protected abstract Task<TEntity> GetWithIncludesAsync(int entityId);
+		/// <summary>
+		/// Gets entity (with complex types) according to ID
+		/// </summary>
+		/// <param name="entityId">entity ID</param>
+		/// <returns>The DTO representing the entity</returns>
+		protected abstract Task<TEntity> GetWithIncludesAsync(int entityId);
 
         /// <summary>
         /// Creates new entity

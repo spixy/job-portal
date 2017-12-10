@@ -1,21 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using BusinessLayer.DTOs;
+using BusinessLayer.DTOs.Common;
 using BusinessLayer.DTOs.Filters;
 using BusinessLayer.Services.Common;
 
 namespace BusinessLayer.Services.JobOffers
 {
-    public interface IJobOfferService : ICrudService<JobOfferDto, JobOfferFilterDto>
+    public interface IJobOfferService : ICrudService<JobOfferDto, JobOfferUpdateDto, JobOfferFilterDto>
     {
         JobOfferDto Create(JobOfferCreateDto jobOfferCreateDto);
+	    Task<TDto> GetAsync<TDto>(int id, bool withIncludes = true) where TDto : DtoBase;
 
-        /// <summary>
-        /// Find all offers for given employer
-        /// </summary>
-        /// <param name="employerId">employerId</param>
-        /// <returns>Job offers for given employer</returns>
-        Task<IEnumerable<JobOfferDto>> GetByEmployer(int employerId);
+		/// <summary>
+		/// Find all offers for given employer
+		/// </summary>
+		/// <param name="employerId">employerId</param>
+		/// <returns>Job offers for given employer</returns>
+		Task<IEnumerable<JobOfferDto>> GetByEmployer(int employerId);
 
         /// <summary>
         /// Find all offers for given name

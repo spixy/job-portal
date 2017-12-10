@@ -84,6 +84,7 @@
     <Compile Include="DTOs\JobCandidateDto.cs" />
     <Compile Include="DTOs\JobOfferCreateDto.cs" />
     <Compile Include="DTOs\JobOfferDto.cs" />
+    <Compile Include="DTOs\JobOfferUpdateDto.cs" />
     <Compile Include="DTOs\LoginDto.cs" />
     <Compile Include="DTOs\OfficeDto.cs" />
     <Compile Include="DTOs\QuestionDto.cs" />

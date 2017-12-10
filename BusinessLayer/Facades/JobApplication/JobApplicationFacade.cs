@@ -117,15 +117,6 @@ namespace BusinessLayer.Facades.JobApplication
 			}
         }
 
-        public async Task Update(JobApplicationDto dto)
-        {
-            using (var uow = this.UnitOfWorkProvider.Create())
-            {
-                await this.jobApplicationService.Update(dto);
-	            await uow.SaveChangesAsync();
-			}
-        }
-
         public void Delete(int id)
         {
             using (this.UnitOfWorkProvider.Create())

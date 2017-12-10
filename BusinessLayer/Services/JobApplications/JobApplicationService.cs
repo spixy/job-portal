@@ -74,10 +74,5 @@ namespace BusinessLayer.Services.JobApplications
 
             return true;
         }
-
-	    public Task Update(JobApplicationDto entityDto)
-	    {
-		    throw new NotImplementedException();
-	    }
     }
 }
