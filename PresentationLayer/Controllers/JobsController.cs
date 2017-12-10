@@ -91,23 +91,6 @@ namespace PresentationLayer.Controllers
 			}
         }
 
-	    // GET: RegisteredUser
-	    public async Task<ActionResult> Recommended(int page = 1)
-	    {
-		    var user = await RegisteredUserFacade.GetByUsername(User.Identity.Name);
-
-		    JobOfferFilterDto filter = new JobOfferFilterDto
-		    {
-			    PageSize = JobPortalSettings.DefaultPageSize,
-			    RequestedPageNumber = page,
-			    Education = user.Education,
-			    //Skills = user.Skills
-		    };
-
-		    var jobs = await this.JobOfferFacade.Get(filter);
-		    return View("Index", jobs);
-	    }
-
         private bool CorrectNumberOfQuestions(JobOfferCreateViewModel model)
         {
             if (Request.Form["ChangeQuestions"] != null)
