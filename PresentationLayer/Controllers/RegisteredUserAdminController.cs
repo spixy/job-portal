@@ -1,4 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System.Threading.Tasks;
+using System.Web.Mvc;
+using BusinessLayer.DTOs.Filters;
+using BusinessLayer.Facades.JobApplication;
 using BusinessLayer.Facades.RegisteredUsers;
 
 namespace PresentationLayer.Controllers
@@ -7,15 +10,26 @@ namespace PresentationLayer.Controllers
 	/// Registruje userov, useri si mozu menit skilly, educations, atd
 	/// </summary>
 	[Authorize(Roles = "User" /*Role.User.GetString()*/)]
-	public class RegisteredUserController : Controller
+	public class RegisteredUserAdminController : Controller
 	{
 		private IRegisteredUserFacade RegisteredUserFacade => MvcApplication.Container.Resolve<RegisteredUserFacade>();
+		private IJobApplicationFacade JobApplicationFacade => MvcApplication.Container.Resolve<JobApplicationFacade>();
 
-        // GET: RegisteredUser
-        public ActionResult Index()
-        {
-            return View();
-        }
+		// GET: RegisteredUser
+		public async Task<ActionResult> Index(int page = 1)
+		{
+			var user = await RegisteredUserFacade.GetByUsername(User.Identity.Name);
+
+			JobApplicationFilterDto filter = new JobApplicationFilterDto
+			{
+				PageSize = JobPortalSettings.DefaultPageSize,
+				RequestedPageNumber = page,
+				JobCandidateId = user.Id
+			};
+
+			var applications = await this.JobApplicationFacade.Get(filter);
+			return this.View(applications);
+		}
 
         // GET: RegisteredUser/Details/5
         public ActionResult Details(int id)

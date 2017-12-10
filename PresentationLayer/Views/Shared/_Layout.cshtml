@@ -24,9 +24,9 @@
                     <li>@Html.ActionLink("Users", "Index", "Users")</li>
                     <li>@Html.ActionLink("Employers", "Index", "Employer")</li>
                     
-                @if (User.IsInRole("RegisteredUser"))
+                @if (User.IsInRole("User"))
                 {
-                    <li>@Html.ActionLink("User panel", "Index", "RegisteredUser")</li>
+                    <li>@Html.ActionLink("User panel", "Index", "RegisteredUserAdmin")</li>
                 }
                 else if (User.IsInRole("Employer"))
                 {

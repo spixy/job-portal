@@ -66,9 +66,14 @@ namespace BusinessLayer.Facades.Employers
 
 	    public async Task<EmployerDto> GetByUsername(string username)
 	    {
+		    if (string.IsNullOrEmpty(username))
+		    {
+			    return null;
+		    }
+
 			using (this.UnitOfWorkProvider.Create())
 			{				
-				var result = await this.employerService.GetFiltered(new EmployerFilterDto {UserName = username});
+				var result = await this.employerService.ListAllAsync(new EmployerFilterDto {UserName = username});
 				return result.Items.FirstOrDefault();
 			}
 		}
@@ -77,7 +82,7 @@ namespace BusinessLayer.Facades.Employers
         {
             using (this.UnitOfWorkProvider.Create())
             {
-                var result = await this.employerService.GetFiltered(dto);
+                var result = await this.employerService.ListAllAsync(dto);
                 return result.Items;
             }
         }

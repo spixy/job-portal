@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Web.Http;
 using System.Web.Mvc;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Filters;
@@ -7,6 +9,7 @@ using BusinessLayer.Facades.Employers;
 using BusinessLayer.Facades.JobOffer;
 using PresentationLayer.Helpers;
 using PresentationLayer.Models.JobOffer;
+using HttpPost = System.Web.Mvc.HttpPostAttribute;
 
 namespace PresentationLayer.Controllers
 {
@@ -19,29 +22,22 @@ namespace PresentationLayer.Controllers
 		// GET: Job
 		public async Task<ActionResult> Index(int page = 1)
         {
-            // TODO
             JobOfferFilterDto filter = new JobOfferFilterDto
             {
                 PageSize = JobPortalSettings.DefaultPageSize,
                 RequestedPageNumber = page
             };
 
-            return await Filter(filter);
-        }
+	        var jobs = await this.JobOfferFacade.Get(filter);
+	        return View("Index", jobs);
+		}
 
         // POST: Job/Filter/Dto
-        public async Task<ActionResult> Filter(JobOfferFilterDto filter)
-        {
-            try
-            {
-                IEnumerable<JobOfferDto> jobs = await this.JobOfferFacade.Get(filter);
-                return View("Index", jobs);
-            }
-            catch
-            {
-                return View("Index", new JobOfferDto[0]);
-            }
-        }
+        public async Task<ActionResult> Filter([FromBody]JobOfferFilterDto filter)
+		{
+			var jobs = await this.JobOfferFacade.Get(filter);
+			return View("Index", jobs);
+		}
 
 	    // GET: Job/Details/5
 	    public async Task<ActionResult> Details(int id)
@@ -71,13 +67,21 @@ namespace PresentationLayer.Controllers
                 return View(model);
             }
 
-            var jobDto = model.JobOfferCreateDto;
-            var currentEmployer = await EmployerFacade.GetByUsername(User.Identity.Name);
-            jobDto.EmployerId = currentEmployer.Id;
+	        try
+	        {
+		        var jobDto = model.JobOfferCreateDto;
+		        var currentEmployer = await EmployerFacade.GetByUsername(User.Identity.Name);
+		        jobDto.EmployerId = currentEmployer.Id;
 
-            var created = JobOfferFacade.Create(jobDto);
+		        JobOfferFacade.Create(jobDto);
 
-            return RedirectToAction("Index", "Employer");
+		        return RedirectToAction("Index", "EmployerAdmin");
+			}
+	        catch
+			{
+				model.Offices = await OfficeSelectListHelper.Get();
+				return View(model);
+			}
         }
     }
 }

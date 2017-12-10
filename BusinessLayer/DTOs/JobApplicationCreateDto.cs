@@ -7,6 +7,8 @@ namespace BusinessLayer.DTOs
 	{
 		public int JobOfferId { get; set; }
 
+		public JobOfferDto JobOffer { get; set; }
+
 		public string JobOfferName { get; set; }
 
 		public JobCandidateDto CandidateDto { get; set; }

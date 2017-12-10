@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using BusinessLayer.DTOs;
 using BusinessLayer.Facades.JobApplication;
 using BusinessLayer.Facades.JobOffer;
+using BusinessLayer.Facades.RegisteredUsers;
 using PresentationLayer.Helpers;
 using PresentationLayer.Models.JobApplication;
 
@@ -15,14 +17,9 @@ namespace PresentationLayer.Controllers
     public class JobApplicationController : Controller
     {
         private IJobApplicationFacade JobApplicationFacade => MvcApplication.Container.Resolve<JobApplicationFacade>();
-        private IJobOfferFacade JobOfferFacade => MvcApplication.Container.Resolve<JobOfferFacade>();
+        private IRegisteredUserFacade RegisteredUserFacade => MvcApplication.Container.Resolve<RegisteredUserFacade>();
+		private IJobOfferFacade JobOfferFacade => MvcApplication.Container.Resolve<JobOfferFacade>();
 	    public EducationSelectListHelper EducationSelectListHelper { get; set; }
-
-		// GET: JobApplication
-		public ActionResult Index()
-        {
-            return View();
-        }
 
 		// GET: JobApplication/Details/5
 		public ActionResult Details(int id)
@@ -38,8 +35,9 @@ namespace PresentationLayer.Controllers
 			JobApplicationCreateDto applicationCreateDto = new JobApplicationCreateDto
 	        {
 		        JobOfferId = jobOffer.Id,
-		        JobOfferName = jobOffer.Name,
-				Answers = CreateEmptyAnswers(jobOffer)
+				JobOfferName = jobOffer.Name,
+				Answers = CreateEmptyAnswers(jobOffer),
+				CandidateDto = await RegisteredUserFacade.GetByUsername(User.Identity.Name)
 			};
 
 	        JobApplicationCreateViewModel model = new JobApplicationCreateViewModel
@@ -51,71 +49,42 @@ namespace PresentationLayer.Controllers
 			return View(model);
         }
 
-	    private List<AnswerDto> CreateEmptyAnswers(JobOfferDto JobOffer)
-	    {
-		    var list = new List<AnswerDto>(JobOffer.Questions.Count);
-		    foreach (QuestionDto question in JobOffer.Questions)
+		// POST: JobApplication/Create
+		[HttpPost]
+        public ActionResult Create(JobApplicationCreateViewModel jobApplicationDto)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View();
+			}
+
+			try
+			{
+				this.JobApplicationFacade.Create(jobApplicationDto.JobApplicationCreateDto);
+				return RedirectToAction("Details", "Jobs", new { id = jobApplicationDto.JobApplicationCreateDto.JobOfferId });
+			}
+			catch
+			{
+				return View();
+			}
+		}
+
+		// Helpers //
+
+	    private static List<AnswerDto> CreateEmptyAnswers(JobOfferDto jobOffer)
+		{
+			int questionsCount = jobOffer.Questions.Count;
+			var list = new List<AnswerDto>(questionsCount);
+		    for (int i = 0; i < questionsCount; i++)
 		    {
-			    list.Add(new AnswerDto{ QuestionId = question.Id, Question = question });
+			    QuestionDto question = jobOffer.Questions[i];
+			    list.Add(new AnswerDto
+			    {
+				    QuestionId = question.Id,
+				    Question = question
+			    });
 		    }
 		    return list;
 	    }
-
-		// POST: JobApplication/Create
-		[System.Web.Mvc.HttpPost]
-        public ActionResult Create(JobApplicationCreateViewModel jobApplicationDto)
-        {
-			int id = this.JobApplicationFacade.Create(jobApplicationDto.JobApplicationCreateDto);
-	        if (id != 0)
-	        {
-		        return RedirectToAction("Details", new { id });
-			}
-
-			return RedirectToAction("Index", "RegisteredUser");
-		}
-
-        // GET: JobApplication/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: JobApplication/Edit/5
-        [System.Web.Mvc.HttpPost]
-        public ActionResult Edit(int id, JobApplicationDto jobApplicationDto)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: JobApplication/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: JobApplication/Delete/5
-        [System.Web.Mvc.HttpPost]
-        public ActionResult Delete(int id, JobApplicationDto jobApplicationDto)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-    }
+	}
 }

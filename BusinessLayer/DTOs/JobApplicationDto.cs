@@ -16,6 +16,6 @@ namespace BusinessLayer.DTOs
 
 		public Status Status { get; set; }
 
-        public virtual List<AnswerDto> Answers { get; set; }
+        public List<AnswerDto> Answers { get; set; }
     }
 }

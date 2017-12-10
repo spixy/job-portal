@@ -56,7 +56,21 @@ namespace BusinessLayer.Facades.RegisteredUsers
             }
         }
 
-        public async Task<IEnumerable<RegisteredUserDto>> Get(RegisteredUserFilterDto dto)
+	    public async Task<RegisteredUserDto> GetByUsername(string username)
+		{
+			if (string.IsNullOrEmpty(username))
+			{
+				return null;
+			}
+
+			using (this.UnitOfWorkProvider.Create())
+		    {
+			    var result = await this.registeredUserService.ListAllAsync(new RegisteredUserFilterDto {UserName = username});
+			    return result.Items.FirstOrDefault();
+			}
+	    }
+
+		public async Task<IEnumerable<RegisteredUserDto>> Get(RegisteredUserFilterDto dto)
         {
             using (this.UnitOfWorkProvider.Create())
             {

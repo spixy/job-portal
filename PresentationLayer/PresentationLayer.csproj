@@ -166,7 +166,7 @@
     <Compile Include="Controllers\JobApplicationController.cs" />
     <Compile Include="Controllers\EmployerAdminController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
-    <Compile Include="Controllers\RegisteredUserController.cs" />
+    <Compile Include="Controllers\RegisteredUserAdminController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -231,10 +231,11 @@
     <Content Include="Views\EmployerAdmin\Index.cshtml" />
     <Content Include="Views\JobApplication\Create.cshtml" />
     <Content Include="Views\Employer\Details.cshtml" />
+    <Content Include="Views\Employer\Index.cshtml" />
+    <Content Include="Views\RegisteredUserAdmin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\RegisteredUser\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

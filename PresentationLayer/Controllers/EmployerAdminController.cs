@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Filters;
@@ -7,7 +8,6 @@ using BusinessLayer.Facades.JobApplication;
 using BusinessLayer.Facades.JobOffer;
 using System.Net;
 using System.Web.Http;
-using HttpGet = System.Web.Mvc.HttpGetAttribute;
 using HttpPost = System.Web.Mvc.HttpPostAttribute;
 using Authorize = System.Web.Mvc.AuthorizeAttribute;
 
@@ -70,29 +70,27 @@ namespace PresentationLayer.Controllers
 			{
 				EmployerDto employer = await EmployerFacade.GetByUsername(User.Identity.Name);
 				jobDto.EmployerId = employer.Id;
-
-				int id = this.JobOfferFacade.Create(jobDto);
-			    if (id != 0)
-				{
-					return RedirectToAction("JobOffer", new { id });
-				}
+				this.JobOfferFacade.Create(jobDto);
+				return RedirectToAction("Index");
 			}
 		    catch
-		    {
-			    // ignored
-		    }
-		    return RedirectToAction("Index");
+			{
+				return View();
+			}
 		}
 
         // GET: Employer/EditJob/5
         public async Task<ActionResult> EditJob(int id)
 		{
-			JobOfferUpdateDto job = await this.JobOfferFacade.Get<JobOfferUpdateDto>(id, false);
-			if (job != null)
+			try
 			{
+				JobOfferUpdateDto job = await this.JobOfferFacade.Get<JobOfferUpdateDto>(id, false);
 				return View(job);
 			}
-			throw new HttpResponseException(HttpStatusCode.NotFound);
+			catch
+			{
+				return RedirectToAction("Index");
+			}
 		}
 
 		// POST: Employer/EditJob/5
@@ -103,42 +101,55 @@ namespace PresentationLayer.Controllers
 	        {
 		        return View();
 	        }
-			JobOfferDto job = await this.GetMyJobOffer(id);
-	        if (job != null)
-			{
-				await this.JobOfferFacade.Update(id, jobDto);
+
+	        try
+	        {
+		        JobOfferDto job = await this.GetMyJobOffer(id);
+		        await this.JobOfferFacade.Update(id, jobDto);
+		        return RedirectToAction("JobOffer", new { id });
 			}
-	        return RedirectToAction("JobOffer", new { id });
+	        catch
+			{
+				return View();
+			}
 		}
 
 		// GET: Employer
 		public async Task<ActionResult> AcceptApplication(int id)
 		{
-			var job = await this.GetMyJobApplication(id);
-			if (job != null)
+			try
 			{
-				await this.JobApplicationFacade.AcceptApplication(id);
-				return RedirectToAction("JobOffer", new { job.JobOffer.Id });
+				var job = await this.GetMyJobApplication(id);
+				if (job != null)
+				{
+					await this.JobApplicationFacade.AcceptApplication(id);
+					return RedirectToAction("JobOffer", new { job.JobOffer.Id });
+				}
 			}
-			else
+			catch
 			{
-				return new EmptyResult();
+				// ignored
 			}
+			return Redirect(HttpContext.Request.UrlReferrer?.AbsoluteUri ?? "Index");
 		}
 
 		// GET: Employer
 		public async Task<ActionResult> DeclineApplication(int id)
 		{
-			var job = await this.GetMyJobApplication(id);
-			if (job != null)
+			try
 			{
-				await this.JobApplicationFacade.DeclineApplication(id);
-				return RedirectToAction("JobOffer", new { job.JobOffer.Id });
+				var job = await this.GetMyJobApplication(id);
+				if (job != null)
+				{
+					await this.JobApplicationFacade.DeclineApplication(id);
+					return RedirectToAction("JobOffer", new { job.JobOffer.Id });
+				}
 			}
-			else
+			catch
 			{
-				return new EmptyResult();
+				// ignored
 			}
+			return Redirect(HttpContext.Request.UrlReferrer?.AbsoluteUri ?? "Index");
 		}
 
 		// GET: Employer/DeleteJob/5

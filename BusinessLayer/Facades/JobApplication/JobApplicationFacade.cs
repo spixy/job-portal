@@ -14,7 +14,7 @@ namespace BusinessLayer.Facades.JobApplication
     public class JobApplicationFacade : FacadeBase, IJobApplicationFacade
 	{
         private readonly IJobApplicationService jobApplicationService;
-        private readonly ICandidateService registeredUserService;
+		private readonly ICandidateService registeredUserService;
         private readonly IAnswerService answerService;
 
 		public JobApplicationFacade(IUnitOfWorkProvider unitOfWorkProvider, IJobApplicationService jobApplicationService, ICandidateService registeredUserService, IAnswerService answerService) : base(unitOfWorkProvider)
@@ -28,7 +28,7 @@ namespace BusinessLayer.Facades.JobApplication
         {
             using (var uow = this.UnitOfWorkProvider.Create())
             {
-				if (dto.Id == 0)
+				if (dto.CandidateDto.Id == 0)
 				{
 					dto.CandidateDto = this.registeredUserService.Create(dto.CandidateDto);
 				}
@@ -39,7 +39,7 @@ namespace BusinessLayer.Facades.JobApplication
 				{
 					Answers = new List<AnswerDto>(answersCount),
 					JobOfferId = dto.JobOfferId,
-					JobCandidate = dto.CandidateDto,
+					JobCandidateId = dto.CandidateDto.Id,
 					Status = Status.Open
 				};
 

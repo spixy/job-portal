@@ -15,9 +15,16 @@ namespace PresentationLayer.Controllers
 		private IJobOfferFacade JobOfferFacade => MvcApplication.Container.Resolve<JobOfferFacade>();
 
 		// GET: Employer
-		public ActionResult Index()
-        {
-            return View();
+		public async Task<ActionResult> Index(int page = 1)
+		{
+			EmployerFilterDto filter = new EmployerFilterDto
+			{
+				PageSize = JobPortalSettings.DefaultPageSize,
+				RequestedPageNumber = page
+			};
+
+			var employers = await this.EmployerFacade.Get(filter);
+			return View(employers);
         }
 
 		// GET: Employer/Details/5
@@ -36,71 +43,5 @@ namespace PresentationLayer.Controllers
 			ViewBag.Headline = string.Format("{0} - {1}", employer.Name, "Job offers");
 			return View(jobs);
 		}
-
-		// GET: Employer/Create
-		public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Employer/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Employer/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Employer/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Employer/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Employer/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

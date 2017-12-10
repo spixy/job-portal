@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLayer.DTOs;
-using BusinessLayer.DTOs.Common;
 using BusinessLayer.DTOs.Filters;
 using BusinessLayer.QueryObjects.Common;
 using BusinessLayer.Services.Common;
@@ -35,11 +34,6 @@ namespace BusinessLayer.Services.Employers
         {
             var queryResult = await Query.ExecuteQuery(new EmployerFilterDto { Email = email });
             return queryResult.Items.FirstOrDefault();
-        }
-
-        public async Task<QueryResultDto<EmployerDto, EmployerFilterDto>> GetFiltered(EmployerFilterDto filter)
-        {
-            return await Query.ExecuteQuery(filter);
         }
 
 	    public EmployerDto Create(EmployerCreateDto createDto)
