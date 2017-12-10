@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using BusinessLayer.DTOs;
-using BusinessLayer.Facades.Auth;
 using BusinessLayer.Facades.JobApplication;
 using BusinessLayer.Facades.JobOffer;
 using BusinessLayer.Facades.RegisteredUsers;

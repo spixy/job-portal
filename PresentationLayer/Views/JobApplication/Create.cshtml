@@ -4,14 +4,14 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Apply for job</h2>
+<h2>Apply for a job</h2>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>@Html.DisplayFor(model => model.JobApplicationCreateDto.JobOfferName)</h4>
+        <h4>@Html.DisplayFor(model => model.JobApplicationCreateDto.JobOfferName) | @Html.DisplayFor(model => model.JobApplicationCreateDto.JobOffer.Employer.Name)</h4>
         <hr />
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
