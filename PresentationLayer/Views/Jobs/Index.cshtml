@@ -35,7 +35,7 @@
             @Html.DisplayFor(modelItem => item.Skills)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Employer.Name)
+            @Html.ActionLink(item.Employer.Name, "Details", "Employer", new { id = item.Employer.Id }, null)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Office.City)

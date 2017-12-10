@@ -229,6 +229,7 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Employer\Index.cshtml" />
     <Content Include="Views\JobApplication\Create.cshtml" />
+    <Content Include="Views\Employer\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

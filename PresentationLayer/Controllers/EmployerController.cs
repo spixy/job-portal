@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using BusinessLayer.DTOs;
@@ -53,6 +54,7 @@ namespace PresentationLayer.Controllers
 		}
 
 		// GET: Employer
+        // Get method for current employer
 		public async Task<ActionResult> Index(int page = 1)
 		{
 			EmployerDto employer = await EmployerFacade.GetByUsername(User.Identity.Name);
@@ -68,8 +70,27 @@ namespace PresentationLayer.Controllers
 			return View(jobs);
 		}
 
-		// GET: Employer/JobOffer/5
-		public async Task<ActionResult> JobOffer(int id)
+        // GET: Employer/Details/{employer-id}
+        // Get method for public visitors
+	    [System.Web.Mvc.AllowAnonymous]
+        public async Task<ActionResult> Details(int id, int page = 1)
+	    {
+	        EmployerDto employer = await EmployerFacade.Get(id);
+
+	        JobOfferFilterDto filter = new JobOfferFilterDto
+	        {
+	            PageSize = JobPortalSettings.DefaultPageSize,
+	            RequestedPageNumber = page,
+	            EmployerId = employer.Id
+	        };
+
+	        var jobs = await this.JobOfferFacade.Get(filter);
+	        ViewBag.Headline = string.Format("{0} - {1}", employer.Name, "Job offers");
+	        return View(jobs);
+	    }
+
+        // GET: Employer/JobOffer/5
+        public async Task<ActionResult> JobOffer(int id)
 		{
 			JobOfferDto job = await this.GetMyJobOffer(id);
 			if (job != null)
