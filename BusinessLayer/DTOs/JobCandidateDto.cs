@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using BusinessLayer.DTOs.Enums;
 
 namespace BusinessLayer.DTOs
 {
     public class JobCandidateDto : UserBaseDto
     {
+        [Required]
         public Education Education { get; set; }
-
-        public List<SkillDto> Skills { get; set; }
 
 	    protected bool Equals(JobCandidateDto other)
         {
-            return base.Equals(other) && this.Education == other.Education && this.Skills.Equals(other.Skills);
+            return base.Equals(other) && this.Education == other.Education;
         }
 
         public override bool Equals(object obj)
@@ -28,7 +28,6 @@ namespace BusinessLayer.DTOs
             {
                 int hashCode = base.GetHashCode();
                 hashCode = (hashCode * 397) ^ (int) this.Education;
-                hashCode = (hashCode * 397) ^ this.Skills.GetHashCode();
                 return hashCode;
             }
         }

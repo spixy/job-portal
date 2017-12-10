@@ -99,7 +99,7 @@ namespace PresentationLayer.Controllers
 			    PageSize = JobPortalSettings.DefaultPageSize,
 			    RequestedPageNumber = page,
 			    Education = user.Education,
-			    Skills = user.Skills
+			    //Skills = user.Skills
 		    };
 
 		    var jobs = await this.JobOfferFacade.Get(filter);

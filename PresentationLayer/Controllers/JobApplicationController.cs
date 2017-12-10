@@ -2,9 +2,11 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using BusinessLayer.DTOs;
+using BusinessLayer.Facades.Auth;
 using BusinessLayer.Facades.JobApplication;
 using BusinessLayer.Facades.JobOffer;
 using BusinessLayer.Facades.RegisteredUsers;
+using Castle.Core.Internal;
 using PresentationLayer.Helpers;
 using PresentationLayer.Models.JobApplication;
 
@@ -30,48 +32,63 @@ namespace PresentationLayer.Controllers
         // GET: JobApplication/Create/5
         public async Task<ActionResult> Create(int id)
         {
-	        JobOfferDto jobOffer = await JobOfferFacade.Get(id, false);
+            JobOfferDto jobOffer = await JobOfferFacade.Get(id, false);
+            var candidate = User.Identity.Name.IsNullOrEmpty()
+                ? new JobCandidateDto()
+                : await RegisteredUserFacade.GetByUsername(User.Identity.Name);
 
-			JobApplicationCreateDto applicationCreateDto = new JobApplicationCreateDto
-	        {
-		        JobOfferId = jobOffer.Id,
-				JobOfferName = jobOffer.Name,
-				Answers = CreateEmptyAnswers(jobOffer),
-				CandidateDto = await RegisteredUserFacade.GetByUsername(User.Identity.Name)
-			};
+            JobApplicationCreateDto applicationCreateDto = new JobApplicationCreateDto
+            {
+                JobOfferId = jobOffer.Id,
+                JobOfferName = jobOffer.Name,
+                JobOffer = jobOffer,
+                Answers = CreateEmptyAnswers(jobOffer),
+                CandidateDto = candidate
+            };
 
-	        JobApplicationCreateViewModel model = new JobApplicationCreateViewModel
-			{
-		        JobApplicationCreateDto = applicationCreateDto,
-				Educations = this.EducationSelectListHelper.Get()
-			};
+            JobApplicationCreateViewModel model = new JobApplicationCreateViewModel
+            {
+                JobApplicationCreateDto = applicationCreateDto,
+                Educations = EducationSelectListHelper.Get()
+            };
 
-			return View(model);
+            return View(model);
         }
 
-		// POST: JobApplication/Create
-		[HttpPost]
-        public ActionResult Create(JobApplicationCreateViewModel jobApplicationDto)
-		{
-			if (!ModelState.IsValid)
-			{
-				return View();
-			}
+        // POST: JobApplication/Create
+        [HttpPost]
+        public async Task<ActionResult> Create(JobApplicationCreateViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                var jobOffer = await JobOfferFacade.Get(model.JobApplicationCreateDto.JobOfferId);
+                model.JobApplicationCreateDto.JobOfferName = jobOffer.Name;
+                model.JobApplicationCreateDto.JobOffer = jobOffer;
 
-			try
-			{
-				this.JobApplicationFacade.Create(jobApplicationDto.JobApplicationCreateDto);
-				return RedirectToAction("Details", "Jobs", new { id = jobApplicationDto.JobApplicationCreateDto.JobOfferId });
-			}
-			catch
-			{
-				return View();
-			}
-		}
+                var candidate = User.Identity.Name.IsNullOrEmpty()
+                    ? new JobCandidateDto()
+                    : await RegisteredUserFacade.GetByUsername(User.Identity.Name);
 
-		// HELPERS //
+                model.JobApplicationCreateDto.CandidateDto = candidate;
 
-		private static List<AnswerDto> CreateEmptyAnswers(JobOfferDto jobOffer)
+                model.Educations = EducationSelectListHelper.Get();
+                return View(model);
+            }
+
+            try
+            {
+                this.JobApplicationFacade.Create(model.JobApplicationCreateDto);
+                return RedirectToAction("Details", "Jobs", new { id = model.JobApplicationCreateDto.JobOfferId });
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // HELPERS //
+
+        private static List<AnswerDto> CreateEmptyAnswers(JobOfferDto jobOffer)
 		{
 			int questionsCount = jobOffer.Questions.Count;
 			var list = new List<AnswerDto>(questionsCount);
