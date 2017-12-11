@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Mvc;
 using BusinessLayer.DTOs;
 using BusinessLayer.DTOs.Filters;
+using BusinessLayer.Facades;
 using BusinessLayer.Facades.Employers;
 using BusinessLayer.Facades.JobOffer;
 using BusinessLayer.Facades.RegisteredUsers;
@@ -20,6 +22,7 @@ namespace PresentationLayer.Controllers
 		public EmployerFacade EmployerFacade { get; set; }
 		public RegisteredUserFacade RegisteredUserFacade { get; set; }
 		public OfficeSelectListHelper OfficeSelectListHelper { get; set; }
+        public SkillFacade SkillFacade { get; set; }
 
 		// GET: Job
 		public async Task<ActionResult> Index(int page = 1)
@@ -103,6 +106,14 @@ namespace PresentationLayer.Controllers
 				model.Offices = await OfficeSelectListHelper.Get();
 				return View(model);
 			}
+        }
+
+        // Used by skill autocomplete
+        public async Task<ActionResult> GetSkills(string term)
+        {
+            return Json((await SkillFacade.GetAllSkills()).Items
+                        .Where(c => c.Name.ToUpper().StartsWith(term.ToUpper()))
+                        .Select(a => new { label = a.Name }), JsonRequestBehavior.AllowGet);
         }
 
         #region Helpers (VERY UGLY, should use javascript instead)

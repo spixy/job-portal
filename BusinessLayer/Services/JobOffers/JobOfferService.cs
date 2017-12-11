@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLayer.DTOs;
@@ -16,10 +17,12 @@ namespace BusinessLayer.Services.JobOffers
     public class JobOfferService : CrudQueryServiceBase<JobOffer, JobOfferDto, JobOfferUpdateDto, JobOfferFilterDto>, IJobOfferService
     {
         private readonly IJobOfferRepository jobOfferRepository;
+        private readonly ISkillRepository skillRepository;
 
-	    public JobOfferService(IMapper mapper, IRepository<JobOffer> repository, QueryObjectBase<JobOfferDto, JobOffer, JobOfferFilterDto, IQuery<JobOffer>> query, IJobOfferRepository jobOfferRepository) : base(mapper, repository, query)
+        public JobOfferService(IMapper mapper, IRepository<JobOffer> repository, ISkillRepository skillRepository, QueryObjectBase<JobOfferDto, JobOffer, JobOfferFilterDto, IQuery<JobOffer>> query, IJobOfferRepository jobOfferRepository) : base(mapper, repository, query)
 	    {
 		    this.jobOfferRepository = jobOfferRepository;
+	        this.skillRepository = skillRepository;
 	    }
 
         protected override async Task<JobOffer> GetWithIncludesAsync(int entityId)
@@ -31,6 +34,17 @@ namespace BusinessLayer.Services.JobOffers
         public JobOfferDto Create(JobOfferCreateDto jobOfferCreateDto)
         {
             JobOffer jobOffer = Mapper.Map<JobOffer>(jobOfferCreateDto);
+
+            // Ensure not (re)creating new skills
+            jobOffer.Skills = new List<Skill>();
+            if (jobOfferCreateDto.Skills != null)
+            {
+                foreach (var skillName in jobOfferCreateDto.Skills.Select(s => s.Name))
+                {
+                    var skill = skillRepository.GetByName(skillName);
+                    jobOffer.Skills.Add(skill);
+                }
+            }
             JobOffer created = Repository.Create(jobOffer);
             return Mapper.Map<JobOfferDto>(created);
         }

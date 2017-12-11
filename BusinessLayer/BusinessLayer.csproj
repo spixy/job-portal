@@ -92,6 +92,7 @@
     <Compile Include="DTOs\SkillDto.cs" />
     <Compile Include="DTOs\UserBaseDto.cs" />
     <Compile Include="DTOs\RegisteredUserCreateDto.cs" />
+    <Compile Include="Facades\SkillFacade.cs" />
     <Compile Include="Facades\UserFacade.cs" />
     <Compile Include="Facades\FacadeBase.cs" />
     <Compile Include="Facades\EmployerFacade.cs" />

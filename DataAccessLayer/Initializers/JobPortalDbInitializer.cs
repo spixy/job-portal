@@ -12,8 +12,14 @@ namespace DataAccessLayer.Initializers
         {
             #region Skills
 
+            Skill c = new Skill { Name = "C" };
+            Skill cobol = new Skill { Name = "COBOL" };
+            Skill cMinusMinus = new Skill { Name = "C--" };
+            Skill cPlusPlus = new Skill { Name = "C++" };
             Skill cSharp = new Skill { Name = "C#" };
             Skill dotNet = new Skill { Name = ".NET" };
+            Skill hacking = new Skill { Name = "Hacking" };
+            Skill haskell = new Skill { Name = "Haskell" };
             Skill html = new Skill { Name = "HTML" };
             Skill unix = new Skill { Name = "UNIX" };
             Skill php = new Skill { Name = "PHP" };
@@ -22,8 +28,14 @@ namespace DataAccessLayer.Initializers
             Skill ror = new Skill { Name = "Ruby on Rails" };
             Skill swift = new Skill { Name = "Swift" };
 
+            context.Skills.Add(c);
+            context.Skills.Add(cobol);
+            context.Skills.Add(cMinusMinus);
+            context.Skills.Add(cPlusPlus);
             context.Skills.Add(cSharp);
             context.Skills.Add(dotNet);
+            context.Skills.Add(hacking);
+            context.Skills.Add(haskell);
             context.Skills.Add(html);
             context.Skills.Add(unix);
             context.Skills.Add(php);
