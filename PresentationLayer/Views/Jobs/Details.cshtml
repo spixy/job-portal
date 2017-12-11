@@ -43,7 +43,7 @@
             @Html.DisplayNameFor(model => model.Skills)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Skills)
+            @string.Join(" | ", Model.Skills.Select(skill => skill.Name))
         </dd>
 
         <dt>

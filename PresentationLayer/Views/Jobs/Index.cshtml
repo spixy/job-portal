@@ -1,4 +1,5 @@
-﻿@model IEnumerable<BusinessLayer.DTOs.JobOfferDto>
+﻿@using System.Web.Mvc.Html
+@model IEnumerable<BusinessLayer.DTOs.JobOfferDto>
 
 @{
     ViewBag.Title = "View";
@@ -32,7 +33,11 @@
             @Html.ActionLink(item.Name, "Details", new { id = item.Id })
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Skills)
+            <span>| </span>
+            @foreach (var skill in item.Skills)
+            {
+                @Html.ActionLink(skill.Name, "Filter", new {skill = skill.Name})<span> |</span>
+            }
         </td>
         <td>
             @Html.ActionLink(item.Employer.Name, "Details", "Employer", new { id = item.Employer.Id }, null)

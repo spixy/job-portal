@@ -20,7 +20,7 @@
             @Html.DisplayNameFor(model => model.Skills)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Skills)
+            @string.Join(" | ", Model.Skills.Select(skill => skill.Name))
         </dd>
 
         <dt>
@@ -87,7 +87,7 @@
                 @Html.DisplayFor(modelItem => item.JobCandidate.Education)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => modelItem.Skills)
+                @string.Join(" | ", item.JobOffer.Skills.Select(skill => skill.Name))
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Answers)

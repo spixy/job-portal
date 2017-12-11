@@ -34,12 +34,19 @@ namespace PresentationLayer.Controllers
 	        return View("Index", jobs);
 		}
 
+        // GET: Jobs/Filter/{skill-name}
+        public async Task<ActionResult> Filter(string skill)
+        {
+            var jobs = await JobOfferFacade.GetBySkill(skill);
+            return View("Index", jobs);
+        }
+
         // POST: Job/Filter/Dto
-        public async Task<ActionResult> Filter([FromBody]JobOfferFilterDto filter)
-		{
-			var jobs = await this.JobOfferFacade.Get(filter);
-			return View("Index", jobs);
-		}
+        //public async Task<ActionResult> Filter([FromBody]JobOfferFilterDto filter)
+		//{
+		//	var jobs = await this.JobOfferFacade.Get(filter);
+		//	return View("Index", jobs);
+		//}
 
 	    // GET: Job/Details/5
 	    public async Task<ActionResult> Details(int id)

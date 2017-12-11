@@ -35,7 +35,7 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Skills)
+            @string.Join(" | ", item.Skills.Select(skill => skill.Name))
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Office.Address)

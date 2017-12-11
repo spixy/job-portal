@@ -33,7 +33,11 @@
                 @Html.ActionLink(item.Name, "Details", "Jobs", new { id = item.Id }, null)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Skills)
+                <span>| </span>
+                @foreach (var skill in item.Skills)
+                {
+                    @Html.ActionLink(skill.Name, "Filter", "Jobs", new {skill = skill.Name}, null)<span> |</span>
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Office.Address)
