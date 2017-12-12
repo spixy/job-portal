@@ -128,6 +128,10 @@
     <Compile Include="Migrations\201712080153346_EntityChanges.Designer.cs">
       <DependentUpon>201712080153346_EntityChanges.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712121918408_LinkQuestionWithJobOffers.cs" />
+    <Compile Include="Migrations\201712121918408_LinkQuestionWithJobOffers.Designer.cs">
+      <DependentUpon>201712121918408_LinkQuestionWithJobOffers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IJobOfferRepository.cs" />
@@ -166,6 +170,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712080153346_EntityChanges.resx">
       <DependentUpon>201712080153346_EntityChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712121918408_LinkQuestionWithJobOffers.resx">
+      <DependentUpon>201712121918408_LinkQuestionWithJobOffers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

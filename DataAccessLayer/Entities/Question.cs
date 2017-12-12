@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using DataAccessLayer.Contexts;
 using Infrastructure;
@@ -14,5 +15,7 @@ namespace DataAccessLayer.Entities
 
         [Required]
         public string Text { get; set; }
+
+        public virtual List<JobOffer> JobOffers { get; set; }
     }
 }
