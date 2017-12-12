@@ -63,6 +63,7 @@ namespace PresentationLayer.Controllers
 		}
 
         // GET: Jobs/Create
+        [System.Web.Mvc.Authorize(Roles = "Employer")]
         public async Task<ActionResult> Create()
         {
             JobOfferCreateViewModel model = new JobOfferCreateViewModel
@@ -77,6 +78,7 @@ namespace PresentationLayer.Controllers
 
         // POST: Jobs/Create
         [HttpPost]
+        [System.Web.Mvc.Authorize(Roles = "Employer")]
         public async Task<ActionResult> Create(JobOfferCreateViewModel model)
         {
             if (!CorrectNumberOfQuestions(model) || NumberOfSkillsChanged(model) || !ModelState.IsValid)
