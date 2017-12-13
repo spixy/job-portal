@@ -90,7 +90,7 @@
                 @string.Join(" | ", item.JobOffer.Skills.Select(skill => skill.Name))
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Answers)
+                @string.Join(" | ", item.Answers.Select(answer => answer.Text))
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
